@@ -1,22 +1,21 @@
-package untitledgame;
+package untitledgame.terrain;
 
 import java.awt.*;
 import javax.swing.*;
 
 public class Game extends JFrame {
     public Game() {
-        setSize(400,200);
+        setSize(500,500);
 	    setLocationRelativeTo(null);
 	    setTitle("Game save name");
-        setMinimumSize(new Dimension(1280, 720));
+        setPreferredSize(new Dimension(2, 2));
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel grid = new JPanel();
         grid.setLayout(new GridLayout(15, 15));
-        grid.setBorder(BorderFactory.createLineBorder(Color.black));
 
         Chunk test = new Chunk();
-        JLabel[][] map = loadChunk(test);
+        Square[][] map = loadChunk(test);
 
         for (int x = 0; x < map.length; x++) {
             for (int y = 0; y < map.length; y++) {
@@ -29,7 +28,7 @@ public class Game extends JFrame {
 	    setVisible(true);
     }
 
-    public JLabel[][] loadChunk(Chunk temp) {
+    public Square[][] loadChunk(Chunk temp) {
         return temp.getContent();
     }
 }
