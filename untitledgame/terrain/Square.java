@@ -4,28 +4,28 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Square extends JLabel {
-    public int chunkPositionX;
-    public int chunkPositionY;
+    public int squarePosX;
+    public int squarePosY;
 
     public Square(String texture, int chunkPositionX, int chunkPositionY) {
         super();
-        Image img = new ImageIcon(texture).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
+        Image img = new ImageIcon(texture).getImage().getScaledInstance(53, 53, Image.SCALE_DEFAULT);
         this.setIcon(new ImageIcon(img));
-        this.chunkPositionX = chunkPositionX;
-        this.chunkPositionY = chunkPositionY;
+        this.squarePosX = squarePosX;
+        this.squarePosY = squarePosY;
 
     }
     public Square() {
         super(new ImageIcon("assets/textures/terrain/grass.png"));
-        this.chunkPositionX = 0;
-        this.chunkPositionY = 0;
+        this.squarePosX = 0;
+        this.squarePosY = 0;
     }
 
     public int getPosX() {
-        return chunkPositionX;
+        return squarePosX;
     }
 
     public int getPosY() {
-        return chunkPositionY;
+        return squarePosY;
     }
 }
