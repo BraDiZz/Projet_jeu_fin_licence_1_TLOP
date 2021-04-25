@@ -4,9 +4,13 @@ import untitledgame.terrain.Chunk;
 
 public class Map {
     private Chunk[][] map;
+    private int sizeX;
+    private int sizeY;
 
     public Map(int sizeX, int sizeY) {
         map = new Chunk[sizeX][sizeY];
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
         populateMap();
     }
 
@@ -25,5 +29,13 @@ public class Map {
     
     public Chunk getChunkAtPos(int x, int y) {
         return map[x][y];
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
     }
 }

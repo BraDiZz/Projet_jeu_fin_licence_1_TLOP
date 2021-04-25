@@ -5,16 +5,18 @@ import javax.swing.*;
 
 public class Game extends JFrame {
     private JPanel grid = new JPanel();
-    private Map map = new Map();
+    private Map map;
     private int curDisX = 0;
-    private int curDisY = 3;
+    private int curDisY = 0;
 
-    public Game() {
+    public Game(int mapSize) {
         setSize(1200,900);
 	    setLocationRelativeTo(null);
 	    setTitle("Game save name");
         setResizable(false);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        map = new Map(mapSize, mapSize);
         
         JPanel mainWindow = new JPanel();
         mainWindow.setLayout(new FlowLayout());
@@ -24,7 +26,7 @@ public class Game extends JFrame {
         loadChunk(map.getChunkAtPos(curDisX, curDisY));
 
         JPanel directions = new JPanel();
-        String[] directionsString = {"Haut", "Gauche", "Bas", "Droite"};
+        String[] directionsString = {"Bas", "Droite", "Haut", "Gauche"};
         directions.setLayout(new FlowLayout());
         for (int i = 0; i < 4; i++) {
             JButton direction = new JButton(directionsString[i]);
@@ -55,12 +57,12 @@ public class Game extends JFrame {
     public void changeMapChunk(Map map, int direction) {
         switch (direction) {
             case 0:
-                if (curDisX < 3) {
+                if (curDisX < map.getSizeX()-1) {
                     curDisX++;
                 }
                 break;
             case 1:
-                if (curDisY < 3) {
+                if (curDisY < map.getSizeY()-1) {
                     curDisY++;
                 }
                 break;
