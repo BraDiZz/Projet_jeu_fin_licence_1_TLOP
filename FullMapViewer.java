@@ -8,7 +8,7 @@ public class FullMapViewer extends JFrame {
         new FullMapViewer();
     }
 
-    private Map map = new Map(4, 4);
+    private Map map = new Map(4, 4, 5646441l);
     
     public FullMapViewer() {
         setSize(1200,900);

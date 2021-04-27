@@ -6,27 +6,30 @@ public class Map {
     private Chunk[][] map;
     private int sizeX;
     private int sizeY;
+    private long seed;
 
-    public Map(int sizeX, int sizeY) {
+    public Map(int sizeX, int sizeY, long seed) {
         map = new Chunk[sizeX][sizeY];
         this.sizeX = sizeX;
         this.sizeY = sizeY;
-        populateMap();
+        this.seed = seed;
+        populateMap(seed);
     }
 
     public Map() {
-        this(4, 4);
-        populateMap();
+        this(4, 4, 99999l);
     }
 
-    private void populateMap() {
+    private void populateMap(long seed) {
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 map[x][y] = new Chunk(x, y);
-                map[x][y].perlinize(132467885l);
-                map[x][y].addFeatures("assets/textures/terrain/Arbre.png", 8);
-                map[x][y].addFeatures("assets/textures/terrain/Caillou.png", 6);
-                map[x][y].addFeatures("assets/textures/terrain/Buisson.png", 4);
+                map[x][y].addFeatures("assets/textures/terrain/Arbre.png", 6);
+                map[x][y].addFeatures("assets/textures/terrain/Caillou.png", 2);
+                map[x][y].addFeatures("assets/textures/terrain/Buisson.png", 3);
+                map[x][y].perlinize(seed * 14894465l, 18, "assets/textures/terrain/Herbe1.png");
+                map[x][y].perlinize(seed * 132467885l, 18, "assets/textures/terrain/Herbe2.png");
+                map[x][y].reversePerlinize(seed * 4564646l, 10, "assets/textures/terrain/Eau2.png");
             }
         }
     }

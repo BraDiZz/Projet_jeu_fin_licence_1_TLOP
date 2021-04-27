@@ -16,10 +16,10 @@ public class Perlin {
     }
 
     public static double noise(double xPoint, double yPoint, long seed) {
-        int xMin = (int)Math.floor(xPoint)-2;
-        int yMin = (int)Math.floor(yPoint)-2;
-        int xMax = (int)Math.ceil(xPoint)+2;
-        int yMax = (int)Math.ceil(yPoint)+2;
+        int xMin = (int)Math.floor(xPoint);
+        int yMin = (int)Math.floor(yPoint);
+        int xMax = (int)Math.ceil(xPoint);
+        int yMax = (int)Math.ceil(yPoint);
 
         double linearInter1 = lerp(f(xMin, yMin, seed) , f(xMin, yMax, seed), yPoint-yMin);
         double linearInter2 = lerp(f(xMax, yMin, seed), f(xMax, yMax, seed), yPoint-yMin);

@@ -53,11 +53,21 @@ public class Chunk {
         }
     }
 
-    public void perlinize(long seed) {
+    public void perlinize(long seed, int scale, String texture) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                if (Perlin.noise(x+chunkPosY*15, y+chunkPosX*15, seed) > 130000) {
-                    content[x][y] = new Square("assets/textures/terrain/Herbe1.png", x, y);
+                if (Perlin.noise(Util.map(x+chunkPosY*15, 0, 15*4, 2, scale), Util.map(y+chunkPosX*15, 0, 15*4, 2, scale), seed) > 190) {
+                    content[x][y] = new Square(texture, x, y);
+                }
+            }
+        }
+    }
+
+    public void reversePerlinize(long seed, int scale, String texture) {
+        for (int x = 0; x < 15; x++) {
+            for (int y = 0; y < 15; y++) {
+                if (Perlin.noise(Util.map(x+chunkPosY*15, 0, 15*4, 2, scale), Util.map(y+chunkPosX*15, 0, 15*4, 2, scale), seed) > 190) {
+                    content[x][y] = new Square(texture, x, y);
                 }
             }
         }

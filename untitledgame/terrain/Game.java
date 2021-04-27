@@ -9,14 +9,14 @@ public class Game extends JFrame {
     private int curDisX = 0;
     private int curDisY = 0;
 
-    public Game(int mapSize) {
+    public Game(int mapSize, long seed) {
         setSize(1200,900);
 	    setLocationRelativeTo(null);
 	    setTitle("Game save name");
         setResizable(false);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        map = new Map(mapSize, mapSize);
+        map = new Map(mapSize, mapSize, seed);
         
         JPanel mainWindow = new JPanel();
         mainWindow.setLayout(new FlowLayout());
