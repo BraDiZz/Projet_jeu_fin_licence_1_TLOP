@@ -39,14 +39,14 @@ public abstract class APersonnage implements IPersonnage{
 		this.armure = armure;
 	}
 	/**
-	* methode get de la variable nom
+	* getter de l'attribut nom
 	* @return le nom
 	*/
 	public String getNom() {
 		return nom;
 	}
 	/**
-	* methode get de la variable pointsDeVie
+	* getter de l'attribut pointsDeVie
 	* @return les points de vie
 	*/
 	public int getPointsDeVie() {
@@ -54,21 +54,21 @@ public abstract class APersonnage implements IPersonnage{
 	}
     
     /**
-    * methode get de la variable pointsDeVieMax
+    * getter de l'attribut pointsDeVieMax
     * @return les points de vie max
     */
 	public int getPointsDevieMax() {
 		return pointsDeVieMax;
 	} 
 	/**
-	* methode get de la variable pointsDAttaque
+	* getter de l'attribut pointsDAttaque
 	* @return les points d'attaque
 	*/
 	public int getPointsDAttaque() {
 		return pointsDAttaque;
 	}
 	/**
-	* methode get de la variable armure 
+	* getter de l'attribut armure 
 	* @return l'armure
 	*/
 	public int getArmure(){
@@ -76,7 +76,7 @@ public abstract class APersonnage implements IPersonnage{
 	}
     
     /**
-    * methode get de armureMax
+    * getter de l'attribut armureMax
     * @return l'armure max
     */
 	public int getArmureMax() {
@@ -84,7 +84,7 @@ public abstract class APersonnage implements IPersonnage{
 	}
 
 	/**
-	*	
+	* getter de l'attribut niveau 
 	*/
 
 	/**
