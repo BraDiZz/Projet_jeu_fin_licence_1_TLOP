@@ -16,11 +16,14 @@ public class Chunk {
         this.chunkPosX = chunkPosX;
         this.chunkPosY = chunkPosY;
         fillWithGrass();
-        addStonePatches();
     }
 
     public Square[][] getContent() {
         return content;
+    }
+
+    public Square getContentAtPos(int x, int y) {
+        return content[x][y];
     }
 
     public int getChunkPosX() {
@@ -31,11 +34,8 @@ public class Chunk {
         return chunkPosY;
     }
 
-    public Square getContentAtPos(int x, int y) {
-        return content[x][y];
-    }
 
-    private void fillWithGrass() {
+    public void fillWithGrass() {
         String texture = "assets/textures/terrain/Herbe3.png";
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
@@ -45,16 +45,21 @@ public class Chunk {
         }
     }
 
-    private void addFlowerPatches() {
-
+    public void addFeatures(String texture, int count) {
+        for (int x = 0; x < count; x++) {
+            int[] randPos = {(int)(Math.random()*content.length), (int)(Math.random()*content.length)};
+            Square tree = new Square(texture, randPos[0], randPos[1]);
+            content[randPos[0]][randPos[1]] = tree;
+        }
     }
 
-    private void addStonePatches() {
-        String texture = "assets/textures/terrain/Caillou.png";
-        for (int x = 0; x < 6; x++) {
-            int[] randPos = {(int)(Math.random()*content.length), (int)(Math.random()*content.length)};
-            Square stone = new Square(texture, randPos[0], randPos[1]);
-            content[randPos[0]][randPos[1]] = stone;
+    public void perlinize(long seed) {
+        for (int x = 0; x < 15; x++) {
+            for (int y = 0; y < 15; y++) {
+                if (Perlin.noise(x+chunkPosY*15, y+chunkPosX*15, seed) > 130000) {
+                    content[x][y] = new Square("assets/textures/terrain/Herbe1.png", x, y);
+                }
+            }
         }
     }
 }

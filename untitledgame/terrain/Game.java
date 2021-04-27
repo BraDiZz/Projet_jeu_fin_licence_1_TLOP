@@ -34,7 +34,6 @@ public class Game extends JFrame {
             directions.add(direction);
         }
 
-
         mainWindow.add(grid);
         mainWindow.add(directions);
 

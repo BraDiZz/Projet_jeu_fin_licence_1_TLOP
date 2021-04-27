@@ -15,20 +15,28 @@ public class Map {
     }
 
     public Map() {
-        map = new Chunk[4][4];
+        this(4, 4);
         populateMap();
     }
 
     private void populateMap() {
-        for (int x = 0; x < map.length; x++) {
-            for (int y = 0; y < map[x].length; y++) {
+        for (int x = 0; x < sizeX; x++) {
+            for (int y = 0; y < sizeY; y++) {
                 map[x][y] = new Chunk(x, y);
+                map[x][y].perlinize(132467885l);
+                map[x][y].addFeatures("assets/textures/terrain/Arbre.png", 8);
+                map[x][y].addFeatures("assets/textures/terrain/Caillou.png", 6);
+                map[x][y].addFeatures("assets/textures/terrain/Buisson.png", 4);
             }
         }
     }
     
     public Chunk getChunkAtPos(int x, int y) {
         return map[x][y];
+    }
+
+    public double map(double x, double input_min, double input_max, double output_min, double output_max) {
+        return (x - input_min)*(output_max-output_min)/(input_max-input_min)+output_min;
     }
 
     public int getSizeX() {
