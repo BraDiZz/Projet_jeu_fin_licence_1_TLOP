@@ -18,20 +18,66 @@ public interface IPersonnage {
 	public int getPointsDeVie();
     
     /**
-    * @param pointsDeVieAAjouter qui seront les pv a rajouter
+    * @return les points de vie max 
     */
-    public void manger(int pointsDeVieAAjouter);
+    public int getPointsDeVieMax();
 
 	/** 
 	* @return les points d'armure
 	*/
 	public int getArmure();
- 
+    
+    /**
+    * @return l'armure max 
+    */
+    public int getArmureMax();
 
     /**
     * @return les points d'attaque
     */
 	public int getPointsDAttaque();
+    
+    /**
+    * @return le niveau du personnage
+    */
+    public int getNiveau();
+
+    /**
+    * @param nom nouveau nom
+    */
+    public void setNom(String nom);
+    
+    /**
+    * @param pvARajouter qui seront les pv a rajouter
+    */
+    public void setPointsDeVie(int pvARajouter);
+
+    /**
+    * @param pvARajouter qui seront les pv max a rajouter
+    */
+    public void setPointsDeVieMax(int pvARajouter);
+
+    /**
+    * setter de niveau 
+    * @param niveau que  l'on rajoute (généralement 1)
+    */
+    public void setNiveau(int niveau);
+
+    /**
+    * @param armureARajouter qui sera l'armure a rajouter
+    */
+    public void setArmure(int armureARajouter);
+
+    /**
+    * @param armureARajouter qui sera l'armure max a rajouter
+    */
+    public void setArmureMax(int armureARajouter);
+
+    /**
+    * @param pointsAttaqueARajouter qui seront les points d'attaque a rajouter
+    */
+    public void setPointsDAttaque(int pointsAttaqueARajouter);
+
 
 	/**
 	* @param degats les degats infligés
@@ -44,5 +90,20 @@ public interface IPersonnage {
 	* @return true si l'unité est tuée, faux sinon.
 	*/
     public boolean attaquer(IPersonnage p);
+
+    /**
+    * @return true si je personnage est en vie, faux sinon.
+    */
+    public boolean estEnVie();
+
+    /**
+    * @return les stats du personnage sous forme de String
+    */
+    public String toString();
+
+    /**
+    * Permet de changer les stats du personnage en fonction du niveau
+    */
+    public void changeStats();
 
 }
