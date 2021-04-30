@@ -9,6 +9,7 @@ public class Game extends JFrame {
     private int curDisX = 0;
     private int curDisY = 0;
 
+
     public Game(int mapSize, long seed) {
         setSize(1200,900);
 	    setLocationRelativeTo(null);
@@ -20,6 +21,7 @@ public class Game extends JFrame {
         
         JPanel mainWindow = new JPanel();
         mainWindow.setLayout(new FlowLayout());
+        mainWindow.setBackground(Color.black);
 
         grid.setLayout(new GridLayout(15, 15));
         
@@ -33,19 +35,19 @@ public class Game extends JFrame {
 
 
         mainWindow.add(grid);
-        grid.setBorder(BorderFactory.createLineBorder(Color.blue));
         mainWindow.add(info);
-        info.setBorder(BorderFactory.createLineBorder(Color.red));
-        info.setPreferredSize(new Dimension(350,800));
+        
+        info.setPreferredSize(new Dimension(350,780));
         
         JPanel preaction = new JPanel();
         preaction.setBackground(Color.black);
         JPanel inventaire = new JPanel();
         info.add(inventaire);
-        inventaire.setBackground(Color.black);
+        inventaire.setBackground(Color.white);
         JPanel action = new JPanel();
         JPanel suraction = new JPanel();
         suraction.setLayout(new GridLayout(3,1));
+        suraction.setBackground(Color.black);
         info.add(suraction);
         suraction.add(preaction);
         suraction.add(action);
@@ -53,16 +55,17 @@ public class Game extends JFrame {
 
         JButton attack = new JButton("attaque");
         action.add(attack);
-        JLabel milieu = new JLabel();
+        JPanel milieu = new JPanel();
+        milieu.setBackground(Color.black);
         action.add(milieu);
         milieu.setBackground(Color.black);
         JButton defend = new JButton("defense");
         action.add(defend);
 
-		inventaire.setBorder(BorderFactory.createLineBorder(Color.red));
 
 		JPanel commande = new JPanel();
         info.add(commande);
+        commande.setBackground(Color.black);
 
         commande.setLayout(new GridLayout(1,2));
 
@@ -73,24 +76,32 @@ public class Game extends JFrame {
         touches.setBackground(Color.black);
 
         commande.add(stats);
-        stats.setBackground(Color.black);
+        stats.setBackground(Color.white);
 
-        JLabel[][] touche = new JLabel[3][3];
+        JLabel[][] Fleche = new JLabel[3][3];
 
         JPanel pourCentrer = new JPanel();
         pourCentrer.setBackground(Color.black);
         pourCentrer.setPreferredSize(new Dimension(140,60));
         touches.add(pourCentrer);
 
+        
+
 
         for(int i=0;i<3;i++){
         	for(int j=0;j<3;j++){
-        		touche[i][j] = new JLabel();
-        		touche[i][j].setBorder(BorderFactory.createLineBorder(Color.blue));  
-        		touches.add(touche[i][j]);
-        		touche[i][j].setPreferredSize(new Dimension(40,40));	
+        		Fleche[i][j] = new Fleche("");
+        		Fleche[0][1]= new Fleche("haut");
+        		Fleche[1][0]= new Fleche("gauche");
+        		Fleche[1][2]= new Fleche("droite");
+        		Fleche[2][1]= new Fleche("bas");
+        		Fleche[i][j].repaint();
+        		touches.add(Fleche[i][j]);
+        		Fleche[i][j].setPreferredSize(new Dimension(50,50));	
         	}
         }
+
+        
 
 
 
