@@ -4,7 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Texture extends ImageIcon {
-    public Texture(TexturePath texture) {
-        super(texture.path);
+    private TexturePath textureName;
+
+    public Texture(TexturePath textureName) {
+        super(textureName.path);
+        this.textureName = textureName;
+    }
+
+    public TexturePath getTextureName() {
+        return textureName;
     }
 }

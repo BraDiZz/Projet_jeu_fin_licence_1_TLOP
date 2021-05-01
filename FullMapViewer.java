@@ -2,6 +2,7 @@ import untitledgame.terrain.*;
 
 import java.awt.*;
 import javax.swing.*;
+import untitledgame.texture.*;
 
 public class FullMapViewer extends JFrame {
     public static void main(String[] args) {
@@ -23,7 +24,7 @@ public class FullMapViewer extends JFrame {
 
         for (int x = 0; x < squares.length; x++) {
             for (int y = 0; y < squares[x].length; y++) {
-                squares[x][y] = new Square("assets/textures/terrain/Herbe3.png", 0, 0);
+                squares[x][y] = new Square(new Texture(TexturePath.GRASS3), 0, 0);
                 mapView.add(squares[x][y]);
             }
         }
