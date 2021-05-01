@@ -2,6 +2,7 @@ package untitledgame.terrain;
 
 import untitledgame.terrain.Chunk;
 import untitledgame.personnages.*;
+import untitledgame.texture.*;
 
 public class Map {
     private Chunk[][] map;
@@ -27,12 +28,12 @@ public class Map {
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
                 map[x][y] = new Chunk(x, y);
-                map[x][y].addFeatures("assets/textures/terrain/Arbre.png", 6);
-                map[x][y].addFeatures("assets/textures/terrain/Caillou.png", 2);
-                map[x][y].addFeatures("assets/textures/terrain/Buisson.png", 3);
-                map[x][y].perlinize(seed * 14894465l, 18, "assets/textures/terrain/Herbe1.png");
-                map[x][y].perlinize(seed * 132467885l, 18, "assets/textures/terrain/Herbe2.png");
-                map[x][y].reversePerlinize(seed * 4564646l, 10, "assets/textures/terrain/Eau2.png");
+                map[x][y].addFeatures(new Texture(TexturePath.TREE), 6);
+                map[x][y].addFeatures(new Texture(TexturePath.ROCK), 2);
+                map[x][y].addFeatures(new Texture(TexturePath.BUSHES), 3);
+                map[x][y].perlinize(seed * 14894465l, 18, new Texture(TexturePath.GRASS1));
+                map[x][y].perlinize(seed * 132467885l, 18, new Texture(TexturePath.GRASS2));
+                map[x][y].reversePerlinize(seed * 4564646l, 10, new Texture(TexturePath.WATER2));
             }
         }
     }

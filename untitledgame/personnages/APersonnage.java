@@ -1,6 +1,6 @@
 package untitledgame.personnages;
 
-import untitledgame.terrain.Square;
+import untitledgame.texture.*;
 /** 
 *  Classe abstraite Personnage  
 */ 
@@ -17,7 +17,7 @@ public abstract class APersonnage implements IPersonnage {
 	public int squarePosY;
 	public int chunkPosX;
 	public int chunkPosY;
-	private Square square = new Square("assets/textures/personnage/Archer.png", squarePosX, squarePosY);
+	private Texture texture = new Texture(TexturePath.ARCHER);
  
     /** 
     *   Constructeur par défaut 
@@ -57,8 +57,8 @@ public abstract class APersonnage implements IPersonnage {
 	* getter du square
 	* @return un square
 	*/ 
-	public Square getSquare() {
-		return square;
+	public Texture getTexture() {
+		return texture;
 	}
 
 	/** 

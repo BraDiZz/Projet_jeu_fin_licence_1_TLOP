@@ -1,6 +1,6 @@
 package untitledgame.personnages;
 
-import untitledgame.terrain.Square;
+import untitledgame.texture.Texture;
 
 /** 
 * Interface IPersonnage qui indique les actions de tous les persos
@@ -45,9 +45,9 @@ public interface IPersonnage {
     public int getNiveau();
 
     /**
-    * @return l'attribut square du personnage
+    * @return l'attribut texture du personnage
     */
-    public Square getSquare();
+    public Texture getTexture();
 
     /**
     * @param nom nouveau nom
