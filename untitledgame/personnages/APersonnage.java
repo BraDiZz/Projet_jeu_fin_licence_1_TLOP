@@ -17,13 +17,13 @@ public abstract class APersonnage implements IPersonnage {
 	public int squarePosY;
 	public int chunkPosX;
 	public int chunkPosY;
-	private Texture texture = new Texture(TexturePath.ARCHER);
+	private Texture texture = new Texture(TexturePath.Inconnu);
  
     /** 
     *   Constructeur par défaut 
     */ 
 	public APersonnage() {
-		this(100, 100, 20, 10, 50, 1);
+		this(100, 100, 20, 10, 50, 1, null);
 	} 
 	/** 
 	*   Constructeur par initialisation 
@@ -33,7 +33,7 @@ public abstract class APersonnage implements IPersonnage {
 	* @param armure 
 	*/
 
-	public APersonnage(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau) { 
+	public APersonnage(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, Texture texture) { 
 		this.pointsDeVie = pointsDeVie; 
 		this.pointsDeVieMax = pointsDeVieMax;
 		this.pointsDAttaque = pointsDAttaque; 
@@ -44,6 +44,7 @@ public abstract class APersonnage implements IPersonnage {
 		this.squarePosY = 0;
 		this.chunkPosX = 0;
 		this.chunkPosY = 0;
+		this.texture = texture;
 	} 
 	/** 
 	* getter de la variable nom 

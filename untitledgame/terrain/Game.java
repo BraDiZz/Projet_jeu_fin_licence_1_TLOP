@@ -112,7 +112,6 @@ public class Game extends JFrame {
 
         public void actionPerformed(java.awt.event.ActionEvent ev) {
             changePlayerPos(direction);
-            System.out.println(mob.squarePosX + " " + mob.squarePosY);
         }
     }
 }

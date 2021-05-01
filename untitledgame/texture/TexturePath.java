@@ -18,7 +18,8 @@ public enum TexturePath {
     MURDERER("assets/textures/personnage/Assassin.png"),
     BOSS("assets/textures/personnage/Boss.png"),
     KNIGHT("assets/textures/personnage/Chevalier.png"),
-    WOLF("assets/textures/personnage/Loup.png");
+    WOLF("assets/textures/personnage/Loup.png"),
+    UNKNOWN("assets/textures/personnage/Inconnu.png");
 
     public final String path;
 

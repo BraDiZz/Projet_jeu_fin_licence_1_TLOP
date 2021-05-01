@@ -1,5 +1,7 @@
 package untitledgame.personnages;
 
+import untitledgame.texture.*;
+
 public class Loup extends AVilain {
      
     public Loup(){
@@ -7,7 +9,7 @@ public class Loup extends AVilain {
     	setNom("Loup");
     }
     public Loup(String nom){
-    	super(120,120,30,0,0,1);
+    	super(120, 120, 30, 0, 0, 1, new Texture(TexturePath.WOLF));
     }
 
 }

@@ -1,6 +1,7 @@
 package untitledgame.personnages;
 
 import untitledgame.objets.*;
+import untitledgame.texture.*;
 import java.util.Vector;
 /**
 *   Classe abstraite AHero
@@ -32,8 +33,8 @@ public abstract class AHero extends APersonnage {
         nombreItems = sacDeBoissons.size() + sacDeNourriture.size();
 
 	}
-	public AHero(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau){
-        super(pointsDeVie,pointsDeVieMax,pointsDAttaque,armure,armureMax,niveau);
+	public AHero(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, Texture texture){
+        super(pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, armureMax, niveau, texture);
         xp = 0;
         xpAAtteindre = 200;
 	}
