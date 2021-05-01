@@ -1,12 +1,15 @@
 package untitledgame.terrain;
 
 import untitledgame.terrain.Chunk;
+import untitledgame.personnages.*;
 
 public class Map {
     private Chunk[][] map;
     private int sizeX;
     private int sizeY;
     private long seed;
+    public static int curChunkX = 0;
+    public static int curChunkY = 0;
 
     public Map(int sizeX, int sizeY, long seed) {
         map = new Chunk[sizeX][sizeY];
@@ -38,6 +41,10 @@ public class Map {
         return map[x][y];
     }
 
+    public Chunk getCurrentlyLoadedChunk() {
+        return map[curChunkX][curChunkY];
+    }
+
     public double map(double x, double input_min, double input_max, double output_min, double output_max) {
         return (x - input_min)*(output_max-output_min)/(input_max-input_min)+output_min;
     }
@@ -48,5 +55,17 @@ public class Map {
 
     public int getSizeY() {
         return sizeY;
+    }
+
+    public void addPlayerAtPos(APersonnage mob, int squarePosX, int squarePosY) {
+        addPlayerAtPos(mob, 0, 0, squarePosX, squarePosY);
+    }
+
+    public void addPlayerAtPos(APersonnage mob, int chunkPosX, int chunkPosY, int squarePosX, int squarePosY) {
+        mob.chunkPosX = chunkPosX;
+        mob.chunkPosY = chunkPosY;
+        mob.squarePosX = squarePosX;
+        mob.squarePosY = squarePosY;
+        map[chunkPosX][chunkPosY].addPlayerAtPos(mob, squarePosX, squarePosY);
     }
 }

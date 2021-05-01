@@ -1,29 +1,29 @@
-package personnages;
- 
+package untitledgame.personnages;
+
+import untitledgame.terrain.Square;
 /** 
 *  Classe abstraite Personnage  
 */ 
  
-public abstract class APersonnage implements IPersonnage{ 
+public abstract class APersonnage implements IPersonnage {
 	private String nom; 
 	private int pointsDeVie; 
 	private int pointsDAttaque; 
 	private int armure; 
     private int pointsDeVieMax; 
 	private int armureMax; 
-	private int niveau; 
+	private int niveau;
+	public int squarePosX;
+	public int squarePosY;
+	public int chunkPosX;
+	public int chunkPosY;
+	private Square square = new Square("assets/textures/personnage/Archer.png", squarePosX, squarePosY);
  
     /** 
     *   Constructeur par défaut 
     */ 
-	public APersonnage(){ 
-		nom = "hero"; 
-		pointsDeVie = 100; 
-		pointsDeVieMax = 100; 
-		pointsDAttaque = 20; 
-		armure = 10; 
-		armureMax = 50; 
-		niveau = 1; 
+	public APersonnage() {
+		this(100, 100, 20, 10, 50, 1);
 	} 
 	/** 
 	*   Constructeur par initialisation 
@@ -31,7 +31,8 @@ public abstract class APersonnage implements IPersonnage{
 	* @param pointsDeVie 
 	* @param pointsDAttaque 
 	* @param armure 
-	*/ 
+	*/
+
 	public APersonnage(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau) { 
 		this.pointsDeVie = pointsDeVie; 
 		this.pointsDeVieMax = pointsDeVieMax;
@@ -39,6 +40,10 @@ public abstract class APersonnage implements IPersonnage{
 		this.armure = armure; 
 		this.armureMax = armureMax;
 		this.niveau = niveau;
+		this.squarePosX = 0;
+		this.squarePosY = 0;
+		this.chunkPosX = 0;
+		this.chunkPosY = 0;
 	} 
 	/** 
 	* getter de la variable nom 
@@ -46,7 +51,16 @@ public abstract class APersonnage implements IPersonnage{
 	*/ 
 	public String getNom() { 
 		return nom; 
-	} 
+	}
+
+	/** 
+	* getter du square
+	* @return un square
+	*/ 
+	public Square getSquare() {
+		return square;
+	}
+
 	/** 
 	*  getter de la variable pointsDeVie 
 	* @return les points de vie 

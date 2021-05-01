@@ -1,5 +1,6 @@
-package personnages;
-import objets.*;
+package untitledgame.personnages;
+
+import untitledgame.objets.*;
 import java.util.Vector;
 /**
 *   Classe abstraite AHero
@@ -137,17 +138,17 @@ public abstract class AHero extends APersonnage {
         int niveau = getNiveau();
         // le ratio represente l'amelioration a apporter en pourcentage
         int ratio = 15;
-        int pvARajouter = (int) getPointsDeVie()*ratio/100;
-        int pvMaxARajouter = (int) getPointsDeVieMax()*ratio/100;
-        int armureARajouter = (int) getArmure()*ratio/100;
-        int armureMaxARajouter = (int) getArmureMax()*ratio/100;
-        int degatsARajouter = (int) getPointsDAtttaque()*ratio/100;
+        int pvARajouter = (int)(getPointsDeVie()*ratio/100);
+        int pvMaxARajouter = (int)(getPointsDeVieMax()*ratio/100);
+        int armureARajouter = (int)(getArmure()*ratio/100);
+        int armureMaxARajouter = (int)(getArmureMax()*ratio/100);
+        int degatsARajouter = (int)(getPointsDAttaque()*ratio/100);
 
         setPointsDeVie(pvARajouter);
         setPointsDeVieMax(pvMaxARajouter);
         setArmure(armureARajouter);
         setArmureMax(armureMaxARajouter);
-        setPointsAttaque(degatsARajouter);
+        setPointsDAttaque(degatsARajouter);
     
     }
 }

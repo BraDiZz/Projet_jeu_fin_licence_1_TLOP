@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.awt.*;
 import javax.swing.*;
+import untitledgame.personnages.*;
 
 public class Chunk {
     private int chunkPosX;
@@ -32,6 +33,17 @@ public class Chunk {
 
     public int getChunkPosY() {
         return chunkPosY;
+    }
+
+    public void changeMobPos(APersonnage mob, Direction direction) {
+        content[mob.squarePosY][mob.squarePosX].setMob(null);
+        mob.squarePosX += direction.x;
+        mob.squarePosY += direction.y;
+        content[mob.squarePosY][mob.squarePosX].setMob(mob);
+    }
+
+    public void addPlayerAtPos(APersonnage mob, int squarePosX, int squarePosY) {
+        content[squarePosX][squarePosY].setMob(mob);
     }
 
 

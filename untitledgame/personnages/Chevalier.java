@@ -1,4 +1,4 @@
-package personnages;
+package untitledgame.personnages;
 
 public class Chevalier extends AHero {
 
