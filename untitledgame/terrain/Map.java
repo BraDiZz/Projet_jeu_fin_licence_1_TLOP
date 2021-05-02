@@ -75,7 +75,6 @@ public class Map {
         int xNextPosition = mob.squarePosX+direction.x;
         int yNextPosition = mob.squarePosY+direction.y;
         if (xNextPosition >= 0 && xNextPosition < sizeX*15 && yNextPosition >= 0 && yNextPosition < sizeY*15) {
-            System.out.println("a");
             map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].removeMobAtPos(mob.squarePosX%15, mob.squarePosY%15);
             if ((int)(xNextPosition/15) != (int)(mob.squarePosX/15) ^ (int)(yNextPosition/15) != (int)(mob.squarePosY/15)) {
                 curChunkX += direction.x;
