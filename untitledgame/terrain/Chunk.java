@@ -43,7 +43,11 @@ public class Chunk {
         content[mob.squarePosY%15][mob.squarePosX%15].setMob(mob);
     }
 
-    public void addMobAtPos(APersonnage mob, int squarePosX, int squarePosY) {
+    public void removeMobAtPos(int xSquare, int ySquare) {
+        content[xSquare][ySquare].setMob(null);
+    }
+
+    public void setMobAtPos(APersonnage mob, int squarePosX, int squarePosY) {
         content[squarePosX][squarePosY].setMob(mob);
     }
 

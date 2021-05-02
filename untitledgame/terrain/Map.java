@@ -65,13 +65,25 @@ public class Map {
             }
             mob.squarePosX = chunk.getChunkPosX()*15+xSquare;
             mob.squarePosY = chunk.getChunkPosY()*15+ySquare;
-            map[chunk.getChunkPosX()][chunk.getChunkPosY()].addMobAtPos(mob, xSquare%15, ySquare%15);
+            map[chunk.getChunkPosX()][chunk.getChunkPosY()].setMobAtPos(mob, xSquare%15, ySquare%15);
         } catch(IllegalArgumentException err) {
             err.printStackTrace();
         }
     }
 
-    public boolean changeMobPos(APersonnage mob, Direction direction) {
-        if (mob.squarePosX%15 == 0)
+    public void changeMobPos(APersonnage mob, Direction direction) {
+        int xNextPosition = mob.squarePosX+direction.x;
+        int yNextPosition = mob.squarePosY+direction.y;
+        if (xNextPosition >= 0 && xNextPosition < sizeX*15 && yNextPosition >= 0 && yNextPosition < sizeY*15) {
+            System.out.println("a");
+            map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].removeMobAtPos(mob.squarePosX%15, mob.squarePosY%15);
+            if ((int)(xNextPosition/15) != (int)(mob.squarePosX/15) ^ (int)(yNextPosition/15) != (int)(mob.squarePosY/15)) {
+                curChunkX += direction.x;
+                curChunkY += direction.y;
+            }
+            mob.squarePosX = xNextPosition;
+            mob.squarePosY = yNextPosition;
+            map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].setMobAtPos(mob, mob.squarePosX%15, mob.squarePosY%15);
+        }
     }
 }

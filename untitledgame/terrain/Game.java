@@ -9,7 +9,7 @@ public class Game extends JFrame {
     private Map map;
     private APersonnage mob = new Archer("A");
 
-    public Game(int mapSize, long seed) {
+    public Game(int mapSizeX, int mapSizeY, long seed) {
         setSize(1200,900);
 	    setLocationRelativeTo(null);
 	    setTitle("Game save name");
@@ -17,7 +17,7 @@ public class Game extends JFrame {
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
 
-        map = new Map(mapSize, mapSize, seed);
+        map = new Map(mapSizeX, mapSizeY, seed);
         
         JPanel mainWindow = new JPanel();
         mainWindow.setLayout(new FlowLayout());
@@ -90,7 +90,7 @@ public class Game extends JFrame {
         grid.removeAll();
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                grid.add(chunk.getContentAtPos(x, y));
+                grid.add(chunk.getContentAtPos(y, x));
             }
         }
         grid.validate();
@@ -98,9 +98,14 @@ public class Game extends JFrame {
     }
 
     public void changePlayerPos(Direction direction) {
-        Chunk curChunk = map.getCurrentlyLoadedChunk();
-        curChunk.changeMobPos(mob, direction);
+        int xBeforeChange = map.curChunkX;
+        int yBeforeChange = map.curChunkY;
+        map.changeMobPos(mob, direction);
         repaint();
+        System.out.println(map.curChunkX + " " + xBeforeChange);
+        if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
+            loadChunk(map.getCurrentlyLoadedChunk());
+        }
     }
 
     class ChangeMapButton implements java.awt.event.ActionListener {
