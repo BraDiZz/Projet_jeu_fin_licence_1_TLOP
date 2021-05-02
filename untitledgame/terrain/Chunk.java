@@ -37,16 +37,15 @@ public class Chunk {
     }
 
     public void changeMobPos(APersonnage mob, Direction direction) {
-        content[mob.squarePosY][mob.squarePosX].setMob(null);
+        content[mob.squarePosY%15][mob.squarePosX%15].setMob(null);
         mob.squarePosX += direction.x;
         mob.squarePosY += direction.y;
-        content[mob.squarePosY][mob.squarePosX].setMob(mob);
+        content[mob.squarePosY%15][mob.squarePosX%15].setMob(mob);
     }
 
-    public void addPlayerAtPos(APersonnage mob, int squarePosX, int squarePosY) {
+    public void addMobAtPos(APersonnage mob, int squarePosX, int squarePosY) {
         content[squarePosX][squarePosY].setMob(mob);
     }
-
 
     public void fillWithGrass() {
         Texture texture = new Texture(TexturePath.GRASS3);

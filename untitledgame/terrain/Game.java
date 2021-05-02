@@ -26,7 +26,7 @@ public class Game extends JFrame {
         
         loadChunk(map.getCurrentlyLoadedChunk());
 
-        map.addPlayerAtPos(mob, 0, 0);
+        map.addMobAtPos(mob, map.getCurrentlyLoadedChunk(), 0, 0);
 
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(3,1));

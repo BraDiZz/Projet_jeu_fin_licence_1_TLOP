@@ -58,15 +58,20 @@ public class Map {
         return sizeY;
     }
 
-    public void addPlayerAtPos(APersonnage mob, int squarePosX, int squarePosY) {
-        addPlayerAtPos(mob, 0, 0, squarePosX, squarePosY);
+    public void addMobAtPos(APersonnage mob, Chunk chunk, int xSquare, int ySquare) {
+        try {
+            if (chunk == null ^ xSquare < 0 ^ySquare < 0 ^ xSquare > 14 ^ ySquare > 14) {
+                throw new IllegalArgumentException("Chunk is null, or square position is invalid. (must be [0;14]");
+            }
+            mob.squarePosX = chunk.getChunkPosX()*15+xSquare;
+            mob.squarePosY = chunk.getChunkPosY()*15+ySquare;
+            map[chunk.getChunkPosX()][chunk.getChunkPosY()].addMobAtPos(mob, xSquare%15, ySquare%15);
+        } catch(IllegalArgumentException err) {
+            err.printStackTrace();
+        }
     }
 
-    public void addPlayerAtPos(APersonnage mob, int chunkPosX, int chunkPosY, int squarePosX, int squarePosY) {
-        mob.chunkPosX = chunkPosX;
-        mob.chunkPosY = chunkPosY;
-        mob.squarePosX = squarePosX;
-        mob.squarePosY = squarePosY;
-        map[chunkPosX][chunkPosY].addPlayerAtPos(mob, squarePosX, squarePosY);
+    public boolean changeMobPos(APersonnage mob, Direction direction) {
+        if (mob.squarePosX%15 == 0)
     }
 }

@@ -15,9 +15,7 @@ public abstract class APersonnage implements IPersonnage {
 	private int niveau;
 	public int squarePosX;
 	public int squarePosY;
-	public int chunkPosX;
-	public int chunkPosY;
-	private Texture texture = new Texture(TexturePath.Inconnu);
+	private Texture texture = new Texture(TexturePath.UNKNOWN);
  
     /** 
     *   Constructeur par défaut 
@@ -42,8 +40,6 @@ public abstract class APersonnage implements IPersonnage {
 		this.niveau = niveau;
 		this.squarePosX = 0;
 		this.squarePosY = 0;
-		this.chunkPosX = 0;
-		this.chunkPosY = 0;
 		this.texture = texture;
 	} 
 	/** 
