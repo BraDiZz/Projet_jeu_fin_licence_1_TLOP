@@ -27,13 +27,14 @@ public class Map {
     private void populateMap(long seed) {
         for (int x = 0; x < sizeX; x++) {
             for (int y = 0; y < sizeY; y++) {
-                map[x][y] = new Chunk(x, y);
-                map[x][y].addFeatures(new Texture(TexturePath.TREE), 6);
-                map[x][y].addFeatures(new Texture(TexturePath.ROCK), 2);
-                map[x][y].addFeatures(new Texture(TexturePath.BUSHES), 3);
-                map[x][y].perlinize(seed * 14894465l, 18, new Texture(TexturePath.GRASS1));
-                map[x][y].perlinize(seed * 132467885l, 18, new Texture(TexturePath.GRASS2));
-                map[x][y].reversePerlinize(seed * 4564646l, 10, new Texture(TexturePath.WATER2));
+                Chunk chunk = new Chunk(x, y);
+                chunk.addFeatures(new Texture(TexturePath.TREE), 6);
+                chunk.addFeatures(new Texture(TexturePath.ROCK), 2);
+                chunk.addFeatures(new Texture(TexturePath.BUSHES), 3);
+                chunk.perlinize(seed * 14894465l, 18, new Texture(TexturePath.GRASS1));
+                chunk.perlinize(seed * 132467885l, 18, new Texture(TexturePath.GRASS2));
+                chunk.reversePerlinize(seed * 4564646l, 10, new Texture(TexturePath.WATER2));
+                map[x][y] = chunk;
             }
         }
     }
@@ -82,6 +83,7 @@ public class Map {
             }
             mob.squarePosX = xNextPosition;
             mob.squarePosY = yNextPosition;
+            System.out.println(getCurrentlyLoadedChunk().getChunkPosX() + " " + getCurrentlyLoadedChunk().getChunkPosY() + " " + curChunkX + " " + curChunkY);
             map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].setMobAtPos(mob, mob.squarePosX%15, mob.squarePosY%15);
         }
     }

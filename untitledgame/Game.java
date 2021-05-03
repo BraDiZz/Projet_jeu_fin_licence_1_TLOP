@@ -1,13 +1,18 @@
-package untitledgame.terrain;
+package untitledgame;
 
 import java.awt.*;
 import javax.swing.*;
 import untitledgame.personnages.*;
+import untitledgame.terrain.*;
 
 public class Game extends JFrame {
     private JPanel grid = new JPanel();
     private Map map;
     private APersonnage mob = new Archer("A");
+
+    public static void main(String[] args) {
+        new Game(4, 5, 564564l);
+    }
 
     public Game(int mapSizeX, int mapSizeY, long seed) {
         setSize(1200,900);
@@ -102,7 +107,6 @@ public class Game extends JFrame {
         int yBeforeChange = map.curChunkY;
         map.changeMobPos(mob, direction);
         repaint();
-        System.out.println(map.curChunkX + " " + xBeforeChange);
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());
         }

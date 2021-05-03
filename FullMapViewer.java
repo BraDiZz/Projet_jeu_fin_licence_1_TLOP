@@ -9,7 +9,7 @@ public class FullMapViewer extends JFrame {
         new FullMapViewer();
     }
 
-    private Map map = new Map(4, 4, 56465465l);
+    private Map map = new Map(20, 20, 5646441l);
     
     public FullMapViewer() {
         setSize(1200,900);
@@ -20,7 +20,7 @@ public class FullMapViewer extends JFrame {
         JPanel mapView = new JPanel();
         mapView.setLayout(new GridLayout(map.getSizeX()*15, map.getSizeY()*15));
 
-        Square[][] squares = new Square[map.getSizeX()*15][map.getSizeX()*15];
+        Square[][] squares = new Square[map.getSizeX()*15][map.getSizeY()*15];
 
         for (int x = 0; x < squares.length; x++) {
             for (int y = 0; y < squares[x].length; y++) {

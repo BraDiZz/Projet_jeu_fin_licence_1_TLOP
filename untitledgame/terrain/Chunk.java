@@ -72,7 +72,7 @@ public class Chunk {
     public void perlinize(long seed, int scale, Texture texture) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                if (Perlin.noise(Util.map(x+chunkPosY*15, 0, 15*4, 2, scale), Util.map(y+chunkPosX*15, 0, 15*4, 2, scale), seed) > 190) {
+                if (Perlin.noise(Util.map(x+chunkPosX*15, 0, 15*4, 2, scale), Util.map(y+chunkPosY*15, 0, 15*4, 2, scale), seed) > 190) {
                     content[x][y] = new Square(texture, x, y);
                 }
             }
@@ -82,7 +82,7 @@ public class Chunk {
     public void reversePerlinize(long seed, int scale, Texture texture) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                if (Perlin.noise(Util.map(x+chunkPosY*15, 0, 15*4, 2, scale), Util.map(y+chunkPosX*15, 0, 15*4, 2, scale), seed) > 190) {
+                if (Perlin.noise(Util.map(x+chunkPosX*15, 0, 15*4, 2, scale), Util.map(y+chunkPosY*15, 0, 15*4, 2, scale), seed) > 190) {
                     content[x][y] = new Square(texture, x, y);
                 }
             }
