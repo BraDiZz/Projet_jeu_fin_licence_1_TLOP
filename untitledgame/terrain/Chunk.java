@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.awt.*;
 import javax.swing.*;
+import untitledgame.personnages.*;
+import untitledgame.texture.*;
 
 public class Chunk {
     private int chunkPosX;
@@ -34,9 +36,23 @@ public class Chunk {
         return chunkPosY;
     }
 
+    public void changeMobPos(APersonnage mob, Direction direction) {
+        content[mob.squarePosY%15][mob.squarePosX%15].setMob(null);
+        mob.squarePosX += direction.x;
+        mob.squarePosY += direction.y;
+        content[mob.squarePosY%15][mob.squarePosX%15].setMob(mob);
+    }
+
+    public void removeMobAtPos(int xSquare, int ySquare) {
+        content[xSquare][ySquare].setMob(null);
+    }
+
+    public void setMobAtPos(APersonnage mob, int squarePosX, int squarePosY) {
+        content[squarePosX][squarePosY].setMob(mob);
+    }
 
     public void fillWithGrass() {
-        String texture = "assets/textures/terrain/Herbe3.png";
+        Texture texture = new Texture(TexturePath.GRASS3);
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
                 Square grass = new Square(texture, x, y);
@@ -45,28 +61,28 @@ public class Chunk {
         }
     }
 
-    public void addFeatures(String texture, int count) {
+    public void addFeatures(Texture texture, int count) {
         for (int x = 0; x < count; x++) {
             int[] randPos = {(int)(Math.random()*content.length), (int)(Math.random()*content.length)};
-            Square tree = new Square(texture, randPos[0], randPos[1]);
-            content[randPos[0]][randPos[1]] = tree;
+            Square feature = new Square(texture, randPos[0], randPos[1]);
+            content[randPos[0]][randPos[1]] = feature;
         }
     }
 
-    public void perlinize(long seed, int scale, String texture) {
+    public void perlinize(long seed, int scale, Texture texture) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                if (Perlin.noise(Util.map(x+chunkPosY*15, 0, 15*4, 2, scale), Util.map(y+chunkPosX*15, 0, 15*4, 2, scale), seed) > 190) {
+                if (Perlin.noise(Util.map(x+chunkPosX*15, 0, 15*4, 2, scale), Util.map(y+chunkPosY*15, 0, 15*4, 2, scale), seed) > 190) {
                     content[x][y] = new Square(texture, x, y);
                 }
             }
         }
     }
 
-    public void reversePerlinize(long seed, int scale, String texture) {
+    public void reversePerlinize(long seed, int scale, Texture texture) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                if (Perlin.noise(Util.map(x+chunkPosY*15, 0, 15*4, 2, scale), Util.map(y+chunkPosX*15, 0, 15*4, 2, scale), seed) > 190) {
+                if (Perlin.noise(Util.map(x+chunkPosX*15, 0, 15*4, 2, scale), Util.map(y+chunkPosY*15, 0, 15*4, 2, scale), seed) > 190) {
                     content[x][y] = new Square(texture, x, y);
                 }
             }

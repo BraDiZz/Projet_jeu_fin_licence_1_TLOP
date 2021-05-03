@@ -1,4 +1,6 @@
-package personnages;
+package untitledgame.personnages;
+
+import untitledgame.texture.Texture;
 
 /** 
 * Interface IPersonnage qui indique les actions de tous les persos
@@ -41,6 +43,11 @@ public interface IPersonnage {
     * @return le niveau du personnage
     */
     public int getNiveau();
+
+    /**
+    * @return l'attribut texture du personnage
+    */
+    public Texture getTexture();
 
     /**
     * @param nom nouveau nom

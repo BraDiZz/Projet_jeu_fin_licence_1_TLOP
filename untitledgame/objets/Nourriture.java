@@ -1,6 +1,6 @@
-package objets;
+package untitledgame.objets;
 
-public enum Nourriture{
+public enum Nourriture {
 	POMME,
 	PAIN,
 	POULET;
