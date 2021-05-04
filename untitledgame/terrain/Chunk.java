@@ -6,7 +6,6 @@ import java.io.*;
 import java.awt.*;
 import javax.swing.*;
 import untitledgame.personnages.*;
-import untitledgame.texture.*;
 
 public class Chunk {
     private int chunkPosX;
@@ -52,38 +51,37 @@ public class Chunk {
     }
 
     public void fillWithGrass() {
-        Texture texture = new Texture(TexturePath.GRASS3);
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                Square grass = new Square(texture, x, y);
+                Square grass = new Square(SquareType.GRASS3, x, y);
                 content[x][y] = grass;
             }
         }
     }
 
-    public void addFeatures(Texture texture, int count) {
+    public void addFeatures(SquareType squareType, int count) {
         for (int x = 0; x < count; x++) {
             int[] randPos = {(int)(Math.random()*content.length), (int)(Math.random()*content.length)};
-            Square feature = new Square(texture, randPos[0], randPos[1]);
+            Square feature = new Square(squareType, randPos[0], randPos[1]);
             content[randPos[0]][randPos[1]] = feature;
         }
     }
 
-    public void perlinize(long seed, int scale, Texture texture) {
+    public void perlinize(SquareType squareType, long seed, int scale) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
                 if (Perlin.noise(Util.map(x+chunkPosX*15, 0, 15*4, 2, scale), Util.map(y+chunkPosY*15, 0, 15*4, 2, scale), seed) > 190) {
-                    content[x][y] = new Square(texture, x, y);
+                    content[x][y] = new Square(squareType, x, y);
                 }
             }
         }
     }
 
-    public void reversePerlinize(long seed, int scale, Texture texture) {
+    public void reversePerlinize(SquareType squareType, long seed, int scale) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
                 if (Perlin.noise(Util.map(x+chunkPosX*15, 0, 15*4, 2, scale), Util.map(y+chunkPosY*15, 0, 15*4, 2, scale), seed) > 190) {
-                    content[x][y] = new Square(texture, x, y);
+                    content[x][y] = new Square(squareType, x, y);
                 }
             }
         }
