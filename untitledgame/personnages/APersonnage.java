@@ -1,29 +1,27 @@
-package personnages;
- 
+package untitledgame.personnages;
+
+import untitledgame.texture.*;
 /** 
 *  Classe abstraite Personnage  
 */ 
  
-public abstract class APersonnage implements IPersonnage{ 
+public abstract class APersonnage implements IPersonnage {
 	private String nom; 
 	private int pointsDeVie; 
 	private int pointsDAttaque; 
 	private int armure; 
     private int pointsDeVieMax; 
 	private int armureMax; 
-	private int niveau; 
+	private int niveau;
+	public int squarePosX;
+	public int squarePosY;
+	private Texture texture = new Texture(TexturePath.UNKNOWN);
  
     /** 
     *   Constructeur par défaut 
     */ 
-	public APersonnage(){ 
-		nom = "hero"; 
-		pointsDeVie = 100; 
-		pointsDeVieMax = 100; 
-		pointsDAttaque = 20; 
-		armure = 10; 
-		armureMax = 50; 
-		niveau = 1; 
+	public APersonnage() {
+		this(100, 100, 20, 10, 50, 1, null);
 	} 
 	/** 
 	*   Constructeur par initialisation 
@@ -31,14 +29,18 @@ public abstract class APersonnage implements IPersonnage{
 	* @param pointsDeVie 
 	* @param pointsDAttaque 
 	* @param armure 
-	*/ 
-	public APersonnage(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau) { 
+	*/
+
+	public APersonnage(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, Texture texture) { 
 		this.pointsDeVie = pointsDeVie; 
 		this.pointsDeVieMax = pointsDeVieMax;
 		this.pointsDAttaque = pointsDAttaque; 
 		this.armure = armure; 
 		this.armureMax = armureMax;
 		this.niveau = niveau;
+		this.squarePosX = 0;
+		this.squarePosY = 0;
+		this.texture = texture;
 	} 
 	/** 
 	* getter de la variable nom 
@@ -46,7 +48,16 @@ public abstract class APersonnage implements IPersonnage{
 	*/ 
 	public String getNom() { 
 		return nom; 
-	} 
+	}
+
+	/** 
+	* getter du square
+	* @return un square
+	*/ 
+	public Texture getTexture() {
+		return texture;
+	}
+
 	/** 
 	*  getter de la variable pointsDeVie 
 	* @return les points de vie 
