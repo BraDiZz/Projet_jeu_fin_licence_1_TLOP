@@ -1,6 +1,4 @@
 package untitledgame.personnages;
-
-import untitledgame.texture.*;
 /** 
 *  Classe abstraite Personnage  
 */ 
@@ -15,13 +13,13 @@ public abstract class APersonnage implements IPersonnage {
 	private int niveau;
 	public int squarePosX;
 	public int squarePosY;
-	private Texture texture = new Texture(TexturePath.UNKNOWN);
+	private MobType mobType;
  
     /** 
     *   Constructeur par défaut 
     */ 
 	public APersonnage() {
-		this(100, 100, 20, 10, 50, 1, null);
+		this(100, 100, 20, 10, 50, 1, MobType.UNKNOWN);
 	} 
 	/** 
 	*   Constructeur par initialisation 
@@ -31,7 +29,7 @@ public abstract class APersonnage implements IPersonnage {
 	* @param armure 
 	*/
 
-	public APersonnage(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, Texture texture) { 
+	public APersonnage(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, MobType mobType) { 
 		this.pointsDeVie = pointsDeVie; 
 		this.pointsDeVieMax = pointsDeVieMax;
 		this.pointsDAttaque = pointsDAttaque; 
@@ -40,7 +38,7 @@ public abstract class APersonnage implements IPersonnage {
 		this.niveau = niveau;
 		this.squarePosX = 0;
 		this.squarePosY = 0;
-		this.texture = texture;
+		this.mobType = mobType;
 	} 
 	/** 
 	* getter de la variable nom 
@@ -51,11 +49,11 @@ public abstract class APersonnage implements IPersonnage {
 	}
 
 	/** 
-	* getter du square
-	* @return un square
+	* getter du mobType
+	* @return un MobType
 	*/ 
-	public Texture getTexture() {
-		return texture;
+	public MobType getMobType() {
+		return mobType;
 	}
 
 	/** 
