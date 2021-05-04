@@ -2,6 +2,7 @@ package untitledgame;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 import untitledgame.personnages.*;
 import untitledgame.terrain.*;
 
@@ -71,7 +72,7 @@ public class Game extends JFrame {
 
         commande.setLayout(new GridLayout(1,2));
 
-        JPanel touches = new JPanel(new BorderLayout());
+        JPanel touches = new JPanel();
         commande.add(touches);
         JPanel stats = new JPanel();
 
@@ -80,16 +81,29 @@ public class Game extends JFrame {
         commande.add(stats);
         stats.setBackground(Color.black);
 
-        for (Direction value: Direction.values()) {
-            JButton direction = new JButton(value.label);
-            direction.addActionListener(new ChangeMapButton(value));
-            direction.setPreferredSize(new Dimension(80, 80));
-            touches.add(direction, value.layout);
+        JLabel[][] Fleche = new JLabel[3][3];
+
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                Fleche[i][j] = new Fleche("");
+                Fleche[0][1]= new Fleche("haut");
+                Fleche[1][0]= new Fleche("gauche");
+                Fleche[1][2]= new Fleche("droite");
+                Fleche[2][1]= new Fleche("bas");
+                Fleche[i][j].repaint();
+                Fleche[0][1].addMouseListener(new ChangeMapButton(Direction.DOWN));
+                Fleche[2][1].addMouseListener(new ChangeMapButton(Direction.UP));
+                Fleche[1][0].addMouseListener(new ChangeMapButton(Direction.LEFT));
+                Fleche[1][2].addMouseListener(new ChangeMapButton(Direction.RIGHT));
+                touches.add(Fleche[i][j]);
+                Fleche[i][j].setPreferredSize(new Dimension(50,50));    
+            }
         }
+        
 
         getContentPane().add(mainWindow);
 
-	    setVisible(true);
+        setVisible(true);
     }
 
     public void loadChunk(Chunk chunk) {
@@ -103,7 +117,7 @@ public class Game extends JFrame {
         grid.repaint();
     }
 
-    public void changePlayerPos(Direction direction) {
+    public void changePlayerPos(Direction direction){
         int xBeforeChange = map.curChunkX;
         int yBeforeChange = map.curChunkY;
         map.changeMobPos(player, direction);
@@ -113,15 +127,26 @@ public class Game extends JFrame {
         }
     }
 
-    class ChangeMapButton implements java.awt.event.ActionListener {
+    class ChangeMapButton implements MouseListener{
         private Direction direction;
 
         public ChangeMapButton(Direction direction) {
             this.direction = direction;
         }
-
-        public void actionPerformed(java.awt.event.ActionEvent ev) {
+        public void mouseClicked(MouseEvent me){
             changePlayerPos(direction);
+        }
+        public void mouseEntered(MouseEvent me){}
+        public void mouseExited(MouseEvent me){}
+        public void mousePressed(MouseEvent me){
+            Fleche fleche=(Fleche) me.getSource();
+            fleche.clique(true);
+            fleche.repaint();
+        }
+        public void mouseReleased(MouseEvent me){
+            Fleche fleche=(Fleche) me.getSource();
+            fleche.clique(false);
+            fleche.repaint();
         }
     }
 }

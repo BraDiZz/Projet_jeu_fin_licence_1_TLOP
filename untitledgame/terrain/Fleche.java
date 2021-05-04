@@ -7,7 +7,7 @@ public class Fleche extends javax.swing.JLabel
 {
     private String direction;
     private String etat; 
-    
+    private boolean clique;
     
 
     public Fleche(String direction)
@@ -18,6 +18,12 @@ public class Fleche extends javax.swing.JLabel
 
     }
 
+    public void clique(boolean clique){
+      this.clique=clique;
+    }
+
+   
+
     @Override
     public void paint(Graphics g)
 
@@ -27,43 +33,39 @@ public class Fleche extends javax.swing.JLabel
 
     int largeur = (int)getWidth();
     int hauteur = (int)getHeight();
+  
+    g.setColor(Color.magenta);
 
-
-    java.awt.Color couleur_precedente=g.getColor();
+    if(clique==true){
+      g.setColor(Color.cyan);
+    }
 
     if(etat=="haut")
     {
-      g.setColor(Color.magenta);
       g.drawLine(0,hauteur/2,largeur/2,0);
       g.drawLine(largeur/2,0,largeur,hauteur/2);
-      
     }
 
     if(etat=="gauche")
     {
-      g.setColor(Color.magenta);
       g.drawLine(largeur/2,0,0,hauteur/2);
       g.drawLine(0,hauteur/2,largeur/2,hauteur);
-      
     }
 
     if(etat=="droite")
     {
-      g.setColor(Color.magenta);
       g.drawLine(largeur/2,0,largeur,hauteur/2);
       g.drawLine(largeur,hauteur/2,largeur/2,hauteur);
-      
     }
 
     if(etat=="bas")
     {
-      g.setColor(Color.magenta);
       g.drawLine(0,hauteur/2,largeur/2,hauteur);
       g.drawLine(largeur/2,hauteur,largeur,hauteur/2);
-      
     }
+    
 
-    g.setColor(couleur_precedente);
+    
     
 
 
