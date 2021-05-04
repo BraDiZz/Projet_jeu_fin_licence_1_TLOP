@@ -8,7 +8,7 @@ import untitledgame.terrain.*;
 public class Game extends JFrame {
     private JPanel grid = new JPanel();
     private Map map;
-    private APersonnage mob = new Archer("A");
+    private APersonnage player;
 
     public static void main(String[] args) {
         new Game(4, 5, 564564l);
@@ -21,6 +21,7 @@ public class Game extends JFrame {
         setResizable(false);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        player = new Archer();
 
         map = new Map(mapSizeX, mapSizeY, seed);
         
@@ -31,7 +32,7 @@ public class Game extends JFrame {
         
         loadChunk(map.getCurrentlyLoadedChunk());
 
-        map.addMobAtPos(mob, map.getCurrentlyLoadedChunk(), 0, 0);
+        map.addMobAtPos(player, map.getCurrentlyLoadedChunk(), 0, 0);
 
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(3,1));
@@ -105,7 +106,7 @@ public class Game extends JFrame {
     public void changePlayerPos(Direction direction) {
         int xBeforeChange = map.curChunkX;
         int yBeforeChange = map.curChunkY;
-        map.changeMobPos(mob, direction);
+        map.changeMobPos(player, direction);
         repaint();
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());
