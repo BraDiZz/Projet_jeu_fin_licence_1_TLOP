@@ -3,9 +3,9 @@ package untitledgame.terrain;
 import java.awt.*;
 
 public enum Direction {
-	UP("Bas", BorderLayout.SOUTH, 0, 1),
+	DOWN("Bas", BorderLayout.NORTH, 0, 1),
 	RIGHT("Droite", BorderLayout.EAST, 1, 0),
-	DOWN("Haut", BorderLayout.NORTH, 0, -1),
+	UP("Haut", BorderLayout.SOUTH, 0, -1),
     LEFT("Gauche", BorderLayout.WEST, -1, 0);
 
     public final String label;

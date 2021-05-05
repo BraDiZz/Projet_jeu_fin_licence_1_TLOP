@@ -4,6 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 import untitledgame.personnages.*;
 import untitledgame.terrain.*;
+import untitledgame.gamegui.*;
 
 public class Game extends JFrame {
     private JPanel grid = new JPanel();
@@ -75,15 +76,11 @@ public class Game extends JFrame {
         commande.add(touches);
         JPanel stats = new JPanel();
 
-        touches.setBackground(Color.black);
-
         commande.add(stats);
         stats.setBackground(Color.black);
 
         for (Direction value: Direction.values()) {
-            JButton direction = new JButton(value.label);
-            direction.addActionListener(new ChangeMapButton(value));
-            direction.setPreferredSize(new Dimension(80, 80));
+            Fleche2 direction = new Fleche2(value);
             touches.add(direction, value.layout);
         }
 
