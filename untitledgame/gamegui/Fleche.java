@@ -9,7 +9,7 @@ private String direction;
 private String etat;
 public Fleche(String direction) {
   etat=direction;
-
+}
 @Override
-public void paint(Graphics g) 
+public void paint(Graphics g){}
 }

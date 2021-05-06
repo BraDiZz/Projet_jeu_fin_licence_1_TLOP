@@ -6,6 +6,7 @@ import java.awt.event.*;
 import untitledgame.personnages.*;
 import untitledgame.terrain.*;
 import untitledgame.gamegui.*;
+import untitledgame.objets.*;
 
 public class Game extends JFrame {
     private JPanel grid = new JPanel();
@@ -80,8 +81,7 @@ public class Game extends JFrame {
         commande.add(stats);
         stats.setBackground(Color.black);
 
-<<<<<<< HEAD
-        JLabel[][] Fleche = new JLabel[3][3];
+        /*JLabel[][] Fleche = new JLabel[3][3];
 
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
@@ -98,12 +98,14 @@ public class Game extends JFrame {
                 touches.add(Fleche[i][j]);
                 Fleche[i][j].setPreferredSize(new Dimension(50,50));    
             }
-=======
+        }*/
+
         for (Direction value: Direction.values()) {
             Fleche2 direction = new Fleche2(value);
             touches.add(direction, value.layout);
->>>>>>> main
         }
+
+        
         
 
         getContentPane().add(mainWindow);
@@ -144,14 +146,15 @@ public class Game extends JFrame {
         public void mouseEntered(MouseEvent me){}
         public void mouseExited(MouseEvent me){}
         public void mousePressed(MouseEvent me){
-            Fleche fleche=(Fleche) me.getSource();
+           /* Fleche fleche=(Fleche) me.getSource();
             fleche.clique(true);
-            fleche.repaint();
+            fleche.repaint();*/
         }
         public void mouseReleased(MouseEvent me){
-            Fleche fleche=(Fleche) me.getSource();
+           /* Fleche fleche=(Fleche) me.getSource();
             fleche.clique(false);
             fleche.repaint();
+            */
         }
     }
 }
