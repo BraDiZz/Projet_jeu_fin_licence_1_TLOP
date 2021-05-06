@@ -1,14 +1,12 @@
 package untitledgame.personnages;
 
-import untitledgame.texture.*;
-
 public abstract class AVilain extends APersonnage {
 	public AVilain() {
                 super();
 	}
 
-	public AVilain(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, Texture texture) {
-        super(pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, armureMax, niveau, texture);		
+	public AVilain(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, MobType mobType) {
+        super(pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, armureMax, niveau, mobType);		
 	}
     public void changeStats() {
 

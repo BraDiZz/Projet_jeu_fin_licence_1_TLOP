@@ -1,7 +1,5 @@
 package untitledgame.personnages;
 
-import untitledgame.texture.Texture;
-
 /** 
 * Interface IPersonnage qui indique les actions de tous les persos
 * @version 19/04/2021
@@ -45,9 +43,9 @@ public interface IPersonnage {
     public int getNiveau();
 
     /**
-    * @return l'attribut texture du personnage
+    * @return l'attribut MobType du personnage
     */
-    public Texture getTexture();
+    public MobType getMobType();
 
     /**
     * @param nom nouveau nom

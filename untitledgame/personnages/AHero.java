@@ -1,8 +1,5 @@
 package untitledgame.personnages;
-
 import untitledgame.objets.*;
-import untitledgame.texture.*;
-import java.util.Vector;
 /**
 *   Classe abstraite AHero
 */
@@ -17,8 +14,7 @@ public abstract class AHero extends APersonnage {
 	* Represente l'xp a atteindre
 	*/
 	private int xpAAtteindre;
-	private Vector<Nourriture> sacDeNourriture;
-	private Vector<Boisson> sacDeBoissons;
+	private Inventaire inventaire;
     private int nombreItems;
     private final int nombreItemsMax = 10;
 
@@ -26,25 +22,22 @@ public abstract class AHero extends APersonnage {
 		super();
 		xp = 0;
 		xpAAtteindre = 200;
-		sacDeBoissons = new Vector<Boisson>();
-		sacDeBoissons.add(Boisson.JUS);
-		sacDeNourriture = new Vector<Nourriture>();
-		sacDeNourriture.add(Nourriture.POMME);
-        nombreItems = sacDeBoissons.size() + sacDeNourriture.size();
+        inventaire = new Inventaire();
+        nombreItems = inventaire.getTaille();
 
 	}
-	public AHero(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, Texture texture){
-        super(pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, armureMax, niveau, texture);
+	public AHero(int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int armureMax, int niveau, MobType mobType){
+        super(pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, armureMax, niveau, mobType);
         xp = 0;
         xpAAtteindre = 200;
 	}
 
 	/**
-	* methode gainXP qui permet de rajouter de l'xp au hero
+	* methode joueurMonteNiveau qui permet de rajouter de l'xp au hero
 	* @param xpGagne represente l'xp a rajouter
 	* @return vrai si le joueur gagne un niveau
 	*/
-	public boolean gainXP(int xpGagne) {
+	public boolean joueurMonteNiveau(int xpGagne) {
 
 		boolean gainNiveau = false;
 
@@ -73,12 +66,12 @@ public abstract class AHero extends APersonnage {
 	}
     
     /**
-    * methode joueurMonteNiveau qui permet de modifier le niveau et l'xp du joueur lorsqu'il atteint son xp maximal
+    * methode gainXP qui permet de modifier le niveau et l'xp du joueur lorsqu'il atteint son xp maximal
     * !! On appellera TOUJOURS cette fonction lorsque le joueur gagnera de l'xp
     * @param xpGagne qui sera l'xp a rajouter
     */
-	public  void joueurMonteNiveau(int xpGagne) {
-        if (gainXP(xpGagne)) {
+	public  void gainXP(int xpGagne) {
+        if (joueurMonteNiveau(xpGagne)) {
            changeStats();
         }
 	}
@@ -87,33 +80,17 @@ public abstract class AHero extends APersonnage {
     * methode manger qui permet de recuperer des pv
     * @param nourriture qui sera l'objet consommé  
     */ 
-    public void manger(Nourriture nourriture) { 
+    public void manger(ANourriture nourriture) { 
  
-    	if (nourriture == Nourriture.POMME ) {
-    		setPointsDeVie(10);
-    	}
-    	if (nourriture == Nourriture.PAIN) {
-    		setPointsDeVie(20);
-    	}
-    	if (nourriture == Nourriture.POULET) {
-    		setPointsDeVie(30);
-    	}
+        setPointsDeVie(nourriture.getPvRendus());
     }
     /**
     * methode boire qui permet de gagner de l'xp
     * @param boisson qui sera l'objet consommé
     */ 
-    public void boire(Boisson boisson) {
+    public void boire(ABoisson boisson) {
        
-        if (boisson == Boisson.JUS)  {
-        	joueurMonteNiveau(20);
-        }
-        if (boisson == Boisson.POTION) {
-        	joueurMonteNiveau(35);
-        }
-        if (boisson == Boisson.SUPERPOTION) {
-        	joueurMonteNiveau(60);
-        }
+        gainXP(boisson.getXpDonne());
     }
     /**
     * methode monstreVaincu qui donne de l'xp au joueur si il bat un monstre
@@ -136,7 +113,7 @@ public abstract class AHero extends APersonnage {
 
     public void changeStats() {
 
-        int niveau = getNiveau();
+
         // le ratio represente l'amelioration a apporter en pourcentage
         int ratio = 15;
         int pvARajouter = (int)(getPointsDeVie()*ratio/100);

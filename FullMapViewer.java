@@ -9,10 +9,10 @@ public class FullMapViewer extends JFrame {
         new FullMapViewer();
     }
 
-    private Map map = new Map(20, 20, 5646441l);
+    private Map map = new Map(9, 16, 5646441l);
     
     public FullMapViewer() {
-        setSize(1200,900);
+        setSize(1920,1080);
 	    setLocationRelativeTo(null);
 	    setTitle("Game save name");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +33,7 @@ public class FullMapViewer extends JFrame {
             for (int yChunk = 0; yChunk < map.getSizeY(); yChunk++) {
                 for (int xSquare = 0; xSquare < 15; xSquare++) {
                     for (int ySquare = 0; ySquare < 15; ySquare++) {
-                        squares[ySquare+yChunk*15][xSquare+xChunk*15].setTexture(map.getChunkAtPos(xChunk, yChunk).getContentAtPos(xSquare, ySquare).getTexture());
+                        squares[ySquare+xChunk*15][xSquare+yChunk*15].setTexture(map.getChunkAtPos(xChunk, yChunk).getContentAtPos(xSquare, ySquare).getTexture());
                     }
                 }
             }

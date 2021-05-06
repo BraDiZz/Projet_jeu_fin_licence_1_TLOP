@@ -9,22 +9,22 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 
 public class Square extends JLabel {
-    private IPersonnage mob;
     private int squarePosX;
     private int squarePosY;
-    private Texture texture;
+    private SquareType squareType;
+    private APersonnage mob;
 
-    public Square(Texture texture, int squarePosX, int squarePosY) {
+    public Square(SquareType squareType, int squarePosX, int squarePosY) {
         super();
         this.setPreferredSize(new Dimension(53, 53));
-        this.texture = texture;
+        this.squareType = squareType;
         this.squarePosX = squarePosX;
         this.squarePosY = squarePosY;
-        this.setIcon(texture);
+        this.setIcon(new Texture(squareType));
     }
 
     public Square() {
-        this(new Texture(TexturePath.GRASS3), 0, 0);
+        this(SquareType.GRASS3, 0, 0);
     }
 
     public int getPosX() {
@@ -35,23 +35,23 @@ public class Square extends JLabel {
         return squarePosY;
     }
 
-    public Texture getTexture() {
-        return texture;
+    public SquareType getSquareType() {
+        return squareType;
     }
 
-    public void setTexture(Texture texture) {
-        this.texture = texture;
+    public void setSquareType(SquareType squareType) {
+        this.squareType = squareType;
         repaint();
     }
 
-    public void setMob(IPersonnage mob) {
+    public void setMob(APersonnage mob) {
         this.mob = mob;
     }
 
     public void paint(Graphics g) {
-        g.drawImage(texture.getImage(), 0, 0, 53, 53, this);
+        g.drawImage(new Texture(squareType).getImage(), 0, 0, 53, 53, this);
         if (mob != null) {
-            g.drawImage(mob.getTexture().getImage(), 0, 0, 53, 53, this);
+            g.drawImage(new Texture(mob.getMobType()).getImage(), 0, 0, 53, 53, this);
         }
     }
 }
