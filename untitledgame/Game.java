@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import untitledgame.personnages.*;
 import untitledgame.terrain.*;
+import untitledgame.gamegui.*;
 
 public class Game extends JFrame {
     private JPanel grid = new JPanel();
@@ -76,11 +77,10 @@ public class Game extends JFrame {
         commande.add(touches);
         JPanel stats = new JPanel();
 
-        touches.setBackground(Color.black);
-
         commande.add(stats);
         stats.setBackground(Color.black);
 
+<<<<<<< HEAD
         JLabel[][] Fleche = new JLabel[3][3];
 
         for(int i=0;i<3;i++){
@@ -98,6 +98,11 @@ public class Game extends JFrame {
                 touches.add(Fleche[i][j]);
                 Fleche[i][j].setPreferredSize(new Dimension(50,50));    
             }
+=======
+        for (Direction value: Direction.values()) {
+            Fleche2 direction = new Fleche2(value);
+            touches.add(direction, value.layout);
+>>>>>>> main
         }
         
 
