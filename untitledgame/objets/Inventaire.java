@@ -1,4 +1,4 @@
-package objets;
+package untitledgame.objets;
 import java.util.Vector;
 
 /**

@@ -1,5 +1,5 @@
 package untitledgame.personnages;
-import objets.*;
+import untitledgame.objets.*;
 /**
 *   Classe abstraite AHero
 */

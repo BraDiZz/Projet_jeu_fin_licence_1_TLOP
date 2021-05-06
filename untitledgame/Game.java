@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.event.*;
 import untitledgame.personnages.*;
 import untitledgame.terrain.*;
-import untitledgame.gamegui.*;
 import untitledgame.objets.*;
 
 public class Game extends JFrame {
@@ -29,6 +28,7 @@ public class Game extends JFrame {
         map = new Map(mapSizeX, mapSizeY, seed);
         
         JPanel mainWindow = new JPanel();
+        mainWindow.setBackground(Color.black);
         mainWindow.setLayout(new FlowLayout());
 
         grid.setLayout(new GridLayout(15, 15));
@@ -54,6 +54,7 @@ public class Game extends JFrame {
         JPanel action = new JPanel();
         JPanel suraction = new JPanel();
         suraction.setLayout(new GridLayout(3,1));
+        suraction.setBackground(Color.black);
         info.add(suraction);
         suraction.add(preaction);
         suraction.add(action);
@@ -75,13 +76,14 @@ public class Game extends JFrame {
         commande.setLayout(new GridLayout(1,2));
 
         JPanel touches = new JPanel();
+        touches.setBackground(Color.black);
         commande.add(touches);
         JPanel stats = new JPanel();
 
         commande.add(stats);
         stats.setBackground(Color.black);
 
-        /*JLabel[][] Fleche = new JLabel[3][3];
+        JLabel[][] Fleche = new JLabel[3][3];
 
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
@@ -91,19 +93,19 @@ public class Game extends JFrame {
                 Fleche[1][2]= new Fleche("droite");
                 Fleche[2][1]= new Fleche("bas");
                 Fleche[i][j].repaint();
-                Fleche[0][1].addMouseListener(new ChangeMapButton(Direction.DOWN));
-                Fleche[2][1].addMouseListener(new ChangeMapButton(Direction.UP));
+                Fleche[0][1].addMouseListener(new ChangeMapButton(Direction.UP));
+                Fleche[2][1].addMouseListener(new ChangeMapButton(Direction.DOWN));
                 Fleche[1][0].addMouseListener(new ChangeMapButton(Direction.LEFT));
                 Fleche[1][2].addMouseListener(new ChangeMapButton(Direction.RIGHT));
                 touches.add(Fleche[i][j]);
                 Fleche[i][j].setPreferredSize(new Dimension(50,50));    
             }
-        }*/
+        }
 
-        for (Direction value: Direction.values()) {
+        /*for (Direction value: Direction.values()) {
             Fleche2 direction = new Fleche2(value);
             touches.add(direction, value.layout);
-        }
+        }*/
 
         
         
@@ -146,15 +148,15 @@ public class Game extends JFrame {
         public void mouseEntered(MouseEvent me){}
         public void mouseExited(MouseEvent me){}
         public void mousePressed(MouseEvent me){
-           /* Fleche fleche=(Fleche) me.getSource();
+            Fleche fleche=(Fleche) me.getSource();
             fleche.clique(true);
-            fleche.repaint();*/
+            fleche.repaint();
         }
         public void mouseReleased(MouseEvent me){
-           /* Fleche fleche=(Fleche) me.getSource();
+            Fleche fleche=(Fleche) me.getSource();
             fleche.clique(false);
             fleche.repaint();
-            */
+            
         }
     }
 }

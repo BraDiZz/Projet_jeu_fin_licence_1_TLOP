@@ -1,4 +1,4 @@
-package objets;
+package untitledgame.objets;
 
 public class Pomme extends ANourriture {
 
