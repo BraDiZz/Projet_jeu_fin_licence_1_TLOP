@@ -19,8 +19,8 @@ public class Main extends JFrame {
     private JComboBox characterType = new JComboBox(type);
 
     public static void main(String[] args) {
-        new Game(5, 5, 564564l);
-        //new Main();
+        //new Game(5, 5, 564564l);
+        new Main();
     }
 
     public Main() {

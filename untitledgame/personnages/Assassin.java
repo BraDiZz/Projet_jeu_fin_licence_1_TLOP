@@ -1,14 +1,7 @@
 package untitledgame.personnages;
 
 public class Assassin extends AHero {
-	
-	public Assassin() {
-	   super();
-       setNom("Assassin");
-	}
-
-	public Assassin(String nom) {
-	   super(150, 150, 90, 0, 10, 1, MobType.MURDERER);
-	   setNom(nom);
+	public Assassin(String nom, int squarePosX, int squarePosY) {
+	   super(nom, 150, 150, 90, 0, 1, squarePosX, squarePosY, MobType.MURDERER);
 	}
 }

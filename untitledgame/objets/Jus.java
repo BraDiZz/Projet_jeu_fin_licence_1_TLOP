@@ -1,8 +1,7 @@
 package untitledgame.objets;
 
-public class Jus extends ABoisson {
-	
+public class Jus extends AObjet {
 	public Jus() {
-	   final int xpDonne = 20;
+	   super(0, 20, ObjetType.JUS);
 	}
 }

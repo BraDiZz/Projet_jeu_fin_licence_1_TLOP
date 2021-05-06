@@ -60,7 +60,7 @@ public class Map {
 
     public void addMobAtPos(APersonnage mob, Chunk chunk, int xSquare, int ySquare) {
         try {
-            if (chunk == null ^ xSquare < 0 ^ySquare < 0 ^ xSquare > 14 ^ ySquare > 14) {
+            if (chunk == null ^ xSquare < 0 ^ ySquare < 0 ^ xSquare > 14 ^ ySquare > 14) {
                 throw new IllegalArgumentException("Chunk is null, or square position is invalid. (must be [0;14]");
             }
             mob.squarePosX = chunk.getChunkPosX()*15+xSquare;
@@ -83,7 +83,6 @@ public class Map {
                 }
                 mob.squarePosX = xNextPosition;
                 mob.squarePosY = yNextPosition;
-                System.out.println(getCurrentlyLoadedChunk().getChunkPosX() + " " + getCurrentlyLoadedChunk().getChunkPosY() + " " + curChunkX + " " + curChunkY);
                 map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].setMobAtPos(mob, mob.squarePosX%15, mob.squarePosY%15);
             }
         }

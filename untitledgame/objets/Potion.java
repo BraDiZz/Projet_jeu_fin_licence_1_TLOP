@@ -1,8 +1,7 @@
 package untitledgame.objets;
 
-public class Potion extends ABoisson {
-	
+public class Potion extends AObjet {
 	public Potion() {
-	    final int xpDonne = 35;
+	    super(0, 35, ObjetType.POTION);
 	}
 }

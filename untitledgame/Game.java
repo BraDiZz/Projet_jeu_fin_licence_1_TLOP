@@ -23,7 +23,7 @@ public class Game extends JFrame {
         setResizable(false);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        player = new Archer();
+        player = new Archer("BORDEL", 5, 5);
 
         map = new Map(mapSizeX, mapSizeY, seed);
         
@@ -35,7 +35,7 @@ public class Game extends JFrame {
         
         loadChunk(map.getCurrentlyLoadedChunk());
 
-        map.addMobAtPos(player, map.getCurrentlyLoadedChunk(), 0, 0);
+        map.addMobAtPos(player, map.getCurrentlyLoadedChunk(), 8, 8);
 
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(3,1));
@@ -156,7 +156,6 @@ public class Game extends JFrame {
             Fleche fleche=(Fleche) me.getSource();
             fleche.clique(false);
             fleche.repaint();
-            
         }
     }
 }

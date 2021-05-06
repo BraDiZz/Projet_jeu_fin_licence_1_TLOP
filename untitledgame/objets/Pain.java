@@ -1,10 +1,7 @@
 package untitledgame.objets;
 
-public class Pain extends ANourriture {
-      
+public class Pain extends AObjet {
     public Pain() {
-    	final int pvRendus = 20;
+    	super(20, 0, ObjetType.PAIN);
     }
-     
-
 }
