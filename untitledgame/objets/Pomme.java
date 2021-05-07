@@ -1,8 +1,7 @@
 package untitledgame.objets;
 
-public class Pomme extends ANourriture {
-
+public class Pomme extends AObjet {
 	public Pomme() {
-		final int pvRendus = 10;
+		super(10, 0, ObjetType.POMME);
 	}
 }

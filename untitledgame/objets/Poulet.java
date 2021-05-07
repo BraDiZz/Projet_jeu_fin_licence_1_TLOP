@@ -1,8 +1,7 @@
 package untitledgame.objets;
 
-public class Poulet extends ANourriture {
-
+public class Poulet extends AObjet {
 	public Poulet() {
-		final int pvRendus = 30;
+		super(30, 0, ObjetType.POULET);
 	}
 }
