@@ -1,114 +1,108 @@
 package untitledgame.personnages;
-
-/** 
-* Interface IPersonnage qui indique les actions de tous les persos
-* @version 19/04/2021
-* @author Kouadjo
-*/
+/**
+ * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
+ * @version 10/05/2021
+ */
 public interface IPersonnage {
-
     /**
-    * @return le nom du personnage
-    */
+     * Getter pour le nom du personnage
+     * @return String
+     */
     public String getNom();
-
     /**
-    * @return le nombre de points de vie
-    */
+     * Getter pour le nombre de points de vie du personnage
+     * @return int
+     */
 	public int getPointsDeVie();
-    
     /**
-    * @return les points de vie max 
-    */
+     * Getter pour le nombre de points de vie maximum du personnage
+     * @return int
+     */
     public int getPointsDeVieMax();
-
-	/** 
-	* @return les points d'armure
-	*/
+    /**
+     * Getter pour l'armure du personnage
+     * @return int
+     */
 	public int getArmure();
-    
     /**
-    * @return l'armure max 
-    */
+     * Getter pour l'armure maximum du personnage
+     * @return int
+     */
     public int getArmureMax();
-
     /**
-    * @return les points d'attaque
-    */
+     * Getter pour les points de degats du personnage
+     * @return int
+     */
 	public int getPointsDAttaque();
-    
     /**
-    * @return le niveau du personnage
-    */
+     * Getter pour le niveau du personnage
+     * @return
+     */
     public int getNiveau();
-
     /**
-    * @return l'attribut MobType du personnage
-    */
+     * Gette pour le type du personnage
+     * @return MobType
+     */
     public MobType getMobType();
-
     /**
-    * @param nom nouveau nom
-    */
+     * Setter pour le nom du personnage
+     * @param nom String
+     */
     public void setNom(String nom);
-    
     /**
-    * @param pvARajouter qui seront les pv a rajouter
-    */
+     * Setter pour les points de vie a rajouter du personnage
+     * @param pvARajouter int
+     */
     public void setPointsDeVie(int pvARajouter);
-
     /**
-    * @param pvARajouter qui seront les pv max a rajouter
-    */
+     * Setter pour les points de vie max a rajouter du personnage
+     * @param pvARajouter int
+     */
     public void setPointsDeVieMax(int pvARajouter);
-
     /**
-    * setter de niveau 
-    * @param niveau que  l'on rajoute (généralement 1)
-    */
+     * Setter pour le niveau du personnage
+     * @param niveau int
+     */
     public void setNiveau(int niveau);
-
     /**
-    * @param armureARajouter qui sera l'armure a rajouter
-    */
+     * Setter pour l'armure a rajouter du personnage
+     * @param armureARajouter int
+     */
     public void setArmure(int armureARajouter);
-
     /**
-    * @param armureARajouter qui sera l'armure max a rajouter
-    */
+     * Setter pour l'armure max a rajouter du personnage
+     * @param armureARajouter int
+     */
     public void setArmureMax(int armureARajouter);
-
     /**
-    * @param pointsAttaqueARajouter qui seront les points d'attaque a rajouter
-    */
+     * Setter pour les points d'attaque a rajouter du personnage
+     * @param pointsAttaqueARajouter int
+     */
     public void setPointsDAttaque(int pointsAttaqueARajouter);
-
-
-	/**
-	* @param degats les degats infligés
-	* @return vrai si l'unité est tuée, faux sinon
-	*/
+    /**
+     * Methode qui fait subir une attaque sur le personnage
+     * @param degats int
+     * @return boolean
+     */
 	public boolean subirAttaque(int degats);
-
-	/**
-	* @param p personnage a attaquer
-	* @return true si l'unité est tuée, faux sinon.
-	*/
+    /**
+     * Methode pour attaquer un personnage
+     * @param p IPersonnage
+     * @return boolean
+     */
     public boolean attaquer(IPersonnage p);
-
     /**
-    * @return true si je personnage est en vie, faux sinon.
-    */
+     * Methode pour savoir si le personnage a encore des points de vie ou non
+     * @return boolean
+     */
     public boolean estEnVie();
-
     /**
-    * @return les stats du personnage sous forme de String
-    */
+     * Methode qui permet d'afficher toutes les statistiques du personnage
+     * @return string
+     */
     public String toString();
-
     /**
-    * Permet de changer les stats du personnage en fonction du niveau
+    * Methode qui permet de changer les statistiques du personnage en fonction du niveau
     */
     public void changeStats();
-
 }

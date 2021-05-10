@@ -1,34 +1,44 @@
 package untitledgame.gamegui;
 
 import java.awt.*;
-import javax.swing.*;
-
+/**
+ * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
+ * @version 10/05/2021
+ */
 public class Fleche extends javax.swing.JLabel
 {
-    private String direction;
-    private String etat; 
-    private boolean clique;
-    
-
-    public Fleche(String direction)
-    {
-      
-      etat=direction;
-
-
-    }
-
-    public void clique(boolean clique){
-      this.clique=clique;
-    }
-
-   
-
-    @Override
-    public void paint(Graphics g)
-
-  {
-
+  /**
+   * Un String pour connaitre la direction de la fleche cliquee
+   */
+  private String direction;
+  /**
+   * Un String pour connaitre l'etat de la fleche
+   */
+  private String etat; 
+  /**
+   * Un boolean pour savoir si la fleche est cliquee ou non
+   */
+  private boolean clique;
+  /**
+   * Constructeur par initialisation
+   * @param direction String
+   */
+  public Fleche(String direction) {
+    etat=direction;
+  }
+  /**
+   * Setter qui change la valeur du clique
+   * @param clique boolean
+   */
+  public void clique(boolean clique) {
+    this.clique=clique;
+  }
+  /**
+   * Methode pour changer l'apparence des boutons de deplacement
+   * @param g Graphics
+   */
+  @Override
+  public void paint(Graphics g) {
     super.paint(g);
 
     int largeur = (int)getWidth();
@@ -63,12 +73,7 @@ public class Fleche extends javax.swing.JLabel
       g.drawLine(0,hauteur/2,largeur/2,hauteur);
       g.drawLine(largeur/2,hauteur,largeur,hauteur/2);
     }
-    
-
-    
-    
-
-
+  
     /*g.setColor(java.awt.Color.RED);
     g.drawLine(0,0,largeur,hauteur);
     g.drawLine(0,hauteur,largeur,0);
@@ -76,6 +81,5 @@ public class Fleche extends javax.swing.JLabel
     //g.setColor(java.awt.Color.ORANGE);
     //g.drawOval(0,0,largeur,hauteur);
     */
-
   }
 }

@@ -1,24 +1,39 @@
 package untitledgame.personnages;
 
-import java.util.Vector;
 import untitledgame.objets.*;
 /**
-*   Classe abstraite AHero
-*/
-
+ * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
+ * @version 10/05/2021
+ */
 public abstract class AHero extends APersonnage {
-
     /**
-    * Attribut xp qui represente l'experience qu'accumule le hero
+    * Un int pour la quantite d'experience que le personnage a
     */
 	private int xp;
 	/**
-	* Represente l'xp a atteindre
+	* Un int pour la quantite d'experience que le personnage doit avoir avant de monter de niveau
 	*/
 	private int xpAAtteindre;
+    /**
+     * Un Inverntaire pour le contenu de tous les objets qu'il possede
+     */
 	private Inventaire inventaire;
+    /**
+     * Un int pour le nombre d'objets qu'il possede dans son inventaire
+     */
     private int nombreItems;
-
+    /**
+     * Constructeur par initialisation
+     * @param nom String
+     * @param pointsDeVie int
+     * @param pointsDeVieMax int
+     * @param pointsDAttaque int
+     * @param armure int
+     * @param niveau int
+     * @param squarePosX int
+     * @param squarePosY int
+     * @param mobType MobType
+     */
 	public AHero(String nom, int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int niveau, int squarePosX, int squarePosY, MobType mobType) {
         super(nom, pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, niveau, squarePosX, squarePosY, mobType);
         xp = 0;
@@ -26,32 +41,32 @@ public abstract class AHero extends APersonnage {
         inventaire = new Inventaire();
         nombreItems = inventaire.getTaille();
 	}
-
+    /**
+     * Getter pour l'inventaire
+     * @return Inventaire
+     */
     public Inventaire getInventaire() {
         return inventaire;
     }
-    
     /**
-    * getter de l'attribut xp 
-    * @return xp
+    * Getter pour l'experience 
+    * @return int
     */
 	public int getXp() {
 		return xp;
 	}
-
     /**
-    * getter de l'attribut xpAAtteindre
-    * @return xpAAtteindre
+    * Getter pour l'experience a atteindre pour monter de niveau
+    * @return int
     */
 	public int getXpAAtteindre() {
 		return xpAAtteindre;
 	}
-    
     /**
-    * methode gainXP qui permet de modifier le niveau et l'xp du joueur lorsqu'il atteint son xp maximal
-    * !! On appellera TOUJOURS cette fonction lorsque le joueur gagnera de l'xp
-    * @param xpGagne qui sera l'xp a rajouter
+    * Methode pour augmenter le niveau du personnage si l'experience est suffisante
+    * @param xpGagne int
     */
+    //!! On appellera TOUJOURS cette fonction lorsque le joueur gagnera de l'xp
 	public void gainXP(int xpGagne) {
         xp += xpGagne;
         if (xp >= xpAAtteindre) {
@@ -59,27 +74,25 @@ public abstract class AHero extends APersonnage {
             xp = 0;
         }
 	}
-
     /** 
-    * methode manger qui permet de recuperer des pv
-    * @param nourriture qui sera l'objet consommé  
+    * Methode pour consommer un objet
+    * @param nourriture AObjet
     */ 
     public void consommerObjet(AObjet objet) {
         addPointsDeVie(objet.getPvRendus());
         gainXP(objet.getXpDonne());
     }
-
     /**
-	* setter de pointsDeVie
-	* @param pvARajouter qui seront les pv a rajouter
+	* Setter pour les PV
+	* @param pvARajouter int
 	*/
 	public void addPointsDeVie(int pvARajouter) {
 		pointsDeVie = (pointsDeVie + pvARajouter) > pointsDeVieMax ? pointsDeVieMax : (pointsDeVie + pvARajouter);
 	}
-
     /**
-    * methode monstreVaincu qui donne de l'xp au joueur si il bat un monstre
-    * @param vilain qui sera le monstre a battre
+    * Methode pour donner de l'experience au personnage si l'ennemi est vaincu
+    * @param vilain AVilain
+    * @return boolean
     */
     public boolean monstreVaincu(AVilain vilain) {
         boolean monstreVaincu = false;
@@ -92,7 +105,9 @@ public abstract class AHero extends APersonnage {
         }
         return monstreVaincu;
     }
-
+    /**
+     * Methode pour mettre a jour les statistiques du personnage si il monte de niveau
+     */
     public void actualiserStats() {
         int ratio = 15;
         pointsDeVie = (int)(pointsDeVie*ratio/100);

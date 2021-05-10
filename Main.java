@@ -3,31 +3,62 @@ import untitledgame.Game;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.io.File;
-import javax.imageio.ImageIO;
-import java.io.IOException;
 import untitledgame.titlescreen.JBackgroundPanel;
-
+/**
+ * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
+ * @version 10/05/2021
+ */
 public class Main extends JFrame {
+    /**
+     * Un JBackgroudPanel pour le fond de la fenetre de demarrage
+     */
     private JBackgroundPanel mainWindow = new JBackgroundPanel("assets/titlescreen/background.png", new GridBagLayout());
+    /**
+     * Un JTextField pour le nom du monde
+     */
     private JTextField worldName = new JTextField();
+    /**
+     * Un JTextField pour la seed
+     */
     private JTextField seed = new JTextField();
+    /**
+     * Un JTextField pour la taille du monde en longueur
+     */
     private JTextField sizeX = new JTextField();
+    /**
+     * Un JTextField pour la taille du monde en largeur
+     */
     private JTextField sizeY = new JTextField();
+    /**
+     * Un JTextField pour le nom du personnage
+     */
     private JTextField characterName = new JTextField();
+    /**
+     * Un tableau de String pour le type du APersonnage
+     */
     private String[] type = {"Archer", "Assassin", "Chevalier"};
+    /**
+     * Un JComboBox pour le choix de tous les types de APersonnage
+     */
     private JComboBox characterType = new JComboBox(type);
-
+    /**
+     * Methode pour executer le programme
+     * @param args String[]
+     */
     public static void main(String[] args) {
         //new Game(5, 5, 564564l);
         new Main();
     }
-
+    /**
+     * Constructeur par defaut
+     */
     public Main() {
         init();
         mainMenu();
     }
-
+    /**
+     * Methode pour creer la fenetre et initialiser toutes les fonctions de base
+     */
     public void init() {
         int windowWidth = 1280;
         int windowHeight = 720;
@@ -40,7 +71,9 @@ public class Main extends JFrame {
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
-
+    /**
+     * Methode pour creer l'interface du menu dans la fenetre
+     */
     public void mainMenu() {
         mainWindow.removeAll();
 
@@ -81,7 +114,9 @@ public class Main extends JFrame {
         validate();
         repaint();
     }
-
+    /**
+     * Methode pour creer l'interface du monde dans la fenetre
+     */
     public void createWorld() {
         mainWindow.removeAll();
 
@@ -151,7 +186,10 @@ public class Main extends JFrame {
         validate();
         repaint();
     }
-
+    /**
+     * Methode pour verifier que tous les JTextField soient bien remplis
+     * @return boolean
+     */
     public boolean validateWorld() {
         boolean verify = true;
         String[] fields = {worldName.getText(), seed.getText(), sizeX.getText(), sizeY.getText(), characterName.getText()};
@@ -174,14 +212,26 @@ public class Main extends JFrame {
 
         return(verify);
     }
-
+    /**
+     * Class pour le bouton "Quitter"
+     */
     public class QuitButton implements ActionListener {
+        /**
+         * Methode lorsque le bouton est clique
+         * @param e ActionEvent
+         */
         public void actionPerformed(ActionEvent e) {
             System.exit(0);
         }
     }
-
+    /**
+     * Class pour le bouton "Creer le monde"
+     */
     public class ValidateWorldSettings implements ActionListener {
+        /**
+         * Methode lorsque le bouton est clique
+         * @param e ActionEvent
+         */
         public void actionPerformed(ActionEvent e) {
             if (validateWorld()) {
                 setVisible(false);
@@ -189,15 +239,26 @@ public class Main extends JFrame {
             }
         }
     }
-
+    /**
+     * Class pour le bouton "Retour"
+     */
     public class BackButton implements ActionListener {
+        /**
+         * Methode lorsque le bouton est clique
+         * @param e ActionEvent
+         */
         public void actionPerformed(ActionEvent e) {
             mainMenu();
         }
     }
-    
-
+    /**
+     * Class pour le bouton "Nouvelle partie"
+     */
     public class CreateWorldButton implements ActionListener {
+        /**
+         * Methode lorsque le bouton est clique
+         * @param e ActionEvent
+         */
         public void actionPerformed(ActionEvent e) {
             createWorld();
         }
