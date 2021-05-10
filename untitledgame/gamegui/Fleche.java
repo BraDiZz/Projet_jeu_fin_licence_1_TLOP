@@ -1,4 +1,4 @@
-package untitledgame.terrain;
+package untitledgame.gamegui;
 
 import java.awt.*;
 import javax.swing.*;
@@ -34,7 +34,7 @@ public class Fleche extends javax.swing.JLabel
     int largeur = (int)getWidth();
     int hauteur = (int)getHeight();
   
-    g.setColor(Color.magenta);
+    g.setColor(new Color(255,0,251));
 
     if(clique==true){
       g.setColor(Color.cyan);
