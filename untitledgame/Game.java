@@ -6,6 +6,7 @@ import java.awt.event.*;
 import untitledgame.personnages.*;
 import untitledgame.terrain.*;
 import untitledgame.objets.*;
+import untitledgame.gamegui.*;
 
 public class Game extends JFrame {
     private JPanel grid = new JPanel();
@@ -41,9 +42,9 @@ public class Game extends JFrame {
         info.setLayout(new GridLayout(3,1));
 
         mainWindow.add(grid);
-        grid.setBorder(BorderFactory.createLineBorder(Color.blue));
+        
         mainWindow.add(info);
-        info.setBorder(BorderFactory.createLineBorder(Color.red));
+        info.setBorder(BorderFactory.createLineBorder(Color.black));
         info.setPreferredSize(new Dimension(350,800));
         
         JPanel preaction = new JPanel();
@@ -76,12 +77,56 @@ public class Game extends JFrame {
         commande.setLayout(new GridLayout(1,2));
 
         JPanel touches = new JPanel();
-        touches.setBackground(Color.black);
-        commande.add(touches);
+        touches.setBackground(new Color(255,220,155));
         JPanel stats = new JPanel();
-
+        commande.add(touches);
         commande.add(stats);
-        stats.setBackground(Color.black);
+        stats.setBackground(new Color(41,2,186));
+        
+        stats.setLayout(new GridLayout(3,3));
+
+        JLabel att = new JLabel("attaque");
+        att.setPreferredSize(new Dimension(50,50));
+        att.setFont(new Font("Serif", Font.BOLD, 14));
+        att.setForeground(new Color(255,131,0));
+        JLabel att2 = new JLabel("80");
+        att2.setPreferredSize(new Dimension(50,50));
+        att2.setFont(new Font("Serif", Font.BOLD, 14));
+        att2.setForeground(new Color(255,131,0));
+
+        JLabel def = new JLabel("defense");
+        def.setFont(new Font("Serif", Font.BOLD, 14));
+        def.setForeground(new Color(3,127,252));
+        JLabel def2 = new JLabel("80");
+        def2.setFont(new Font("Serif", Font.BOLD, 14));
+        def2.setForeground(new Color(3,127,252));
+
+        JLabel autre = new JLabel("autre");
+        autre.setFont(new Font("Serif", Font.BOLD, 14));
+        autre.setForeground(new Color(255,0,162));
+        JLabel autre2 = new JLabel("80");
+        autre2.setFont(new Font("Serif", Font.BOLD, 14));
+        autre2.setForeground(new Color(255,0,162));
+
+        JLabel invisible1 = new JLabel();
+        JLabel invisible2 = new JLabel();
+        JLabel invisible3 = new JLabel();
+
+        stats.add(invisible1);
+        stats.add(att);
+        stats.add(att2);
+        stats.add(invisible2);
+        stats.add(def);
+        stats.add(def2);
+        stats.add(invisible3);
+        stats.add(autre);
+        stats.add(autre2);
+
+        JLabel bord = new JLabel();
+        touches.add(bord);
+        bord.setPreferredSize(new Dimension(200,47));
+
+
 
         JLabel[][] Fleche = new JLabel[3][3];
 
