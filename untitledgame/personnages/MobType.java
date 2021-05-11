@@ -11,11 +11,37 @@ package untitledgame.personnages;
  * {@link #UNKNOWN}
  */
 public enum MobType {
+    /**
+     * Type du Mob est un Archer
+     */
     ARCHER("assets/textures/personnage/Archer.png"),
+    /**
+     * Type du Mob est un Assassin
+     */
     MURDERER("assets/textures/personnage/Assassin.png"),
+    /**
+     * Type du Mob est un Boss
+     */
     BOSS("assets/textures/personnage/Boss.png"),
+    /**
+     * Type du Mob est un Chevalier
+     */
     KNIGHT("assets/textures/personnage/Chevalier.png"),
+    /**
+     * Type du Mob est un Loup
+     */
     WOLF("assets/textures/personnage/Loup.png"),
+    /**
+     * Type du Mob est un Orc
+     */
+    ORC("assets/textures/personnage/Orc.png"),
+    /**
+     * Type du Mob est un Squelette
+     */
+    SKELETON("assets/textures/personnage/Squelette.png"),
+    /**
+     * Type du Mob est Inconnu
+     */
     UNKNOWN("assets/textures/personnage/Inconnu.png");
     /**
      * Un String pour le chemin de l'image du mob

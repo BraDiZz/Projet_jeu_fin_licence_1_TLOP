@@ -1,5 +1,6 @@
 package untitledgame.terrain;
 
+import untitledgame.objets.*;
 import untitledgame.personnages.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
@@ -153,7 +154,7 @@ public class Map {
      * @param mob Le personnage a deplacer
      * @param direction La direction dans laquelle le personnage se dirige
      */
-    public void changeMobPos(APersonnage mob, Direction direction) {
+    public void changeMobPos(AHero mob, Direction direction) {
         int xNextPosition = mob.squarePosX+direction.x;
         int yNextPosition = mob.squarePosY+direction.y;
         if (xNextPosition >= 0 && xNextPosition < sizeX*15 && yNextPosition >= 0 && yNextPosition < sizeY*15) {
@@ -169,7 +170,8 @@ public class Map {
 
                 Square square = map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].getContentAtPos(mob.squarePosX%15, mob.squarePosY%15);
                 if (square.getSquareType() == SquareType.TREE) {
-                    square.setSquareType(SquareType.GRASS3);
+                    square.setSquareType(SquareType.SOUCHE);
+                    mob.getInventaire().ajouterObjet(new Buche());
                 }
             }
         }

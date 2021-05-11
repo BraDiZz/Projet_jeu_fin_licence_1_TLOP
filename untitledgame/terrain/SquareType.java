@@ -16,20 +16,60 @@ package untitledgame.terrain;
  * {@link #GRASS3}
  * {@link #BIG_ROCK}
  * {@link #SAND}
+ * {@link #WOOD}
+ * {@link #SOUCHE}
  */
 public enum SquareType {
+    /**
+     * Type du Square d'un arbre sans hitbox
+     */
     TREE("assets/textures/terrain/Arbre.png", false),
-    BUSHES("assets/textures/terrain/Buisson.png", false),
+    /**
+     * Type du Square d'un buisson sans hitbox
+     */
+    BUSHES("assets/textures/terrain/Buisson.png", true),
+    /**
+     * Type du Square d'un caillou avec hitbox
+     */
     ROCK("assets/textures/terrain/Caillou.png", true),
+    /**
+     * Type du Square d'un coffre sans hitbox
+     */
     CHEST("assets/textures/terrain/Coffre.png", false),
+    /**
+     * Type du Square de l'eau avec hitbox
+     */
     WATER1("assets/textures/terrain/Eau1.png", true),
     WATER2("assets/textures/terrain/Eau2.png", true),
     WATER3("assets/textures/terrain/Eau3.png", true),
+    /**
+     * Type du Square d'herbe haute sans hitbox
+     */
     GRASS1("assets/textures/terrain/Herbe1.png", false),
+    /**
+     * Type du Square d'herbe avec fleurs sans hitbox
+     */
     GRASS2("assets/textures/terrain/Herbe2.png", false),
+    /**
+     * Type du Square d'herbe simple sans hitbox
+     */
     GRASS3("assets/textures/terrain/Herbe3.png", false),
+    /**
+     * Type du Square d'un rocher avec hitbox
+     */
     BIG_ROCK("assets/textures/terrain/Rocher.png", true),
-    SAND("assets/textures/terrain/Sable.png", false);
+    /**
+     * Type du Square de sable sans hitbox
+     */
+    SAND("assets/textures/terrain/Sable.png", false),
+    /**
+     * Type du Square de bois sans hitbox
+     */
+    WOOD("assets/textures/terrain/Bois.png", false),
+    /**
+     * Type du Square de souche sans hitbox
+     */
+    SOUCHE("assets/textures/terrain/Souche.png", true);
     /**
      * Un String pour le chemin de la texture
      */

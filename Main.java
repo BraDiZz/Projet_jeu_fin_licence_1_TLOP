@@ -169,7 +169,7 @@ public class Main extends JFrame {
         bottom.gridy = 2;
 
         JPanel bottomArea = new JPanel();
-        JButton[] actions = {new JButton("Créer le monde"), new JButton("Retour")};
+        JButton[] actions = {new JButton("Cr\u00e9er le monde"), new JButton("Retour")};
 
         for (JButton x : actions) {
             x.setPreferredSize(new Dimension(150, 25));

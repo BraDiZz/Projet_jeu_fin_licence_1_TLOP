@@ -56,7 +56,7 @@ public class Game extends JFrame {
         loadChunk(map.getCurrentlyLoadedChunk());
 
         map.spawnMob(player, map.getCurrentlyLoadedChunk());
-
+        
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(3,1));
 
@@ -81,12 +81,12 @@ public class Game extends JFrame {
         suraction.add(action);
         action.setLayout(new GridLayout(1,3));
 
-        JButton attack = new JButton("attaque");
+        JButton attack = new JButton("Attaque");
         action.add(attack);
         JLabel milieu = new JLabel();
         action.add(milieu);
         milieu.setBackground(Color.black);
-        JButton defend = new JButton("defense");
+        JButton defend = new JButton("D\u00e9fense");
         action.add(defend);
 
 		player.getInventaire().setBorder(BorderFactory.createLineBorder(Color.red));

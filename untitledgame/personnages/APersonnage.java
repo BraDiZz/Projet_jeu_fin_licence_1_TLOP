@@ -41,7 +41,7 @@ public abstract class APersonnage {
 	 */
 	private MobType mobType;
 	/** 
-	* Constructeur par initialisation 
+	* Constructeur par initialisation pour le joueur
 	* @param pointsDeVie int
 	* @param pointsDeVieMax int
 	* @param pointsDAttaque int
@@ -63,7 +63,7 @@ public abstract class APersonnage {
 		this.mobType = mobType;
 	}
 	/**
-	 * Constructeur par initialisation
+	 * Constructeur par initialisation pour les ennemis
 	 * @param niveau int
 	 * @param squarePosX int
 	 * @param squarePosY int
