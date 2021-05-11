@@ -57,8 +57,16 @@ public abstract class AObjet extends JLabel {
         return type;
     }
 
-    public boolean addToStack(int add) {
-        
+    public int addToStack(int add) {
+        int newCount = count + add;
+        int remainder = 0;
+        if (newCount > 16) {
+            remainder = newCount%16;
+            count = 16;
+        } else {
+            count = newCount;
+        }
+        return(remainder);
     }
 
     public void paint(Graphics g) {

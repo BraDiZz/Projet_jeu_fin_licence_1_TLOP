@@ -42,16 +42,7 @@ public class Inventaire extends JPanel {
 		listeObjets.add(new Pomme());
 		listeObjets.add(new Superpotion());
 		listeObjets.add(new Buche());
-		/*listeObjets.add(new Pain());
-		listeObjets.add(new Pain());
-		listeObjets.add(new Pain());
-		listeObjets.add(new Pain());
-		listeObjets.add(new Pain());
-		listeObjets.add(new Pain());
-		listeObjets.add(new Pain());
-		listeObjets.add(new Pain());
-		listeObjets.add(new Pain());
-		listeObjets.add(new Pain());*/
+
 		GridBagConstraints test = new GridBagConstraints();
 		test.gridx = 0;
 		test.gridy = 0;
@@ -87,6 +78,26 @@ public class Inventaire extends JPanel {
 	}
 
 	public boolean addObjetToInv(AObjet objet) {
+		int existsInInv = searchInInv(objet);
+		if 
 		
+	}
+
+	public int[] searchInInv(AObjet objet) {
+		Vector<int> timesInInv0 = new Vector<int>();
+		int[] timesInInv;
+		for (i = 0; i < listeObjets.size(); i++) {
+			if (listeObjets.get(i).getType() == objet.getType()) {
+				timesInInv0.add(i);
+			}
+		}
+
+		timesInInv = timesInInv0.toArray();
+
+		if (i == listeObjets.size()) {
+			i = -1;
+		}
+
+		return(i);
 	}
 }
