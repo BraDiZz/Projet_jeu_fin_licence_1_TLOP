@@ -19,6 +19,7 @@ public abstract class AObjet extends JLabel {
      * Un ObjetType pour caracteriser le type de l'objet
      */
     private ObjetType type;
+    private int count;
     /**
      * Constructeur par initialisation
      * @param pvRendus int
@@ -31,6 +32,7 @@ public abstract class AObjet extends JLabel {
         this.pvRendus = pvRendus;
         this.xpDonne = xpDonne;
         this.type = type;
+        this.count = 1;
         this.setIcon(new Texture(type));
     }
     /**
@@ -55,9 +57,13 @@ public abstract class AObjet extends JLabel {
         return type;
     }
 
+    public boolean addToStack(int add) {
+        
+    }
+
     public void paint(Graphics g) {
         g.drawImage(new Texture(type).getImage(), 0, 0, 53, 53, this);
         g.setColor(Color.BLUE);
-        g.drawString("0", 0, 0);
+        g.drawString(Integer.toString(count), 40, 50);
     }
 }

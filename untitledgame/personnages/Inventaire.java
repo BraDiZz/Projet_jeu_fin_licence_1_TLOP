@@ -85,4 +85,8 @@ public class Inventaire extends JPanel {
 	public int getTaille() {
 		return listeObjets.size();
 	}
+
+	public boolean addObjetToInv(AObjet objet) {
+		
+	}
 }
