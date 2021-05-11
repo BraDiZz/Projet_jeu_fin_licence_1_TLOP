@@ -81,6 +81,15 @@ public class Square extends JLabel {
     public void setMob(APersonnage mob) {
         this.mob = mob;
     }
+
+    /**
+     * Méthode pour vérifier si le Square est valide
+     * @return un booléen
+     */
+    public boolean isSpawnValid() {
+        return (mob == null && !squareType.hasBoundingBox);
+    }
+
     /**
      * Methode pour changer l'apparence du Square
      * @param g Graphics

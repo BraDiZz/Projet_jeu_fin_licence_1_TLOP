@@ -123,6 +123,31 @@ public class Map {
             err.printStackTrace();
         }
     }
+
+    public int[] findValidSpawn(Chunk chunk) {
+        int xValid = -1;
+        int yValid = -1;
+        boolean stop = false;
+
+        while (!(stop)) {
+            yValid++;
+            while (!(stop)) {
+                xValid++;
+                if (chunk.getContentAtPos(xValid, yValid).isSpawnValid()) {
+                    stop = true;
+                }
+            }
+        }
+        int[] pos = {xValid, yValid};
+
+        return(pos);
+    }
+
+    public void spawnMob(APersonnage mob, Chunk chunk) {
+        int[] pos = findValidSpawn(chunk);
+        addMobAtPos(mob, chunk, pos[0], pos[1]);
+    }
+
     /**
      * Methode pour la prochaine position du personnage
      * @param mob Le personnage a deplacer
@@ -141,9 +166,10 @@ public class Map {
                 mob.squarePosX = xNextPosition;
                 mob.squarePosY = yNextPosition;
                 map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].setMobAtPos(mob, mob.squarePosX%15, mob.squarePosY%15);
-                SquareType type = map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].getContentAtPos(mob.squarePosX%15, mob.squarePosY%15).getSquareType();
-                if(type == SquareType.TREE || type == SquareType.BUSHES) {
-                    System.out.println("rest");
+
+                Square square = map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].getContentAtPos(mob.squarePosX%15, mob.squarePosY%15);
+                if (square.getSquareType() == SquareType.TREE) {
+                    square.setSquareType(SquareType.GRASS3);
                 }
             }
         }

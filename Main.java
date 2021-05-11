@@ -46,8 +46,8 @@ public class Main extends JFrame {
      * @param args String[]
      */
     public static void main(String[] args) {
-        //new Game(5, 5, 564564l);
-        new Main();
+        new Game(5, 5, 1l);
+        //new Main();
     }
     /**
      * Constructeur par defaut

@@ -2,6 +2,7 @@ package untitledgame.texture;
 
 import untitledgame.terrain.SquareType;
 import untitledgame.personnages.MobType;
+import untitledgame.objets.ObjetType;
 
 import javax.swing.*;
 /**
@@ -18,6 +19,10 @@ public class Texture extends ImageIcon {
      */
     private MobType mobName;
     /**
+     * Un ObjetType pour la texture de l'objet
+     */
+    private ObjetType objetName;
+    /**
      * Constructeur par initialisation
      * @param textureName SquareType
      */
@@ -32,6 +37,14 @@ public class Texture extends ImageIcon {
     public Texture(MobType mobName) {
         super(mobName.path);
         this.mobName = mobName;
+    }
+    /**
+     * Constructeur par initialisation
+     * @param objetName ObjetType
+     */
+    public Texture(ObjetType objetName) {
+        super(objetName.path);
+        this.objetName = objetName;
     }
     /**
      * Getter pour le nom de la texture du Square

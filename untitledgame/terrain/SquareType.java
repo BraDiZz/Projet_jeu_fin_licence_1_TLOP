@@ -29,7 +29,7 @@ public enum SquareType {
     GRASS2("assets/textures/terrain/Herbe2.png", false),
     GRASS3("assets/textures/terrain/Herbe3.png", false),
     BIG_ROCK("assets/textures/terrain/Rocher.png", true),
-    SAND("assets/textures/terrain/Sable.png", false),
+    SAND("assets/textures/terrain/Sable.png", false);
     /**
      * Un String pour le chemin de la texture
      */

@@ -16,7 +16,8 @@ public enum ObjetType {
     POULET("assets/textures/objet_logo/Poulet.png"),
     POMME("assets/textures/objet_logo/Pomme.png"),
     PAIN("assets/textures/objet_logo/Pain.png"),
-    JUS("assets/textures/objet_logo/NoixCoco.png");
+    JUS("assets/textures/objet_logo/NoixCoco.png"),
+    BOIS("assets/textures/objet_logo/Bois.png");
     /**
      * Un String pour le chemin de l'image de l'objet
      */

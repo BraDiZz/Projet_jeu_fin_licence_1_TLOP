@@ -22,13 +22,13 @@ public class Game extends JFrame {
     /**
      * Un APersonnage pour le joueur
      */
-    private APersonnage player;
+    private AHero player;
     /**
      * Le main a executer
      * @param args String[]
      */
     public static void main(String[] args) {
-        new Game(4, 5, 564564l);
+        new Game(4, 5, 1l);
     }
     /**
      * Constructeur par initialisation
@@ -55,7 +55,7 @@ public class Game extends JFrame {
         
         loadChunk(map.getCurrentlyLoadedChunk());
 
-        map.addMobAtPos(player, map.getCurrentlyLoadedChunk(), 8, 8);
+        map.spawnMob(player, map.getCurrentlyLoadedChunk());
 
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(3,1));
@@ -68,9 +68,10 @@ public class Game extends JFrame {
         
         JPanel preaction = new JPanel();
         preaction.setBackground(Color.black);
-        JPanel inventaire = new JPanel();
-        info.add(inventaire);
-        inventaire.setBackground(Color.black);
+
+        info.add(player.getInventaire());
+        player.getInventaire().setBackground(Color.white);
+
         JPanel action = new JPanel();
         JPanel suraction = new JPanel();
         suraction.setLayout(new GridLayout(3,1));
@@ -88,7 +89,7 @@ public class Game extends JFrame {
         JButton defend = new JButton("defense");
         action.add(defend);
 
-		inventaire.setBorder(BorderFactory.createLineBorder(Color.red));
+		player.getInventaire().setBorder(BorderFactory.createLineBorder(Color.red));
 
 		JPanel commande = new JPanel();
         info.add(commande);
