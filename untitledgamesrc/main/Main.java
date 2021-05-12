@@ -48,7 +48,6 @@ public class Main extends JFrame {
      * @param args String[]
      */
     public static void main(String[] args) {
-        //new Game(5, 5, 1l);
         new Main();
     }
     /**
@@ -238,8 +237,18 @@ public class Main extends JFrame {
             if (validateWorld()) {
                 setVisible(false);
                 Map map = new Map(Integer.parseInt(sizeX.getText()), Integer.parseInt(sizeY.getText()), Long.parseLong(seed.getText()));
-                AHero hero = new Archer(characterName.getText(), 0, 0);
                 String gameWorldName = worldName.getText();
+                AHero hero = new Archer(characterName.getText(), 0, 0);
+
+                String playerType = characterType.getSelectedItem().toString();
+                if (playerType == MobType.ARCHER.defaultName) {
+                    hero = new Archer(characterName.getText(), 0, 0);
+                } else if (playerType == MobType.MURDERER.defaultName) {
+                    hero = new Assassin(characterName.getText(), 0, 0);
+                } else {
+                    hero = new Chevalier(characterName.getText(), 0, 0);
+                }
+                
                 new Game(map, hero, gameWorldName);
             }
         }
