@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import titlescreen.JBackgroundPanel;
+import terrain.*;
+import personnages.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 10/05/2021
@@ -46,8 +48,8 @@ public class Main extends JFrame {
      * @param args String[]
      */
     public static void main(String[] args) {
-        new Game(5, 5, 1l);
-        //new Main();
+        //new Game(5, 5, 1l);
+        new Main();
     }
     /**
      * Constructeur par defaut
@@ -235,7 +237,10 @@ public class Main extends JFrame {
         public void actionPerformed(ActionEvent e) {
             if (validateWorld()) {
                 setVisible(false);
-                new Game(Integer.parseInt(sizeX.getText()), Integer.parseInt(sizeY.getText()), Long.parseLong(seed.getText()));
+                Map map = new Map(Integer.parseInt(sizeX.getText()), Integer.parseInt(sizeY.getText()), Long.parseLong(seed.getText()));
+                AHero hero = new Archer(characterName.getText(), 0, 0);
+                String gameWorldName = worldName.getText();
+                new Game(map, hero, gameWorldName);
             }
         }
     }
