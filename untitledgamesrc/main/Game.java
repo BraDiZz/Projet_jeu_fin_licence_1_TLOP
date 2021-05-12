@@ -18,34 +18,27 @@ public class Game extends JFrame {
     /**
      * Une Map pour la carte
      */
+    private long seed;
+    private String worldName;
+    private AHero hero;
     private Map map;
-    /**
-     * Un APersonnage pour le joueur
-     */
-    private AHero player;
-    /**
-     * Le main a executer
-     * @param args String[]
-     */
-    public static void main(String[] args) {
-        new Game(4, 5, 1l);
-    }
     /**
      * Constructeur par initialisation
      * @param mapSizeX int
      * @param mapSizeY int
      * @param seed long
      */
-    public Game(int mapSizeX, int mapSizeY, long seed) {
+    public Game(Map map, AHero hero, String worldName) {
+        this.map = map;
+        this.hero = hero;
+        this.worldName = worldName;
+
         setSize(1200,900);
 	    setLocationRelativeTo(null);
-	    setTitle("Game save name");
+	    setTitle(worldName);
         setResizable(false);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        player = new Archer("BORDEL", 5, 5);
-
-        map = new Map(mapSizeX, mapSizeY, seed);
         
         JPanel mainWindow = new JPanel();
         mainWindow.setBackground(Color.black);
@@ -55,7 +48,7 @@ public class Game extends JFrame {
         
         loadChunk(map.getCurrentlyLoadedChunk());
 
-        map.spawnMob(player, map.getCurrentlyLoadedChunk());
+        map.spawnMob(hero, map.getCurrentlyLoadedChunk());
         
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(3,1));
@@ -69,8 +62,8 @@ public class Game extends JFrame {
         JPanel preaction = new JPanel();
         preaction.setBackground(Color.black);
 
-        info.add(player.getInventaire());
-        player.getInventaire().setBackground(Color.white);
+        info.add(hero.getInventaire());
+        hero.getInventaire().setBackground(Color.white);
 
         JPanel action = new JPanel();
         JPanel suraction = new JPanel();
@@ -89,7 +82,7 @@ public class Game extends JFrame {
         JButton defend = new JButton("D\u00e9fense");
         action.add(defend);
 
-		player.getInventaire().setBorder(BorderFactory.createLineBorder(Color.red));
+		hero.getInventaire().setBorder(BorderFactory.createLineBorder(Color.red));
 
 		JPanel commande = new JPanel();
         info.add(commande);
@@ -196,7 +189,7 @@ public class Game extends JFrame {
     public void changePlayerPos(Direction direction){
         int xBeforeChange = map.curChunkX;
         int yBeforeChange = map.curChunkY;
-        map.changeMobPos(player, direction);
+        map.changeMobPos(hero, direction);
         repaint();
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());

@@ -106,6 +106,13 @@ public class Map {
         return sizeY;
     }
     /**
+     * Getter pour le seed de la map
+     * @return long
+     */
+    public long getSeed() {
+        return seed;
+    }
+    /**
      * Methode pour ajouter un personnage a une position donnee dans un chunk donne
      * @param mob APersonnage a placer
      * @param chunk Chunk dans lequel le personnage se deplacera
@@ -181,7 +188,7 @@ public class Map {
 
         if (squareNext.getSquareType() == SquareType.TREE) {
             squareNext.setSquareType(SquareType.SOUCHE);
-            mob.getInventaire().addObjetToInv(new Buche(8));
+            mob.getInventaire().addObjetToInv(new Buche(13));
         }
     }
 }
