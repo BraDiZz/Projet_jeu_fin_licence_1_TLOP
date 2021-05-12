@@ -86,6 +86,8 @@ public class Square extends JLabel {
         if(posX==squarePosX && posY==squarePosY){
             proximity=true;
             System.out.println("posX = " + posX + " squarePosX = " + squarePosX + " posY = " + posY + " squarePosY = " + squarePosY);
+        }else{
+            proximity=false;
         }
     }
     /**
