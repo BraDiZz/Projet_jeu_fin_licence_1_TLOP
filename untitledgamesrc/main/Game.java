@@ -193,6 +193,7 @@ public class Game extends JFrame {
         repaint();
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());
+            map.getCurrentlyLoadedChunk().spawnVilain(hero.getNiveau());
         }
     }
     /**

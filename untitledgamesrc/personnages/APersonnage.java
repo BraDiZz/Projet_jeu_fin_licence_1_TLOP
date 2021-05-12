@@ -82,6 +82,13 @@ public abstract class APersonnage {
 	public String getNom() { 
 		return nom; 
 	}
+	/**
+	* Getter pour le niveau du hero
+	* @return niveau
+	*/
+	public int getNiveau() {
+		return niveau;
+	}
 	/** 
 	* Getter pour le type du personnage
 	* @return MobType
