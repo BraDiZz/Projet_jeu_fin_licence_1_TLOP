@@ -81,7 +81,13 @@ public class Square extends JLabel {
     public void setMob(APersonnage mob) {
         this.mob = mob;
     }
-
+    /**
+     * Getter qui renvoie le mob sur le Square
+     * @return mob
+    */
+    public APersonnage getMob() {
+        return mob;
+    }
     /**
      * Méthode pour vérifier si le Square est valide
      * @return un booléen

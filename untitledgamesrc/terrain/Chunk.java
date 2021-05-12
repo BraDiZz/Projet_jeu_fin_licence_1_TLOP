@@ -151,15 +151,15 @@ public class Chunk {
            int x = (int)(Math.random()*14)+1;
            int y = (int)(Math.random()*14)+1;
            int quelTypeDeVilain = (int)(Math.random()*3)+1;
-           if (quelTypeDeVilain == 1) {
+           if (quelTypeDeVilain == 1 && !getContentAtPos(x,y).getSquareType().hasBoundingBox) {
               Loup loup = new Loup(niveauHero,x,y);
               setMobAtPos(loup,x,y);
            }
-           else if (quelTypeDeVilain == 2) {
+           else if (quelTypeDeVilain == 2 && !getContentAtPos(x,y).getSquareType().hasBoundingBox ) {
               Squelette squelette = new Squelette(niveauHero,x,y);
               setMobAtPos(squelette,x,y);
            }
-           else {
+           else if (!getContentAtPos(x,y).getSquareType().hasBoundingBox){
               Orc orc = new Orc(niveauHero,x,y);
               setMobAtPos(orc,x,y);
            }
