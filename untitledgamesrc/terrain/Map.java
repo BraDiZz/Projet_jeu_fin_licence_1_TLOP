@@ -176,7 +176,7 @@ public class Map {
 
     public void squareUpdate(AHero mob, Square squareNext) {
         if (squareNext.getSquareType() == SquareType.WATER2 && mob.getInventaire().retirerObjet(new Buche(4))) {
-            squareNext.setSquareType(SquareType.GRASS3);
+            squareNext.setSquareType(SquareType.WOOD);
         }
 
         if (squareNext.getSquareType() == SquareType.TREE) {

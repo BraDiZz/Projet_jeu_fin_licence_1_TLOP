@@ -41,7 +41,7 @@ public enum SquareType {
      */
     WATER1("assets/textures/terrain/Eau1.png", true),
     WATER2("assets/textures/terrain/Eau2.png", true),
-    WATER3("assets/textures/terrain/Eau3.png", true),
+    WATER3("assets/textures/terrain/Eau.gif", true),
     /**
      * Type du Square d'herbe haute sans hitbox
      */
