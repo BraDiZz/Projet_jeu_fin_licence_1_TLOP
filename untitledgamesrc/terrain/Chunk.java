@@ -140,4 +140,29 @@ public class Chunk {
             }
         }
     }
+
+    /**
+     * Méthode pour faire apparaitre un ou plusieurs vilains
+     * @param niveauHero int
+     */
+    public void spawnVilain(int niveauHero) {
+       int nombreDeVilain = (int) (Math.random()*(4))+1;
+       for (int i = 0; i < nombreDeVilain; i++) {
+           int x = (int)(Math.random()*14)+1;
+           int y = (int)(Math.random()*14)+1;
+           int quelTypeDeVilain = (int)(Math.random()*3)+1;
+           if (quelTypeDeVilain == 1) {
+              Loup loup = new Loup(niveauHero,x,y);
+              setMobAtPos(loup,x,y);
+           }
+           else if (quelTypeDeVilain == 2) {
+              Squelette squelette = new Squelette(niveauHero,x,y);
+              setMobAtPos(squelette,x,y);
+           }
+           else {
+              Orc orc = new Orc(niveauHero,x,y);
+              setMobAtPos(orc,x,y);
+           }
+       }
+    }
 }
