@@ -12,5 +12,6 @@ public class Orc extends AVilain {
      */
     public Orc(int niveau, int squarePosX, int squarePosY) {
         super(niveau, squarePosX, squarePosY, MobType.ORC);
+        initStats();
     }
 }

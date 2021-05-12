@@ -110,9 +110,9 @@ public abstract class AHero extends APersonnage {
      */
     public void actualiserStats() {
         int ratio = 15;
-        pointsDeVie = (int)(pointsDeVie*ratio/100);
-        pointsDeVieMax = (int)(pointsDeVieMax*ratio/100);
-        armure = (int)(armure*ratio/100);
-        pointsDAttaque = (int)(pointsDAttaque*ratio/100);
+        pointsDeVie += (int)(pointsDeVie*ratio/100);
+        pointsDeVieMax += (int)(pointsDeVieMax*ratio/100);
+        armure += (int)(armure*ratio/100);
+        pointsDAttaque += (int)(pointsDAttaque*ratio/100);
     }
 }
