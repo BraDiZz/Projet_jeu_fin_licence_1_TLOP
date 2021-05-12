@@ -12,5 +12,6 @@ public class Squelette extends AVilain {
      */
     public Squelette(int niveau, int squarePosX, int squarePosY) {
         super(niveau, squarePosX, squarePosY, MobType.SKELETON);
+        initStats();
     }
 }
