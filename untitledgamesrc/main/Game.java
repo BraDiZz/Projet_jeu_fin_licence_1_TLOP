@@ -217,6 +217,23 @@ public class Game extends JFrame {
          */
         public void mouseClicked(MouseEvent me){
             changePlayerPos(direction);
+            for (int x = 0; x < 15; x++) {
+                for (int y = 0; y < 15; y++) {
+                    map.getCurrentlyLoadedChunk().getContentAtPos(y, x).removeMouseListener(this);
+                    if(x+1<15 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosX()==hero.squarePosX+1 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosY()==hero.squarePosY){
+                        map.getCurrentlyLoadedChunk().getContentAtPos(y, x).addMouseListener(new selectSquare());
+                    }
+                    if(x-1>0 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosX()==hero.squarePosX-1 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosY()==hero.squarePosY){
+                        map.getCurrentlyLoadedChunk().getContentAtPos(y, x).addMouseListener(new selectSquare());
+                    }
+                    if(y-1>0 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosX()==hero.squarePosX && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosY()==hero.squarePosY-1){
+                        map.getCurrentlyLoadedChunk().getContentAtPos(y, x).addMouseListener(new selectSquare());
+                    }
+                    if(y+1<15 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosX()==hero.squarePosX && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosY()==hero.squarePosY+1){
+                        map.getCurrentlyLoadedChunk().getContentAtPos(y, x).addMouseListener(new selectSquare());
+                    }
+                }
+            }
         }
         /**
          * Methode obligatoire pour que le programme puisse se lancer
@@ -246,5 +263,19 @@ public class Game extends JFrame {
             fleche.clique(false);
             fleche.repaint();
         }
+    }
+
+    class selectSquare implements MouseListener{
+        public void mouseClicked(MouseEvent me){
+            Square square=(Square) me.getSource();
+            square.setProximity(square.getPosX(), square.getPosY());
+            grid.validate();
+            grid.repaint();
+        }
+
+        public void mouseEntered(MouseEvent me){}
+        public void mouseExited(MouseEvent me){}
+        public void mousePressed(MouseEvent me){}
+        public void mouseReleased(MouseEvent me){}
     }
 }

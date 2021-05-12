@@ -26,6 +26,10 @@ public class Square extends JLabel {
      */
     private APersonnage mob;
     /**
+     * Un boolean qui indique si le joueur est proche de la case
+     */
+    private boolean proximity;
+    /**
      * Constructeur par initialisation
      * @param squareType SquareType 
      * @param squarePosX int 
@@ -38,6 +42,7 @@ public class Square extends JLabel {
         this.squarePosX = squarePosX;
         this.squarePosY = squarePosY;
         this.setIcon(new Texture(squareType));
+        proximity = false;
     }
     /**
      * Constructeur par defaut
@@ -75,9 +80,19 @@ public class Square extends JLabel {
         repaint();
     }
     /**
+    * methode pour changer la proximite
+    */
+    public void setProximity(int posX, int posY){
+        if(posX==squarePosX && posY==squarePosY){
+            proximity=true;
+            System.out.println("posX = " + posX + " squarePosX = " + squarePosX + " posY = " + posY + " squarePosY = " + squarePosY);
+        }
+    }
+    /**
      * Setter pour placer un personnage sur le Square
      * @param mob APersonnage
      */
+
     public void setMob(APersonnage mob) {
         this.mob = mob;
     }
