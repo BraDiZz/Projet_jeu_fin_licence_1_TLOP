@@ -1,13 +1,20 @@
 package objets;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 12/05/2021
  */
 public class Potion extends AObjet {
 	/**
 	 * Constructeur par defaut
 	 */
 	public Potion() {
-	    super(0, 35, ObjetType.POTION);
+		this(1);
+	}
+	/**
+	 * Constructeur par initialisation
+	 * @param count int
+	 */
+	public Potion(int count) {
+	    super(0, 35, count, ObjetType.POTION);
 	}
 }

@@ -250,6 +250,7 @@ public class Main extends JFrame {
                 }
                 
                 new Game(map, hero, gameWorldName);
+                new Histoire();
             }
         }
     }

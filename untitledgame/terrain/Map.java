@@ -1,10 +1,10 @@
-package terrain;
+package untitledgame.terrain;
 
-import objets.*;
-import personnages.*;
+import untitledgame.objets.*;
+import untitledgame.personnages.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 12/05/2021
  */
 public class Map {
     /**
@@ -106,13 +106,6 @@ public class Map {
         return sizeY;
     }
     /**
-     * Getter pour le seed de la map
-     * @return long
-     */
-    public long getSeed() {
-        return seed;
-    }
-    /**
      * Methode pour ajouter un personnage a une position donnee dans un chunk donne
      * @param mob APersonnage a placer
      * @param chunk Chunk dans lequel le personnage se deplacera
@@ -131,7 +124,11 @@ public class Map {
             err.printStackTrace();
         }
     }
-
+    /**
+     * Methode pour trouver un Square qui n'a pas de hitbox
+     * @param chunk Chunk
+     * @return int[]
+     */
     public int[] findValidSpawn(Chunk chunk) {
         int xValid = -1;
         int yValid = -1;
@@ -150,12 +147,15 @@ public class Map {
 
         return(pos);
     }
-
+    /**
+     * Methode pour l'apparition des ennemis
+     * @param mob APersonnage
+     * @param chunk Chunk
+     */
     public void spawnMob(APersonnage mob, Chunk chunk) {
         int[] pos = findValidSpawn(chunk);
         addMobAtPos(mob, chunk, pos[0], pos[1]);
     }
-
     /**
      * Methode pour la prochaine position du personnage
      * @param mob Le personnage a deplacer
@@ -164,11 +164,8 @@ public class Map {
     public void changeMobPos(AHero mob, Direction direction) {
         int xNextPosition = mob.squarePosX+direction.x;
         int yNextPosition = mob.squarePosY+direction.y;
-
         if (xNextPosition >= 0 && xNextPosition < sizeX*15 && yNextPosition >= 0 && yNextPosition < sizeY*15) {
-            Square squareNext = map[(int)(xNextPosition/15)][(int)(yNextPosition/15)].getContentAtPos(xNextPosition%15, yNextPosition%15);
-            squareUpdate(mob, squareNext);
-            if (!(map[(int)(xNextPosition/15)][(int)(yNextPosition/15)].getContentAtPos(xNextPosition%15, yNextPosition%15).getSquareType().hasBoundingBox) && (map[(int)(xNextPosition/15)][(int)(yNextPosition/15)].getContentAtPos(xNextPosition%15, yNextPosition%15).getMob() == null)) {
+            if (!(map[(int)(xNextPosition/15)][(int)(yNextPosition/15)].getContentAtPos(xNextPosition%15, yNextPosition%15).getSquareType().hasBoundingBox)) {
                 map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].removeMobAtPos(mob.squarePosX%15, mob.squarePosY%15);
                 if ((int)(xNextPosition/15) != (int)(mob.squarePosX/15) ^ (int)(yNextPosition/15) != (int)(mob.squarePosY/15)) {
                     curChunkX += direction.x;
@@ -177,27 +174,13 @@ public class Map {
                 mob.squarePosX = xNextPosition;
                 mob.squarePosY = yNextPosition;
                 map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].setMobAtPos(mob, mob.squarePosX%15, mob.squarePosY%15);
+
+                Square square = map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)].getContentAtPos(mob.squarePosX%15, mob.squarePosY%15);
+                if (square.getSquareType() == SquareType.TREE) {
+                    square.setSquareType(SquareType.SOUCHE);
+                    mob.getInventaire().ajouterObjet(new Buche());
+                }
             }
         }
-    }
-    /**
-     * Methode pour mettre a jour les blocs
-     * @param mob AHero
-     * @param squareNext Square
-     */
-    public void squareUpdate(AHero mob, Square squareNext) {
-        if (squareNext.getSquareType() == SquareType.WATER2 && mob.getInventaire().retirerObjet(new Buche(2))) {
-            squareNext.setSquareType(SquareType.WOOD);
-        }
-
-        if (squareNext.getSquareType() == SquareType.TREE) {
-            squareNext.setSquareType(SquareType.SOUCHE);
-            int random = (int)(Math.random()*(5-2)+2);
-            mob.getInventaire().addObjetToInv(new Buche(random));
-        }
-    }
-
-    public Chunk getChunkOfMob(AHero hero) {
-        return map[(int)(hero.squarePosX/15)][(int)(hero.squarePosY/15)];
     }
 }

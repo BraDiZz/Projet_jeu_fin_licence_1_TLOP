@@ -1,7 +1,7 @@
 package objets;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 12/05/2021
  */
 public class Pomme extends AObjet {
 	/**
@@ -10,7 +10,10 @@ public class Pomme extends AObjet {
 	public Pomme() {
 		this(1);
 	}
-
+	/**
+	 * Constructeur par initialisation
+	 * @param count int
+	 */
 	public Pomme(int count) {
 		super(10, 0, count, ObjetType.POMME);
 	}
