@@ -7,13 +7,15 @@ import javax.swing.*;
  * @version 12/05/2021
  */
 public class Histoire extends JFrame {
-    
+    /**
+     * Constructeur par defaut
+     */
     public Histoire() {
 
         JPanel window = new JPanel();
         window.setLayout(new BorderLayout());
 
-        String texte = "<html><h1 style=\"color: red;\"align='center'><u>Message du Roi</u></h1>";
+        String texte = "<html><h1 style=\"color: yellow;\"align='center'><u>Message du Roi</u></h1>";
         texte += "<br/>";
         texte += "<h3>&#9Bonjour aventurier, le royaume est accul&eacute; par nos ennemis de toujours : <b>Les Darkins !</b></h3><br/>";
         texte += "<h3>&#9Je demande donc votre aide pour nous aider &agrave; les vaincre et sauver le royaume. ";
@@ -24,7 +26,7 @@ public class Histoire extends JFrame {
         texte += "l'avons nomm&eacute; le <i>Golem de magie noir</i>. Une fois ce dernier ennemi vaincu, le reste ";
         texte += "des troupes fuieront.</h3><br/>";
         texte += "<h3>&#9Bonne chance aventurier, le destin du royaume est entre vos mains !</h3>";
-        texte += "<h2 style=\"color: red;\"align='center'><u>Le Roi Perlin</u></h2></html>";
+        texte += "<h2 style=\"color: yellow;\"align='center'><u>Le Roi Perlin</u></h2></html>";
 
         JLabel histoire = new JLabel(texte);
         window.add(histoire);
