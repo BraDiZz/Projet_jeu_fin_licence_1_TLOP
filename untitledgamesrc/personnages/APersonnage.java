@@ -71,8 +71,8 @@ public abstract class APersonnage implements java.io.Serializable {
 	 */
 	public APersonnage(int niveau, int squarePosX, int squarePosY, MobType mobType) {
 		this.niveau = niveau;
-		this.squarePosX = 0;
-		this.squarePosY = 0;
+		this.squarePosX = squarePosX;
+		this.squarePosY = squarePosY;
 		this.mobType = mobType;
 	}
 	/** 

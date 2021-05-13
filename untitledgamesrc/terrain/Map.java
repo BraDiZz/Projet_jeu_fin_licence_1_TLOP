@@ -210,4 +210,58 @@ public class Map implements java.io.Serializable {
     public Square getSquareOfMob(APersonnage mob) {
         return getChunkOfMob(mob).getContentAtPos(mob.squarePosX%15, mob.squarePosY%15);
     }
+
+    public AVilain vilainAAttaquer(AHero hero) {
+        int x = hero.squarePosX;
+        int y = hero.squarePosY;
+
+        AVilain vilain = null;
+        if (x < 15) {
+          vilain = (AVilain)map[(int)(x/15)][(int)(y/15)].getContentAtPos((x+1)%15, y%15).getMob();            
+        }
+
+
+        if (vilain == null && x > 0) {
+            vilain = (AVilain)map[(int)(x/15)][(int)(y/15)].getContentAtPos((x-1)%15, y%15).getMob();
+            if(vilain == null && y < 15) {
+                vilain = (AVilain)map[(int)(x/15)][(int)(y/15)].getContentAtPos(x%15, (y+1)%15).getMob();
+                if(vilain == null && y > 0) {
+                  vilain = (AVilain)map[(int)(x/15)][(int)(y/15)].getContentAtPos(x%15, (y-1)%15).getMob();
+                }
+            }
+        }        
+        return vilain;
+    }
+    public static Direction findPath(AVilain vilain, AHero hero) {
+        Direction direction = null;
+        int xHero = hero.squarePosX-vilain.squarePosX;
+        int yHero = hero.squarePosY-vilain.squarePosY;
+        double length = Math.sqrt(Math.pow(xHero, 2) + Math.pow(yHero, 2));
+
+        double cos = Util.map(xHero, 0, length, 0, 1);
+        double sin = Util.map(yHero, 0, length, 0, 1);
+        
+        double angle = Math.toDegrees(Math.atan2(sin, cos));
+
+        if (angle < 0) {
+            angle = -angle + 180;
+        }
+
+        System.out.println(angle);
+
+        if ((angle >= 0 && angle < 45) ^ angle >= 315) {
+            direction = Direction.RIGHT;
+        }
+        if (angle >= 45 && angle < 135) {
+            direction = Direction.UP;
+        }
+        if (angle >= 135 && angle < 225) {
+            direction = Direction.LEFT;
+        }
+        if (angle >= 225 && angle < 315) {
+            direction = Direction.DOWN;
+        }
+
+        return(direction);
+    }
 }

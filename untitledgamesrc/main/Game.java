@@ -187,6 +187,7 @@ public class Game extends JFrame {
         action.setLayout(new GridLayout(1,3));
 
         JButton attack = new JButton("Attaque");
+        attack.addActionListener(new Attaquer());
         action.add(attack);
         JButton nextTurn = new JButton("Tour suivant");
         action.add(nextTurn);
@@ -305,6 +306,7 @@ public class Game extends JFrame {
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());
             map.getCurrentlyLoadedChunk().spawnVilain(hero.getNiveau());
+            map.getCurrentlyLoadedChunk().spawnBoss(hero.getNiveau());
         }
     }
 
@@ -318,6 +320,18 @@ public class Game extends JFrame {
                     squareBefore.removeMouseListener(squareBefore.getMouseListeners()[0]);
                 }
             }
+        }
+    }
+
+    public class Attaquer implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            AVilain target = map.vilainAAttaquer(hero[heroTurn]);
+            if (target != null) {
+                if (hero[heroTurn].monstreVaincu(target)) {
+                    map.getCurrentlyLoadedChunk().removeMobAtPos(target.squarePosX%15,target.squarePosY%15);
+                }
+            }
+
         }
     }
 }

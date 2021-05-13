@@ -80,6 +80,8 @@ public class Chunk implements java.io.Serializable {
      */
     public void removeMobAtPos(int xSquare, int ySquare) {
         content[xSquare][ySquare].setMob(null);
+        content[xSquare][ySquare].validate();
+        content[xSquare][ySquare].repaint();   
     }
     /**
      * Methode pour affecter un personnage aux positions donnees
@@ -167,5 +169,19 @@ public class Chunk implements java.io.Serializable {
               setMobAtPos(orc,x,y);
            }
        }
+    }
+
+    /**
+     * Méthode pour faire apparaitre le BOSS
+     * @param niveauHero int 
+     */
+    public void spawnBoss(int niveauHero) {
+        int x = (int)(Math.random()*14)+1;
+        int y = (int)(Math.random()*14)+1;
+
+        if (niveauHero >= 5) {
+            Boss boss = new Boss(5,x,y);
+            setMobAtPos(boss,x,y);
+        }
     }
 }
