@@ -22,9 +22,11 @@ public class Inventaire extends JPanel {
 	 */
 	public Inventaire() {
 		super(new GridBagLayout());
+		this.setPreferredSize(new Dimension(252, 252));
+		this.setOpaque(false);
 		listeObjets = new Vector<AObjet>();
-		addObjetToInv(new Pomme(1));
-		addObjetToInv(new Pomme(16));
+		addObjetToInv(new Buche(10));
+		addObjetToInv(new Pomme(3));
 		updateDisplay();
 	}
 	/**

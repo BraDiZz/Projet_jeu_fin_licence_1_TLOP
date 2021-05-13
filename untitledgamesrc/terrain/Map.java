@@ -182,13 +182,14 @@ public class Map {
     }
 
     public void squareUpdate(AHero mob, Square squareNext) {
-        if (squareNext.getSquareType() == SquareType.WATER2 && mob.getInventaire().retirerObjet(new Buche(4))) {
+        if (squareNext.getSquareType() == SquareType.WATER2 && mob.getInventaire().retirerObjet(new Buche(2))) {
             squareNext.setSquareType(SquareType.WOOD);
         }
 
         if (squareNext.getSquareType() == SquareType.TREE) {
             squareNext.setSquareType(SquareType.SOUCHE);
-            mob.getInventaire().addObjetToInv(new Buche(13));
+            int random = (int)(Math.random()*(5-2)+2);
+            mob.getInventaire().addObjetToInv(new Buche(random));
         }
     }
 

@@ -15,6 +15,7 @@ public class Game extends JFrame {
      * Un JPanel pour l'interface du monde
      */
     private JPanel grid = new JPanel();
+    private JPanel inventory = new JPanel();
     /**
      * Une Map pour la carte
      */
@@ -46,6 +47,8 @@ public class Game extends JFrame {
         for (int i = 0; i < hero.length; i++) {
             map.spawnMob(hero[i], map.getCurrentlyLoadedChunk());
         }
+
+        inventory.add(hero[heroTurn].getInventaire());
         
         validate();
         repaint();
@@ -127,6 +130,10 @@ public class Game extends JFrame {
                 heroTurn = 0;
             }
             loadChunk(map.getChunkOfMob(hero[heroTurn]));
+            inventory.removeAll();
+            inventory.add(hero[heroTurn].getInventaire());
+            inventory.validate();
+            inventory.repaint();
         }
     }
 
@@ -158,8 +165,9 @@ public class Game extends JFrame {
         JPanel preaction = new JPanel();
         preaction.setBackground(Color.black);
 
-        info.add(hero[heroTurn].getInventaire());
-        hero[heroTurn].getInventaire().setBackground(Color.white);
+        info.add(inventory);
+        inventory.setBackground(Color.white);
+		inventory.setBorder(BorderFactory.createLineBorder(Color.red));
 
         JPanel action = new JPanel();
         JPanel suraction = new JPanel();
@@ -178,7 +186,6 @@ public class Game extends JFrame {
         JButton defend = new JButton("D\u00e9fense");
         action.add(defend);
 
-		hero[heroTurn].getInventaire().setBorder(BorderFactory.createLineBorder(Color.red));
 
 		JPanel commande = new JPanel();
         info.add(commande);
