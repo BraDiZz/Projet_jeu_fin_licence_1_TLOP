@@ -8,7 +8,7 @@ import java.awt.*;
 /**
 * La classe inventaire contient un Vector d'objets, 
 */
-public class Inventaire extends JPanel {
+public class Inventaire extends JPanel implements java.io.Serializable {
 	/**
 	 * Un Vector d'AObjet pour avoir la liste de tous les objets que le personnage possede
 	 */

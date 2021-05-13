@@ -6,7 +6,7 @@ import personnages.*;
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 10/05/2021
  */
-public class Map {
+public class Map implements java.io.Serializable {
     /**
      * Un tableau de tableaux de Chunk pour chaque case de la carte
      */
@@ -26,11 +26,11 @@ public class Map {
     /**
      * Un int pour savoir exactement dans quel Chunk se trouve le joueur sur l'axe X
      */
-    public static int curChunkX = 0;
+    public int curChunkX = 0;
     /**
      * Un int pour savoir exactement dans quel Chunk se trouve le joueur sur l'axe Y
      */
-    public static int curChunkY = 0;
+    public int curChunkY = 0;
     /**
      * Constructeur par initialisation
      * @param sizeX int pour la taille en longueur
@@ -151,9 +151,14 @@ public class Map {
         return(pos);
     }
 
-    public void spawnMob(APersonnage mob, Chunk chunk) {
-        int[] pos = findValidSpawn(chunk);
-        addMobAtPos(mob, chunk, pos[0], pos[1]);
+    public void spawnMob(APersonnage mob) {
+        if (mob.squarePosX == -1 && mob.squarePosY == -1) {    
+            Chunk chunk = getCurrentlyLoadedChunk();
+            int[] pos = findValidSpawn(chunk);
+            addMobAtPos(mob, chunk, pos[0]%15, pos[1]%15);
+        } else {
+            addMobAtPos(mob, getChunkOfMob(mob), mob.squarePosX%15, mob.squarePosY%15);
+        }
     }
 
     /**
@@ -197,7 +202,7 @@ public class Map {
         }
     }
 
-    public Chunk getChunkOfMob(AHero hero) {
-        return map[(int)(hero.squarePosX/15)][(int)(hero.squarePosY/15)];
+    public Chunk getChunkOfMob(APersonnage mob) {
+        return map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)];
     }
 }

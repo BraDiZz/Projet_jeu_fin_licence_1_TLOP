@@ -5,7 +5,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import titlescreen.JBackgroundPanel;
 import terrain.*;
+import save.*;
 import personnages.*;
+import save.CustomSerializeObject;
+import java.io.File;
+import java.io.StreamCorruptedException;
+
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 10/05/2021
@@ -107,6 +112,7 @@ public class Main extends JFrame {
         menuButtons.add(menuButtonList[2], BorderLayout.PAGE_END);
 
         menuButtonList[0].addActionListener(new CreateWorldButton());
+        menuButtonList[1].addActionListener(new LoadWorldButton());
         menuButtonList[2].addActionListener(new QuitButton());
 
         mainWindow.add(menuButtons, center);
@@ -238,18 +244,20 @@ public class Main extends JFrame {
                 setVisible(false);
                 Map map = new Map(Integer.parseInt(sizeX.getText()), Integer.parseInt(sizeY.getText()), Long.parseLong(seed.getText()));
                 String gameWorldName = worldName.getText();
-                AHero hero = new Archer(characterName.getText(), 0, 0);
+                AHero hero1 = new Archer(characterName.getText(), -1, -1);
 
                 String playerType = characterType.getSelectedItem().toString();
                 if (playerType == MobType.ARCHER.defaultName) {
-                    hero = new Archer(characterName.getText(), 0, 0);
+                    hero1 = new Archer(characterName.getText(), -1, -1);
                 } else if (playerType == MobType.MURDERER.defaultName) {
-                    hero = new Assassin(characterName.getText(), 0, 0);
+                    hero1 = new Assassin(characterName.getText(), -1, -1);
                 } else {
-                    hero = new Chevalier(characterName.getText(), 0, 0);
+                    hero1 = new Chevalier(characterName.getText(), -1, -1);
                 }
                 
-                new Game(map, hero, gameWorldName);
+                AHero[] heroes = new AHero[1];
+                heroes[0] = hero1;
+                new Game(map, heroes, gameWorldName);
                 new Histoire();
             }
         }
@@ -276,6 +284,25 @@ public class Main extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
             createWorld();
+        }
+    }
+
+    public class LoadWorldButton implements ActionListener {
+        /**
+         * Methode lorsque le bouton est clique
+         * @param e ActionEvent
+         */
+        public void actionPerformed(ActionEvent e) {
+            final JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showOpenDialog(mainWindow);
+            File file = fileChooser.getSelectedFile();
+            GameSave save = (GameSave)(CustomSerializeObject.deserialize(file));
+            if (save == null) {
+                JOptionPane.showMessageDialog(Main.this, "Le fichier de sauvegarde est corrompu ou incorrect :(");
+            } else {
+                setVisible(false);
+                new Game(save.getMap(), save.getHeroes(), save.getWorldName());
+            }
         }
     }
 }

@@ -8,7 +8,7 @@ import texture.*;
  * @author
  * @version 10/05/2021
  */
-public class Square extends JLabel {
+public class Square extends JLabel implements java.io.Serializable {
     /**
      * Un int pour la position du Square aux coordonnees X
      */

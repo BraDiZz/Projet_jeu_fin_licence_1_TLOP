@@ -3,7 +3,7 @@ package personnages;
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 10/05/2021
  */
-public abstract class APersonnage {
+public abstract class APersonnage implements java.io.Serializable {
 	/**
 	 * Un String pour le nom du personnage
 	 */

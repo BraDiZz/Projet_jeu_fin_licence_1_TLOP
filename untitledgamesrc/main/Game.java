@@ -6,6 +6,7 @@ import java.awt.event.*;
 import personnages.*;
 import terrain.*;
 import gamegui.*;
+import save.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 10/05/2021
@@ -42,11 +43,11 @@ public class Game extends JFrame {
 
         init();
 
-        loadChunk(map.getCurrentlyLoadedChunk());
-
         for (int i = 0; i < hero.length; i++) {
-            map.spawnMob(hero[i], map.getCurrentlyLoadedChunk());
+            map.spawnMob(hero[i]);
         }
+
+        loadChunk(map.getCurrentlyLoadedChunk());
 
         inventory.add(hero[heroTurn].getInventaire());
         
@@ -137,6 +138,13 @@ public class Game extends JFrame {
         }
     }
 
+    class Save implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            GameSave save = new GameSave(map, hero, worldName);
+            CustomSerializeObject.serialize(save, worldName + ".txt");
+        }
+    }
+
 
 
 
@@ -185,6 +193,9 @@ public class Game extends JFrame {
         nextTurn.addActionListener(new NextTurn());
         JButton defend = new JButton("D\u00e9fense");
         action.add(defend);
+        JButton save = new JButton("Sauvegarder");
+        save.addActionListener(new Save());
+        action.add(save);
 
 
 		JPanel commande = new JPanel();

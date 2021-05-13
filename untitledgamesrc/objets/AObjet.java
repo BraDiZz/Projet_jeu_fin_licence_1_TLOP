@@ -6,7 +6,7 @@ import texture.Texture;
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 10/05/2021
  */
-public abstract class AObjet extends JLabel {
+public abstract class AObjet extends JLabel implements java.io.Serializable {
     /**
      * Un int pour la valeur des PV a regenerer si l'objet est consomme
      */

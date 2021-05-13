@@ -5,7 +5,7 @@ import personnages.*;
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 10/05/2021
  */
-public class Chunk {
+public class Chunk implements java.io.Serializable {
     /**
      * Un int pour l'emplacement sur l'axe X du Chunk sur la carte
      */
