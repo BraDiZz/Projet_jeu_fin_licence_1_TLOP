@@ -43,6 +43,9 @@ public class Chunk {
      * @return Square
      */
     public Square getContentAtPos(int x, int y) {
+        if (x < 0 ^ y < 0 ^ x > 14 ^ y > 14) {
+            return null;
+        }
         return content[x][y];
     }
     /**

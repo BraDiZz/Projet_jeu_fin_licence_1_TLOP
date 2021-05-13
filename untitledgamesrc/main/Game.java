@@ -18,38 +18,134 @@ public class Game extends JFrame {
     /**
      * Une Map pour la carte
      */
-    private long seed;
-    private String worldName;
-    private AHero hero;
     private Map map;
+    private AHero[] hero;
+    private String worldName;
+    private int heroTurn = 0;
     /**
      * Constructeur par initialisation
      * @param mapSizeX int
      * @param mapSizeY int
      * @param seed long
      */
-    public Game(Map map, AHero hero, String worldName) {
+    
+    public static void main(String[] args) {
+        AHero[] mobs = {new Archer("A", 0, 0), new Chevalier("B", 0, 0), new Assassin("B", 0, 0)};
+        new Game(new Map(4, 4, 56164), mobs, "hein");
+    }
+
+    public Game(Map map, AHero[] hero, String worldName) {
         this.map = map;
         this.hero = hero;
         this.worldName = worldName;
 
+        init();
+
+        loadChunk(map.getCurrentlyLoadedChunk());
+
+        for (int i = 0; i < hero.length; i++) {
+            map.spawnMob(hero[i], map.getCurrentlyLoadedChunk());
+        }
+        
+        validate();
+        repaint();
+    }
+
+
+
+
+
+
+
+    class ChangeMapButton implements MouseListener{
+        /**
+         * Une Direction pour la direction du clique
+         */
+        private Direction direction;
+        /**
+         * Constructeur par initialisation
+         * @param direction Direction
+         */
+        public ChangeMapButton(Direction direction) {
+            this.direction = direction;
+        }
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
+        public void mouseClicked(MouseEvent me) {
+            changePlayerPos(hero[heroTurn], direction);
+            surroundMobSquaresWithListeners(hero[heroTurn], direction);
+        }
+        /**
+         * Methode obligatoire pour que le programme puisse se lancer
+         * @param me MouseEvent
+         */
+        public void mouseEntered(MouseEvent me){}
+        /**
+         * Methode obligatoire pour que le programme puisse se lancer
+         * @param me MouseEvent
+         */
+        public void mouseExited(MouseEvent me){}
+        /**
+         * Methode lorsque le clique reste appuye
+         * @param me MouseEvent
+         */
+        public void mousePressed(MouseEvent me){
+            Fleche fleche=(Fleche) me.getSource();
+            fleche.clique(true);
+            fleche.repaint();
+        }
+        /**
+         * Methode lorsque le clique est relache
+         * @param me MouseEvent
+         */
+        public void mouseReleased(MouseEvent me){
+            Fleche fleche=(Fleche) me.getSource();
+            fleche.clique(false);
+            fleche.repaint();
+        }
+    }
+
+    class SelectSquare implements MouseListener{
+        public void mouseClicked(MouseEvent me){
+            Square test = (Square)me.getSource();
+            test.setIsSelected(true);
+            test.repaint();
+        }
+
+        public void mouseEntered(MouseEvent me){}
+        public void mouseExited(MouseEvent me){}
+        public void mousePressed(MouseEvent me){}
+        public void mouseReleased(MouseEvent me){}
+    }
+
+    class NextTurn implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            heroTurn++;
+            if (heroTurn == hero.length) {
+                heroTurn = 0;
+            }
+            loadChunk(map.getChunkOfMob(hero[heroTurn]));
+        }
+    }
+
+
+
+
+
+    public void init() {
         setSize(1200,900);
 	    setLocationRelativeTo(null);
 	    setTitle(worldName);
         setResizable(false);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        
         JPanel mainWindow = new JPanel();
         mainWindow.setBackground(Color.black);
         mainWindow.setLayout(new FlowLayout());
 
         grid.setLayout(new GridLayout(15, 15));
-        
-        loadChunk(map.getCurrentlyLoadedChunk());
-
-        map.spawnMob(hero, map.getCurrentlyLoadedChunk());
-        
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(3,1));
 
@@ -62,8 +158,8 @@ public class Game extends JFrame {
         JPanel preaction = new JPanel();
         preaction.setBackground(Color.black);
 
-        info.add(hero.getInventaire());
-        hero.getInventaire().setBackground(Color.white);
+        info.add(hero[heroTurn].getInventaire());
+        hero[heroTurn].getInventaire().setBackground(Color.white);
 
         JPanel action = new JPanel();
         JPanel suraction = new JPanel();
@@ -76,13 +172,13 @@ public class Game extends JFrame {
 
         JButton attack = new JButton("Attaque");
         action.add(attack);
-        JLabel milieu = new JLabel();
-        action.add(milieu);
-        milieu.setBackground(Color.black);
+        JButton nextTurn = new JButton("Tour suivant");
+        action.add(nextTurn);
+        nextTurn.addActionListener(new NextTurn());
         JButton defend = new JButton("D\u00e9fense");
         action.add(defend);
 
-		hero.getInventaire().setBorder(BorderFactory.createLineBorder(Color.red));
+		hero[heroTurn].getInventaire().setBorder(BorderFactory.createLineBorder(Color.red));
 
 		JPanel commande = new JPanel();
         info.add(commande);
@@ -139,8 +235,6 @@ public class Game extends JFrame {
         touches.add(bord);
         bord.setPreferredSize(new Dimension(200,47));
 
-
-
         JLabel[][] Fleche = new JLabel[3][3];
 
         for(int i=0;i<3;i++){
@@ -156,24 +250,22 @@ public class Game extends JFrame {
                 Fleche[1][0].addMouseListener(new ChangeMapButton(Direction.LEFT));
                 Fleche[1][2].addMouseListener(new ChangeMapButton(Direction.RIGHT));
                 touches.add(Fleche[i][j]);
-                Fleche[i][j].setPreferredSize(new Dimension(50,50));    
-            }
-        }
-
-        /*for (Direction value: Direction.values()) {
-            Fleche2 direction = new Fleche2(value);
-            touches.add(direction, value.layout);
-        }*/
+                Fleche[i][j].setPreferredSize(new Dimension(50,50));
 
         getContentPane().add(mainWindow);
         setVisible(true);
+            }
         }
+    }
+
     /**
-     * Methode pour changer de Chunk
-     * @param chunk Chunk
-     */
+    * Methode pour changer de Chunk
+    * @param chunk Chunk
+    */
     public void loadChunk(Chunk chunk) {
         grid.removeAll();
+        map.curChunkX = chunk.getChunkPosX();
+        map.curChunkY = chunk.getChunkPosY();
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
                 grid.add(chunk.getContentAtPos(y, x));
@@ -182,11 +274,12 @@ public class Game extends JFrame {
         grid.validate();
         grid.repaint();
     }
+
     /**
-     * Methode pour changer le joueur de position dans le monde
-     * @param direction Direction
-     */
-    public void changePlayerPos(Direction direction){
+    * Methode pour changer le joueur de position dans le monde
+    * @param direction Direction
+    */
+    public void changePlayerPos(AHero hero, Direction direction) {
         int xBeforeChange = map.curChunkX;
         int yBeforeChange = map.curChunkY;
         map.changeMobPos(hero, direction);
@@ -196,86 +289,17 @@ public class Game extends JFrame {
             map.getCurrentlyLoadedChunk().spawnVilain(hero.getNiveau());
         }
     }
-    /**
-     * Class pour les fleches
-     */
-    class ChangeMapButton implements MouseListener{
-        /**
-         * Une Direction pour la direction du clique
-         */
-        private Direction direction;
-        /**
-         * Constructeur par initialisation
-         * @param direction Direction
-         */
-        public ChangeMapButton(Direction direction) {
-            this.direction = direction;
-        }
-        /**
-         * Methode lorsque la souris est cliquee
-         * @param me MouseEvent
-         */
-        public void mouseClicked(MouseEvent me){
-            changePlayerPos(direction);
-            for (int x = 0; x < 15; x++) {
-                for (int y = 0; y < 15; y++) {
-                    map.getCurrentlyLoadedChunk().getContentAtPos(y, x).removeMouseListener(this);
-                    if(x+1<15 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosX()==hero.squarePosX+1 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosY()==hero.squarePosY){
-                        map.getCurrentlyLoadedChunk().getContentAtPos(y, x).addMouseListener(new selectSquare());
-                    }
-                    if(x-1>0 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosX()==hero.squarePosX-1 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosY()==hero.squarePosY){
-                        map.getCurrentlyLoadedChunk().getContentAtPos(y, x).addMouseListener(new selectSquare());
-                    }
-                    if(y-1>0 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosX()==hero.squarePosX && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosY()==hero.squarePosY-1){
-                        map.getCurrentlyLoadedChunk().getContentAtPos(y, x).addMouseListener(new selectSquare());
-                    }
-                    if(y+1<15 && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosX()==hero.squarePosX && map.getCurrentlyLoadedChunk().getContentAtPos(y, x).getPosY()==hero.squarePosY+1){
-                        map.getCurrentlyLoadedChunk().getContentAtPos(y, x).addMouseListener(new selectSquare());
-                    }
+
+    public void surroundMobSquaresWithListeners(AHero hero, Direction direction) {
+        for (Direction dir : Direction.values()) {
+            Square squareBefore = map.getCurrentlyLoadedChunk().getContentAtPos((hero.squarePosX-direction.x)%15+dir.x, (hero.squarePosY-direction.y)%15+dir.y);
+            Square square = map.getCurrentlyLoadedChunk().getContentAtPos(hero.squarePosX%15+dir.x, hero.squarePosY%15+dir.y);
+            if (square != null) {
+                square.addMouseListener(new SelectSquare());
+                if (squareBefore != null && squareBefore.getMouseListeners().length != 0) {
+                    squareBefore.removeMouseListener(squareBefore.getMouseListeners()[0]);
                 }
             }
         }
-        /**
-         * Methode obligatoire pour que le programme puisse se lancer
-         * @param me MouseEvent
-         */
-        public void mouseEntered(MouseEvent me){}
-        /**
-         * Methode obligatoire pour que le programme puisse se lancer
-         * @param me MouseEvent
-         */
-        public void mouseExited(MouseEvent me){}
-        /**
-         * Methode lorsque le clique reste appuye
-         * @param me MouseEvent
-         */
-        public void mousePressed(MouseEvent me){
-            Fleche fleche=(Fleche) me.getSource();
-            fleche.clique(true);
-            fleche.repaint();
-        }
-        /**
-         * Methode lorsque le clique est relache
-         * @param me MouseEvent
-         */
-        public void mouseReleased(MouseEvent me){
-            Fleche fleche=(Fleche) me.getSource();
-            fleche.clique(false);
-            fleche.repaint();
-        }
-    }
-
-    class selectSquare implements MouseListener{
-        public void mouseClicked(MouseEvent me){
-            Square square=(Square) me.getSource();
-            square.setProximity(square.getPosX(), square.getPosY());
-            grid.validate();
-            grid.repaint();
-        }
-
-        public void mouseEntered(MouseEvent me){}
-        public void mouseExited(MouseEvent me){}
-        public void mousePressed(MouseEvent me){}
-        public void mouseReleased(MouseEvent me){}
     }
 }

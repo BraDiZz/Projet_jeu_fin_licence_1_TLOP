@@ -28,7 +28,7 @@ public class Square extends JLabel {
     /**
      * Un boolean qui indique si le joueur est proche de la case
      */
-    private boolean proximity;
+    private boolean isSelected = false;
     /**
      * Constructeur par initialisation
      * @param squareType SquareType 
@@ -42,7 +42,6 @@ public class Square extends JLabel {
         this.squarePosX = squarePosX;
         this.squarePosY = squarePosY;
         this.setIcon(new Texture(squareType));
-        proximity = false;
     }
     /**
      * Constructeur par defaut
@@ -80,17 +79,6 @@ public class Square extends JLabel {
         repaint();
     }
     /**
-    * methode pour changer la proximite
-    */
-    public void setProximity(int posX, int posY){
-        if(posX==squarePosX && posY==squarePosY){
-            proximity=true;
-            System.out.println("posX = " + posX + " squarePosX = " + squarePosX + " posY = " + posY + " squarePosY = " + squarePosY);
-        }else{
-            proximity=false;
-        }
-    }
-    /**
      * Setter pour placer un personnage sur le Square
      * @param mob APersonnage
      */
@@ -98,6 +86,11 @@ public class Square extends JLabel {
     public void setMob(APersonnage mob) {
         this.mob = mob;
     }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
+
     /**
      * Getter qui renvoie le mob sur le Square
      * @return mob
@@ -121,6 +114,9 @@ public class Square extends JLabel {
         g.drawImage(new Texture(squareType).getImage(), 0, 0, 53, 53, this);
         if (mob != null) {
             g.drawImage(new Texture(mob.getMobType()).getImage(), 0, 0, 53, 53, this);
+        }
+        if (isSelected) {
+            g.drawRect((getWidth()/2)-20, (getHeight()/2)-20, 40, 40);
         }
     }
 }

@@ -191,4 +191,8 @@ public class Map {
             mob.getInventaire().addObjetToInv(new Buche(13));
         }
     }
+
+    public Chunk getChunkOfMob(AHero hero) {
+        return map[(int)(hero.squarePosX/15)][(int)(hero.squarePosY/15)];
+    }
 }
