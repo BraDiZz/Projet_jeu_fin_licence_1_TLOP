@@ -107,16 +107,8 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 		if (indexInInv != null) {
 			int firstStackPos = indexInInv[0];
 			AObjet firstStackItem = listeObjets.get(firstStackPos);
-			if (firstStackItem.addToStack(objet) != 0) {
-				if (listeObjets.size() < 16) {
-					addObjetToInv(objet);
-				}
-			}
-		} else {
-			if (listeObjets.size() < 16) {
-				listeObjets.add(objet);
-			}
-		}
+			if (firstStackItem.addToStack(objet) != 0 && listeObjets.size() < 16) addObjetToInv(objet);
+		} else if (listeObjets.size() < 16) listeObjets.add(objet);
 		updateDisplay();
 	}
 
@@ -125,9 +117,7 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 	}
 
 	public int[] whichAreNotFull(int[] indexInInv) {
-		if (indexInInv == null) {
-			return null;
-		}
+		if (indexInInv == null) return null;
 		int count = 0;
 		int[] whichAreNotFull;
 		for (int i = 0; i < indexInInv.length; i++) {

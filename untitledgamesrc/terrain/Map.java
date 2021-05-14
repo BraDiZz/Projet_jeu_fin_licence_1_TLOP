@@ -166,27 +166,40 @@ public class Map implements java.io.Serializable {
      * @param mob Le personnage a deplacer
      * @param direction La direction dans laquelle le personnage se dirige
      */
-    public void changeMobPos(APersonnage mob, Direction direction) {
-        int xNextPosition = mob.squarePosX+direction.x;
-        int yNextPosition = mob.squarePosY+direction.y;
-
-        System.out.println(mob.getMobType() + " " + direction);
+    public void changeMobPos(APersonnage hero, Direction direction) {
+        int xNextPosition = hero.squarePosX+direction.x;
+        int yNextPosition = hero.squarePosY+direction.y;
 
         if (xNextPosition >= 0 && xNextPosition < sizeX*15 && yNextPosition >= 0 && yNextPosition < sizeY*15) {
-            Square squareNow = getSquareOfMob(mob);
-            Square squareNext = map[(int)(xNextPosition/15)][(int)(yNextPosition/15)].getContentAtPos(xNextPosition%15, yNextPosition%15);
-            if (mob instanceof AHero) {
-                squareUpdate((AHero)mob, squareNext);
-            }
+            Square squareNow = getSquareOfMob(hero);
+            Square squareNext = getChunkAtPos((int)(xNextPosition/15), (int)(yNextPosition/15)).getContentAtPos(xNextPosition%15, yNextPosition%15);
+            squareUpdate((AHero)hero, squareNext);
             if (!(squareNext.getSquareType().hasBoundingBox) && squareNext.getMob() == null) {
                 squareNow.setMob(null);
-                if ((int)(xNextPosition/15) != (int)(mob.squarePosX/15) ^ (int)(yNextPosition/15) != (int)(mob.squarePosY/15) && mob instanceof AHero) {
+                if ((int)(xNextPosition/15) != (int)(hero.squarePosX/15) ^ (int)(yNextPosition/15) != (int)(hero.squarePosY/15)) {
                     curChunkX += direction.x;
                     curChunkY += direction.y;
                 }
-                mob.squarePosX = xNextPosition;
-                mob.squarePosY = yNextPosition;
-                squareNext.setMob(mob);
+                hero.squarePosX = xNextPosition;
+                hero.squarePosY = yNextPosition;
+                squareNext.setMob(hero);
+            }
+        }
+    }
+
+    public void changeMobPos(AVilain vilain, Direction direction) {
+        System.out.println(direction);
+        int xNextPosition = vilain.squarePosX+direction.x;
+        int yNextPosition = vilain.squarePosY+direction.y;
+
+        if (xNextPosition >= 0 && xNextPosition < sizeX*15 && yNextPosition >= 0 && yNextPosition < sizeY*15) {
+            Square squareNow = getSquareOfMob(vilain);
+            Square squareNext = getChunkAtPos((int)(xNextPosition/15), (int)(yNextPosition/15)).getContentAtPos(xNextPosition%15, yNextPosition%15);
+            if ((int)(vilain.squarePosX/15) == (int)(xNextPosition/15) && (int)(vilain.squarePosY/15) == (int)(yNextPosition/15) && squareNext.isSpawnValid()) {
+                squareNow.setMob(null);
+                vilain.squarePosX = xNextPosition;
+                vilain.squarePosY = yNextPosition;
+                squareNext.setMob(vilain);
             }
         }
     }
@@ -255,33 +268,24 @@ public class Map implements java.io.Serializable {
         int yHero = hero.squarePosY-vilain.squarePosY;
         double length = Math.sqrt(Math.pow(xHero, 2) + Math.pow(yHero, 2));
 
-        System.out.println(vilain.squarePosX + " " + vilain.squarePosY);
-        System.out.println(hero.squarePosX + " " + hero.squarePosY);
-
         double cos = Util.map(xHero, 0, length, 0, 1);
         double sin = Util.map(yHero, 0, length, 0, 1);
-        
-        double angle = Math.toDegrees(Math.atan2(sin, cos));
 
-        if (angle < 0) {
-            angle = -angle + 180;
-        }
+        double angle = getAngle(cos, sin);
 
-        System.out.println(angle);
+        Direction ret = Direction.RIGHT;
 
-        if ((angle >= 0 && angle < 45) ^ angle >= 315) {
-            direction = Direction.RIGHT;
-        }
-        if (angle >= 45 && angle < 135) {
-            direction = Direction.DOWN;
-        }
-        if (angle >= 135 && angle < 225) {
-            direction = Direction.LEFT;
-        }
-        if (angle >= 225 && angle < 315) {
-            direction = Direction.UP;
+        for (Direction dir : Direction.values()) {
+            double angle2 = getAngle(dir.x, dir.y);
+            if (angle >= angle2-Math.PI/4 && angle < angle2+Math.PI/4) {
+                ret = dir;
+            }
         }
 
-        return(direction);
+        return ret;
+    }
+
+    public double getAngle(double cos, double sin) {
+        return sin < 0 ? 2*Math.PI-Math.acos(cos) : Math.acos(cos);
     }
 }

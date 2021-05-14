@@ -159,7 +159,7 @@ public class Game extends JFrame {
         setSize(1200,900);
 	    setLocationRelativeTo(null);
 	    setTitle(worldName);
-        setResizable(false);
+        setResizable(true);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         JPanel mainWindow = new JPanel();
@@ -359,7 +359,5 @@ public class Game extends JFrame {
         def.setText("Defense " + hero[heroTurn].getArmure());
         niveau.setText("Niveau " + hero[heroTurn].getNiveau());
         experience.setText("XP " + hero[heroTurn].getXp() + "/" + hero[heroTurn].getXpAAtteindre());
-
-
     }
 }
