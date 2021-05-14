@@ -37,7 +37,7 @@ public abstract class AHero extends APersonnage {
 	public AHero(String nom, int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int niveau, int squarePosX, int squarePosY, MobType mobType) {
         super(nom, pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, niveau, squarePosX, squarePosY, mobType);
         xp = 0;
-        xpAAtteindre = 100;
+        xpAAtteindre = 50;
         inventaire = new Inventaire();
         nombreItems = inventaire.getTaille();
 	}
@@ -72,7 +72,8 @@ public abstract class AHero extends APersonnage {
         if (xp >= xpAAtteindre) {
             addNiveau(1);
             xp = 0;
-            xpAAtteindre += 100;
+            xpAAtteindre += 50;
+            actualiserStats();
         }
 	}
     /** 

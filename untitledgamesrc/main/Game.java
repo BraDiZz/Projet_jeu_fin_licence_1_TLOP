@@ -325,6 +325,7 @@ public class Game extends JFrame {
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());
             map.getCurrentlyLoadedChunk().spawnVilains(hero.getNiveau());
+            map.getCurrentlyLoadedChunk().spawnBoss(hero.getNiveau());
         }
         map.moveVilains(hero);
     }
