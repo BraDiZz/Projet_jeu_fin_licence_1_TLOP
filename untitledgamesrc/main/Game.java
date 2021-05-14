@@ -305,9 +305,9 @@ public class Game extends JFrame {
         repaint();
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());
-            map.getCurrentlyLoadedChunk().spawnVilain(hero.getNiveau());
-            map.getCurrentlyLoadedChunk().spawnBoss(hero.getNiveau());
+            map.getCurrentlyLoadedChunk().spawnVilains(hero.getNiveau());
         }
+        map.moveVilains(hero);
     }
 
     public void surroundMobSquaresWithListeners(AHero hero, Direction direction) {
@@ -331,7 +331,6 @@ public class Game extends JFrame {
                     map.getCurrentlyLoadedChunk().removeMobAtPos(target.squarePosX%15,target.squarePosY%15);
                 }
             }
-
         }
     }
 }

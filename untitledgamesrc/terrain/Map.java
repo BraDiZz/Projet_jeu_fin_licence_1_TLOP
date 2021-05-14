@@ -166,17 +166,21 @@ public class Map implements java.io.Serializable {
      * @param mob Le personnage a deplacer
      * @param direction La direction dans laquelle le personnage se dirige
      */
-    public void changeMobPos(AHero mob, Direction direction) {
+    public void changeMobPos(APersonnage mob, Direction direction) {
         int xNextPosition = mob.squarePosX+direction.x;
         int yNextPosition = mob.squarePosY+direction.y;
+
+        System.out.println(mob.getMobType() + " " + direction);
 
         if (xNextPosition >= 0 && xNextPosition < sizeX*15 && yNextPosition >= 0 && yNextPosition < sizeY*15) {
             Square squareNow = getSquareOfMob(mob);
             Square squareNext = map[(int)(xNextPosition/15)][(int)(yNextPosition/15)].getContentAtPos(xNextPosition%15, yNextPosition%15);
-            squareUpdate(mob, squareNext);
+            if (mob instanceof AHero) {
+                squareUpdate((AHero)mob, squareNext);
+            }
             if (!(squareNext.getSquareType().hasBoundingBox) && squareNext.getMob() == null) {
                 squareNow.setMob(null);
-                if ((int)(xNextPosition/15) != (int)(mob.squarePosX/15) ^ (int)(yNextPosition/15) != (int)(mob.squarePosY/15)) {
+                if ((int)(xNextPosition/15) != (int)(mob.squarePosX/15) ^ (int)(yNextPosition/15) != (int)(mob.squarePosY/15) && mob instanceof AHero) {
                     curChunkX += direction.x;
                     curChunkY += direction.y;
                 }
@@ -232,11 +236,27 @@ public class Map implements java.io.Serializable {
         }        
         return vilain;
     }
-    public static Direction findPath(AVilain vilain, AHero hero) {
+
+    public void moveVilains(AHero hero) {
+        Chunk chunk = getCurrentlyLoadedChunk();
+        AVilain[] vilains = chunk.getVilains();
+
+        for (int i = 0; i < vilains.length; i++) {
+            if (vilains[i] != null) {
+                Direction path = findPath(vilains[i], hero);
+                changeMobPos(vilains[i], path);
+            }
+        }
+    }
+
+    public Direction findPath(AVilain vilain, AHero hero) {
         Direction direction = null;
         int xHero = hero.squarePosX-vilain.squarePosX;
         int yHero = hero.squarePosY-vilain.squarePosY;
         double length = Math.sqrt(Math.pow(xHero, 2) + Math.pow(yHero, 2));
+
+        System.out.println(vilain.squarePosX + " " + vilain.squarePosY);
+        System.out.println(hero.squarePosX + " " + hero.squarePosY);
 
         double cos = Util.map(xHero, 0, length, 0, 1);
         double sin = Util.map(yHero, 0, length, 0, 1);
@@ -253,13 +273,13 @@ public class Map implements java.io.Serializable {
             direction = Direction.RIGHT;
         }
         if (angle >= 45 && angle < 135) {
-            direction = Direction.UP;
+            direction = Direction.DOWN;
         }
         if (angle >= 135 && angle < 225) {
             direction = Direction.LEFT;
         }
         if (angle >= 225 && angle < 315) {
-            direction = Direction.DOWN;
+            direction = Direction.UP;
         }
 
         return(direction);

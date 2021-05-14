@@ -20,13 +20,13 @@ public enum MobType {
      */
     MURDERER("assets/textures/personnage/Assassin.png", "Assassin"),
     /**
-     * Type du Mob est un Boss
-     */
-    BOSS("assets/textures/personnage/Boss.png", "Boss"),
-    /**
      * Type du Mob est un Chevalier
      */
     KNIGHT("assets/textures/personnage/Chevalier.png", "Chevalier"),
+    /**
+     * Type du Mob est un Boss
+     */
+    BOSS("assets/textures/personnage/Boss.png", "Boss"),
     /**
      * Type du Mob est un Loup
      */
@@ -38,11 +38,7 @@ public enum MobType {
     /**
      * Type du Mob est un Squelette
      */
-    SKELETON("assets/textures/personnage/Squelette.png", "Squelette"),
-    /**
-     * Type du Mob est Inconnu
-     */
-    UNKNOWN("assets/textures/personnage/Inconnu.png", "Inconnu");
+    SKELETON("assets/textures/personnage/Squelette.png", "Squelette");
     /**
      * Un String pour le chemin de l'image du mob
      */

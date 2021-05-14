@@ -296,12 +296,14 @@ public class Main extends JFrame {
             final JFileChooser fileChooser = new JFileChooser();
             fileChooser.showOpenDialog(mainWindow);
             File file = fileChooser.getSelectedFile();
-            GameSave save = (GameSave)(CustomSerializeObject.deserialize(file));
-            if (save == null) {
-                JOptionPane.showMessageDialog(Main.this, "Le fichier de sauvegarde est corrompu ou incorrect :(");
-            } else {
-                setVisible(false);
-                new Game(save.getMap(), save.getHeroes(), save.getWorldName());
+            if (file != null) {
+                GameSave save = (GameSave)(CustomSerializeObject.deserialize(file));
+                if (save == null) {
+                    JOptionPane.showMessageDialog(Main.this, "Le fichier de sauvegarde est corrompu ou incorrect :(");
+                } else {
+                    setVisible(false);
+                    new Game(save.getMap(), save.getHeroes(), save.getWorldName());
+                }
             }
         }
     }

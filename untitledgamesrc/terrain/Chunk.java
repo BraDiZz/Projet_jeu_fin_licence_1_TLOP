@@ -18,6 +18,7 @@ public class Chunk implements java.io.Serializable {
      * Un tableau de tableaux de Square pour tout le contenu du Chunk
      */
     private Square[][] content;
+    private AVilain[] vilains = new AVilain[6];
     /**
      * Constructeur par initialisation
      * @param chunkPosX int
@@ -62,6 +63,10 @@ public class Chunk implements java.io.Serializable {
     public int getChunkPosY() {
         return chunkPosY;
     }
+
+    public AVilain[] getVilains() {
+        return vilains;
+    }
     /**
      * Methode qui permet de changer le personnage de position en fonction de la direction
      * @param mob APersonnage
@@ -80,8 +85,6 @@ public class Chunk implements java.io.Serializable {
      */
     public void removeMobAtPos(int xSquare, int ySquare) {
         content[xSquare][ySquare].setMob(null);
-        content[xSquare][ySquare].validate();
-        content[xSquare][ySquare].repaint();   
     }
     /**
      * Methode pour affecter un personnage aux positions donnees
@@ -150,25 +153,37 @@ public class Chunk implements java.io.Serializable {
      * Méthode pour faire apparaitre un ou plusieurs vilains
      * @param niveauHero int
      */
-    public void spawnVilain(int niveauHero) {
-       int nombreDeVilain = (int) (Math.random()*(4))+1;
-       for (int i = 0; i < nombreDeVilain; i++) {
-           int x = (int)(Math.random()*14)+1;
-           int y = (int)(Math.random()*14)+1;
-           int quelTypeDeVilain = (int)(Math.random()*3)+1;
-           if (quelTypeDeVilain == 1 && !getContentAtPos(x,y).getSquareType().hasBoundingBox) {
-              Loup loup = new Loup(niveauHero,x,y);
-              setMobAtPos(loup,x,y);
-           }
-           else if (quelTypeDeVilain == 2 && !getContentAtPos(x,y).getSquareType().hasBoundingBox ) {
-              Squelette squelette = new Squelette(niveauHero,x,y);
-              setMobAtPos(squelette,x,y);
-           }
-           else if (!getContentAtPos(x,y).getSquareType().hasBoundingBox){
-              Orc orc = new Orc(niveauHero,x,y);
-              setMobAtPos(orc,x,y);
-           }
-       }
+    public void spawnVilains(int niveauHero) {
+        // On vérifie s'il est nécessaire de faire spawner un mob
+        int[] indexOfNull = indexOfNull(vilains);
+
+        if (indexOfNull != null) {
+            for (int i = 0; i < indexOfNull.length; i++) {
+                // Génération d'une position aléatoire valide
+                int x = (int)(Math.random()*14+1)+15*chunkPosX;
+                int y = (int)(Math.random()*14+1)+15*chunkPosY;
+
+                while (!(content[x%15][y%15].isSpawnValid())) {
+                    x = (int)(Math.random()*14+1)+15*chunkPosX;
+                    y = (int)(Math.random()*14+1)+15*chunkPosY;
+                }
+
+                // Génération des mobs aléatoires
+                AVilain vilain = null;
+                int quelTypeDeVilain = (int)(Math.random()*3)+1;
+                if (quelTypeDeVilain == 1) {
+                    vilain = new Loup(niveauHero, x, y);
+                } else if (quelTypeDeVilain == 2) {
+                    vilain = new Squelette(niveauHero, x, y);
+                } else {
+                    vilain = new Orc(niveauHero, x, y);
+                }
+
+                // Ajout des mobs au tableau et spawn des mobs
+                setMobAtPos(vilain, x%15, y%15);
+                vilains[indexOfNull[i]] = vilain;
+            }
+        }
     }
 
     /**
@@ -180,8 +195,29 @@ public class Chunk implements java.io.Serializable {
         int y = (int)(Math.random()*14)+1;
 
         if (niveauHero >= 5) {
-            Boss boss = new Boss(5,x,y);
-            setMobAtPos(boss,x,y);
+            Boss boss = new Boss(5, x, y);
+            setMobAtPos(boss, x, y);
         }
+    }
+
+    public int[] indexOfNull(AVilain[] mobTable) {
+        int count = 0;
+        int[] index = null;
+        for (int i = 0; i < mobTable.length; i++) {
+            if (mobTable[i] == null) {count++;}
+        }
+
+        if (count != 0) {
+            int y = 0;
+            index = new int[count];
+            for (int i = 0; i < mobTable.length; i++) {
+                if (mobTable[i] == null) {
+                    index[y] = i;
+                }
+                y++;
+            }
+        }
+
+        return index;
     }
 }
