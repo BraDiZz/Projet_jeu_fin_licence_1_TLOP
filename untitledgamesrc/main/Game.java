@@ -28,6 +28,7 @@ public class Game extends JFrame {
     private JLabel pv = new JLabel();
     private JLabel att = new JLabel();
     private JLabel def = new JLabel();
+    private JLabel niveau = new JLabel();
     /**
      * Constructeur par initialisation
      * @param mapSizeX int
@@ -165,13 +166,17 @@ public class Game extends JFrame {
         mainWindow.setBackground(Color.black);
         mainWindow.setLayout(new FlowLayout());
 
+        
+
         grid.setLayout(new GridLayout(15, 15));
         JPanel info = new JPanel();
         info.setLayout(new GridLayout(3,1));
 
         mainWindow.add(grid);
-        
         mainWindow.add(info);
+        JButton save = new JButton("Sauvegarder");
+        save.addActionListener(new Save());
+        mainWindow.add(save);
         info.setBorder(BorderFactory.createLineBorder(Color.black));
         info.setPreferredSize(new Dimension(350,800));
         
@@ -191,19 +196,17 @@ public class Game extends JFrame {
         suraction.add(action);
         action.setLayout(new GridLayout(1,3));
 
+
         JButton attack = new JButton("Attaque");
         attack.addActionListener(new Attaquer());
         action.add(attack);
-        JButton nextTurn = new JButton("Tour suivant");
-        action.add(nextTurn);
-        nextTurn.addActionListener(new NextTurn());
+        JLabel milieu = new JLabel();;
+        milieu.setOpaque(true);
+        action.add(milieu);
+        milieu.setBackground(Color.black);
         JButton defend = new JButton("D\u00e9fense");
         action.add(defend);
-        JButton save = new JButton("Sauvegarder");
-        save.addActionListener(new Save());
-        action.add(save);
-
-
+        
 		JPanel commande = new JPanel();
         info.add(commande);
 
@@ -216,7 +219,7 @@ public class Game extends JFrame {
         commande.add(stats);
         stats.setBackground(Color.black);
         
-        stats.setLayout(new GridLayout(4,2));
+        stats.setLayout(new GridLayout(5,2));
 
         pv.setText("Vie " + hero[heroTurn].getPointDeVie() + "/" + hero[heroTurn].getPointDeVieMax());
         pv.setFont(new Font("Serif", Font.BOLD, 16));
@@ -234,11 +237,20 @@ public class Game extends JFrame {
         experience.setText("Niveau " + hero[heroTurn].getNiveau());
         experience.setFont(new Font("Serif", Font.BOLD, 16));
         experience.setForeground(new Color(255,0,162));
+
+        niveau.setText("Niveau " + hero[heroTurn].getNiveau());
+        niveau.setFont(new Font("Serif", Font.BOLD, 16));
+        niveau.setForeground(new Color(255,0,162));
+
+        experience.setText("XP " + hero[heroTurn].getXp() + "/" + hero[heroTurn].getXpAAtteindre());
+        experience.setFont(new Font("Serif", Font.BOLD, 16));
+        experience.setForeground(Color.white);
         
         JLabel invisible1 = new JLabel();
         JLabel invisible2 = new JLabel();
         JLabel invisible3 = new JLabel();
         JLabel invisible4 = new JLabel();
+        JLabel invisible5 = new JLabel();
 
         stats.add(invisible1);
         stats.add(pv);
@@ -252,9 +264,15 @@ public class Game extends JFrame {
         stats.add(invisible4);
         stats.add(experience);
 
+        stats.add(invisible5);
+        stats.add(niveau);
+
         JLabel bord = new JLabel();
+        JButton nextTurn = new JButton("Tour suivant");
+        nextTurn.addActionListener(new NextTurn());
+        touches.add(nextTurn);
         touches.add(bord);
-        bord.setPreferredSize(new Dimension(200,47));
+        bord.setPreferredSize(new Dimension(200,27));
 
         JLabel[][] Fleche = new JLabel[3][3];
 
@@ -272,11 +290,10 @@ public class Game extends JFrame {
                 Fleche[1][2].addMouseListener(new ChangeMapButton(Direction.RIGHT));
                 touches.add(Fleche[i][j]);
                 Fleche[i][j].setPreferredSize(new Dimension(50,50));
-
-        getContentPane().add(mainWindow);
-        setVisible(true);
             }
         }
+        getContentPane().add(mainWindow);
+        setVisible(true);
     }
 
     /**
@@ -340,7 +357,9 @@ public class Game extends JFrame {
         pv.setText("Vie " + hero[heroTurn].getPointDeVie() + "/" + hero[heroTurn].getPointDeVieMax());
         att.setText("Attaque " + hero[heroTurn].getAttaque());
         def.setText("Defense " + hero[heroTurn].getArmure());
-        experience.setText("Niveau " + hero[heroTurn].getNiveau() + " " + hero[heroTurn].getXp() + "/" + hero[heroTurn].getXpAAtteindre());
+        niveau.setText("Niveau " + hero[heroTurn].getNiveau());
+        experience.setText("XP " + hero[heroTurn].getXp() + "/" + hero[heroTurn].getXpAAtteindre());
+
 
     }
 }
