@@ -24,6 +24,10 @@ public class Game extends JFrame {
     private AHero[] hero;
     private String worldName;
     private int heroTurn = 0;
+    private JLabel experience = new JLabel();
+    private JLabel pv = new JLabel();
+    private JLabel att = new JLabel();
+    private JLabel def = new JLabel();
     /**
      * Constructeur par initialisation
      * @param mapSizeX int
@@ -135,6 +139,7 @@ public class Game extends JFrame {
             inventory.add(hero[heroTurn].getInventaire());
             inventory.validate();
             inventory.repaint();
+            updateStats();
         }
     }
 
@@ -205,50 +210,47 @@ public class Game extends JFrame {
         commande.setLayout(new GridLayout(1,2));
 
         JPanel touches = new JPanel();
-        touches.setBackground(new Color(255,220,155));
+        touches.setBackground(Color.black);
         JPanel stats = new JPanel();
         commande.add(touches);
         commande.add(stats);
-        stats.setBackground(new Color(41,2,186));
+        stats.setBackground(Color.black);
         
-        stats.setLayout(new GridLayout(3,3));
+        stats.setLayout(new GridLayout(4,2));
 
-        JLabel att = new JLabel("attaque");
+        pv.setText("Vie " + hero[heroTurn].getPointDeVie() + "/" + hero[heroTurn].getPointDeVieMax());
+        pv.setFont(new Font("Serif", Font.BOLD, 16));
+        pv.setForeground(new Color(27,144,0));
+        
+        att.setText("Attaque " + hero[heroTurn].getAttaque());
         att.setPreferredSize(new Dimension(50,50));
-        att.setFont(new Font("Serif", Font.BOLD, 14));
+        att.setFont(new Font("Serif", Font.BOLD, 16));
         att.setForeground(new Color(255,131,0));
-        JLabel att2 = new JLabel("80");
-        att2.setPreferredSize(new Dimension(50,50));
-        att2.setFont(new Font("Serif", Font.BOLD, 14));
-        att2.setForeground(new Color(255,131,0));
-
-        JLabel def = new JLabel("defense");
-        def.setFont(new Font("Serif", Font.BOLD, 14));
+        
+        def.setText("Defense " + hero[heroTurn].getArmure());
+        def.setFont(new Font("Serif", Font.BOLD, 16));
         def.setForeground(new Color(3,127,252));
-        JLabel def2 = new JLabel("80");
-        def2.setFont(new Font("Serif", Font.BOLD, 14));
-        def2.setForeground(new Color(3,127,252));
-
-        JLabel autre = new JLabel("autre");
-        autre.setFont(new Font("Serif", Font.BOLD, 14));
-        autre.setForeground(new Color(255,0,162));
-        JLabel autre2 = new JLabel("80");
-        autre2.setFont(new Font("Serif", Font.BOLD, 14));
-        autre2.setForeground(new Color(255,0,162));
-
+        
+        experience.setText("Niveau " + hero[heroTurn].getNiveau());
+        experience.setFont(new Font("Serif", Font.BOLD, 16));
+        experience.setForeground(new Color(255,0,162));
+        
         JLabel invisible1 = new JLabel();
         JLabel invisible2 = new JLabel();
         JLabel invisible3 = new JLabel();
+        JLabel invisible4 = new JLabel();
 
         stats.add(invisible1);
-        stats.add(att);
-        stats.add(att2);
+        stats.add(pv);
+        
         stats.add(invisible2);
-        stats.add(def);
-        stats.add(def2);
+        stats.add(att);
+        
         stats.add(invisible3);
-        stats.add(autre);
-        stats.add(autre2);
+        stats.add(def);
+        
+        stats.add(invisible4);
+        stats.add(experience);
 
         JLabel bord = new JLabel();
         touches.add(bord);
@@ -332,5 +334,13 @@ public class Game extends JFrame {
                 }
             }
         }
+    }
+
+    public void updateStats(){
+        pv.setText("Vie " + hero[heroTurn].getPointDeVie() + "/" + hero[heroTurn].getPointDeVieMax());
+        att.setText("Attaque " + hero[heroTurn].getAttaque());
+        def.setText("Defense " + hero[heroTurn].getArmure());
+        experience.setText("Niveau " + hero[heroTurn].getNiveau() + " " + hero[heroTurn].getXp() + "/" + hero[heroTurn].getXpAAtteindre());
+
     }
 }

@@ -83,8 +83,36 @@ public abstract class APersonnage implements java.io.Serializable {
 		return nom; 
 	}
 	/**
+	* Getter pour les points de vie du personnage
+	* @return int
+	*/
+	public int getPointDeVie(){
+		return pointsDeVie;
+	}
+	/**
+	* Getter pour les points de vie max du hero
+	* @return int
+	*/
+	public int getPointDeVieMax() {
+		return pointsDeVieMax;
+	}
+	/**
+	* Getter pour l'attaque du hero
+	* @return int
+	*/
+	public int getAttaque() {
+		return pointsDAttaque;
+	}
+	/**
+	* Getter pour l'armure du hero
+	* @return int
+	*/
+	public int getArmure() {
+		return armure;
+	}
+	/**
 	* Getter pour le niveau du hero
-	* @return niveau
+	* @return int
 	*/
 	public int getNiveau() {
 		return niveau;
