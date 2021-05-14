@@ -349,6 +349,13 @@ public class Game extends JFrame {
             if (target != null) {
                 if (hero[heroTurn].monstreVaincu(target)) {
                     map.getCurrentlyLoadedChunk().removeMobAtPos(target.squarePosX%15,target.squarePosY%15);
+                    if (target.getMobType() == MobType.BOSS) {
+                        new Fin();
+                    }
+                }
+                if (target.heroVaincu(hero[heroTurn])) {
+                    System.out.println("Le hero est vaincu, vous avez perdu...");
+                    new Gameover();
                 }
             }
         }
