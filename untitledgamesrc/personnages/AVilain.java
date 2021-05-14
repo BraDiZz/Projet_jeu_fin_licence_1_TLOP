@@ -31,4 +31,12 @@ public abstract class AVilain extends APersonnage {
 	    	armure = 50;
 	    }
 	}
+    public boolean heroVaincu(AHero hero) {
+        boolean heroVaincu = false;
+
+        if (attaquer(hero)) {
+            heroVaincu = true;
+        }
+        return heroVaincu;
+    }
 }

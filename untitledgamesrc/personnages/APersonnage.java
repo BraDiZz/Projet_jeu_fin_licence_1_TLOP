@@ -136,7 +136,7 @@ public abstract class APersonnage implements java.io.Serializable {
 	 * @param niveau int
 	 */
 	public void addNiveau(int niveau) {
-		setNiveau(niveau+1);
+		setNiveau(this.niveau+niveau);
 	}
 	/** 
 	* Methode qui modifie les points de vie du personnage en fonction des degats qu'il prend
