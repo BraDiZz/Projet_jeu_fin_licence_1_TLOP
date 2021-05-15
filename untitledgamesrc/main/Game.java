@@ -358,11 +358,14 @@ public class Game extends JFrame {
                     new Gameover();
                 }
             }
+            updateStats();
         }
+
     }
 
     public void updateStats(){
         pv.setText("Vie " + hero[heroTurn].getPointDeVie() + "/" + hero[heroTurn].getPointDeVieMax());
+        if(hero[heroTurn].getPointDeVie()<0){pv.setText("Vie " + "0/"+ hero[heroTurn].getPointDeVieMax());}
         att.setText("Attaque " + hero[heroTurn].getAttaque());
         def.setText("Defense " + hero[heroTurn].getArmure());
         niveau.setText("Niveau " + hero[heroTurn].getNiveau());
