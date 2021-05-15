@@ -232,22 +232,20 @@ public class Map implements java.io.Serializable {
         int x = hero.squarePosX;
         int y = hero.squarePosY;
 
-        AVilain vilain = null;
-        if (x < 15) {
-          vilain = (AVilain)map[(int)(x/15)][(int)(y/15)].getContentAtPos((x+1)%15, y%15).getMob();            
+        APersonnage vilain = null;
+
+        for (Direction dir : Direction.values()) {
+            Chunk chunk = getChunkOfMob(hero);
+            int xScan = hero.squarePosX%15 + dir.x;
+            int yScan = hero.squarePosY%15 + dir.y;
+            Square square = chunk.getContentAtPos(xScan, yScan);
+            if (square != null && square.getMob() instanceof AVilain) {
+                vilain = chunk.getContentAtPos(xScan, yScan).getMob();
+                break;
+            }
         }
 
-
-        if (vilain == null && x > 0) {
-            vilain = (AVilain)map[(int)(x/15)][(int)(y/15)].getContentAtPos((x-1)%15, y%15).getMob();
-            if(vilain == null && y < 15) {
-                vilain = (AVilain)map[(int)(x/15)][(int)(y/15)].getContentAtPos(x%15, (y+1)%15).getMob();
-                if(vilain == null && y > 0) {
-                  vilain = (AVilain)map[(int)(x/15)][(int)(y/15)].getContentAtPos(x%15, (y-1)%15).getMob();
-                }
-            }
-        }        
-        return vilain;
+        return (AVilain)vilain;
     }
 
     public void moveVilains(AHero hero) {

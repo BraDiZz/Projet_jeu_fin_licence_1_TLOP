@@ -227,7 +227,7 @@ public class Chunk implements java.io.Serializable {
         if (count != 0) {
             int y = 0;
             index = new int[count];
-            for (int i = 0; i < mobTable.length; i++) {
+            for (int i = 0; i < count; i++) {
                 if (mobTable[i] == null) {
                     index[y] = i;
                 }
