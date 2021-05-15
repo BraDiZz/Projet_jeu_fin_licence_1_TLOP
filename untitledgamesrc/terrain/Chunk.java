@@ -3,7 +3,7 @@ package terrain;
 import personnages.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 16/05/2021
  */
 public class Chunk implements java.io.Serializable {
     /**
@@ -18,6 +18,9 @@ public class Chunk implements java.io.Serializable {
      * Un tableau de tableaux de Square pour tout le contenu du Chunk
      */
     private Square[][] content;
+    /**
+     * Un tableau de AVilain pour regrouper tous les ennemis sur ce Chunk
+     */
     private AVilain[] vilains = new AVilain[6];
     /**
      * Constructeur par initialisation
@@ -63,7 +66,10 @@ public class Chunk implements java.io.Serializable {
     public int getChunkPosY() {
         return chunkPosY;
     }
-
+    /**
+     * Getter du tableau des ennemis sur le Chunk
+     * @return AVilain[]
+     */
     public AVilain[] getVilains() {
         return vilains;
     }
@@ -86,7 +92,10 @@ public class Chunk implements java.io.Serializable {
     public void removeMobAtPos(int xSquare, int ySquare) {
         content[xSquare][ySquare].setMob(null);
     }
-
+    /**
+     * Methode qui supprime l'ennemi du Chunk
+     * @param vilain AVilain
+     */
     public void killVillain(AVilain vilain) {
         int i = indexOfMob(vilain);
         vilains[i] = null;
@@ -94,7 +103,11 @@ public class Chunk implements java.io.Serializable {
         getContentAtPos(vilain.squarePosX%15, vilain.squarePosY%15).validate();
         getContentAtPos(vilain.squarePosX%15, vilain.squarePosY%15).repaint();
     }
-
+    /**
+     * Methode qui retourne les emplacements d'ennemis vides
+     * @param vilain AVilain
+     * @return int
+     */
     public int indexOfMob(AVilain vilain) {
         int i = 0;
         while (i < vilains.length && vilains[i] != vilain) i++;
@@ -162,7 +175,6 @@ public class Chunk implements java.io.Serializable {
             }
         }
     }
-
     /**
      * Méthode pour faire apparaitre un ou plusieurs vilains
      * @param niveauHero int
@@ -206,7 +218,6 @@ public class Chunk implements java.io.Serializable {
             }
         }
     }
-
     /**
      * Méthode pour faire apparaitre le BOSS
      * @param niveauHero int 

@@ -5,8 +5,8 @@ import java.awt.*;
 import personnages.*;
 import texture.*;
 /**
- * @author
- * @version 10/05/2021
+ * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
+ * @version 16/05/2021
  */
 public class Square extends JLabel implements java.io.Serializable {
     /**
@@ -86,11 +86,13 @@ public class Square extends JLabel implements java.io.Serializable {
     public void setMob(APersonnage mob) {
         this.mob = mob;
     }
-
+    /**
+     * Setter du boolean si il est selectionne
+     * @param isSelected boolean
+     */
     public void setIsSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }
-
     /**
      * Getter qui renvoie le mob sur le Square
      * @return mob
@@ -105,7 +107,6 @@ public class Square extends JLabel implements java.io.Serializable {
     public boolean isSpawnValid() {
         return (mob == null && !squareType.hasBoundingBox);
     }
-
     /**
      * Methode pour changer l'apparence du Square
      * @param g Graphics

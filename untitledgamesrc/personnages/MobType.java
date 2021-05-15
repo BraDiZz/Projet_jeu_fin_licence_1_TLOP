@@ -1,14 +1,15 @@
 package personnages;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 16/05/2021
  * Enumeration de tous les types de mob qu'il existe
  * {@link #ARCHER}
  * {@link #MURDERER}
- * {@link #BOSS}
  * {@link #KNIGHT}
+ * {@link #BOSS}
  * {@link #WOLF}
- * {@link #UNKNOWN}
+ * {@link #ORC}
+ * {@link #SKELETON}
  */
 public enum MobType {
     /**
@@ -43,6 +44,9 @@ public enum MobType {
      * Un String pour le chemin de l'image du mob
      */
     public final String path;
+    /**
+     * Un String pour le nom par defaut de l'ennemi
+     */
     public final String defaultName;
     /**
      * Constructeur par initialisation
