@@ -16,12 +16,12 @@ public class Gameover extends JFrame {
 
         String texte = "<html><h1 style=\"color: yellow;\"align='center'><u>GAME OVER</u></h1>";
         texte += "<br/>";
-        texte += "<h3>&#9Oh non ! Le <i>Golem de magie noir</i>  n'a pas &eacute;t&eacute; vaincu !<br/>";
-        texte += "&#9Les troupes ennemies ont mit fin a vos jours..<br/>";
-        texte += "&#9Malheureusement l'aventure s'arrete la pour vous... ";
-        texte += "Nous comptons sur vous pour revenir plus fort..<br/> ";
+        texte += "<h3>Oh non ! Le <i>Golem de magie noir</i>  n'a pas &eacute;t&eacute; vaincu !<br/>";
+        texte += "Les troupes ennemies ont mit fin a vos jours..<br/>";
+        texte += "Malheureusement l'aventure s'arrete la pour vous...<br/>";
+        texte += "Nous comptons sur vous pour revenir plus fort..";
 
-        JLabel messageFinal = new JLabel(texte);
+        JLabel messageFinal = new JLabel(texte, SwingConstants.CENTER);
         window.add(messageFinal);
         
         messageFinal.setOpaque(true);

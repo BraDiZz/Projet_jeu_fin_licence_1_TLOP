@@ -31,6 +31,8 @@ public class Map implements java.io.Serializable {
      * Un int pour savoir exactement dans quel Chunk se trouve le joueur sur l'axe Y
      */
     public int curChunkY = 0;
+    
+    private Square selectedSquare = null;
     /**
      * Constructeur par initialisation
      * @param sizeX int pour la taille en longueur
@@ -183,12 +185,12 @@ public class Map implements java.io.Serializable {
                 hero.squarePosX = xNextPosition;
                 hero.squarePosY = yNextPosition;
                 squareNext.setMob(hero);
+                setSelectedSquare(null);
             }
         }
     }
 
     public void changeMobPos(AVilain vilain, Direction direction) {
-        System.out.println(direction);
         int xNextPosition = vilain.squarePosX+direction.x;
         int yNextPosition = vilain.squarePosY+direction.y;
 
@@ -226,6 +228,10 @@ public class Map implements java.io.Serializable {
 
     public Square getSquareOfMob(APersonnage mob) {
         return getChunkOfMob(mob).getContentAtPos(mob.squarePosX%15, mob.squarePosY%15);
+    }
+
+    public Square getSquareRelativeToMob(APersonnage mob, Direction direction) {
+        return getChunkOfMob(mob).getContentAtPos(mob.squarePosX%15+direction.x, mob.squarePosY%15+direction.y);
     }
 
     public AVilain vilainAAttaquer(AHero hero) {
@@ -285,5 +291,23 @@ public class Map implements java.io.Serializable {
 
     public double getAngle(double cos, double sin) {
         return sin < 0 ? 2*Math.PI-Math.acos(cos) : Math.acos(cos);
+    }
+
+    public void setSelectedSquare(Square square) {
+        if (selectedSquare != null) {
+            selectedSquare.setIsSelected(false);
+            selectedSquare.repaint();
+        }
+        if (square == null) {
+            selectedSquare = null;
+        } else {
+            selectedSquare = square;
+            selectedSquare.setIsSelected(true);
+            selectedSquare.repaint();
+        }
+    }
+
+    public Square getSelectedSquare() {
+        return selectedSquare;
     }
 }

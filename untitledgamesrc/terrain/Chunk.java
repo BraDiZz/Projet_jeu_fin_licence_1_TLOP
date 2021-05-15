@@ -89,7 +89,6 @@ public class Chunk implements java.io.Serializable {
 
     public void killVillain(AVilain vilain) {
         int i = indexOfMob(vilain);
-        System.out.println(i);
         vilains[i] = null;
         removeMobAtPos(vilain.squarePosX%15, vilain.squarePosY%15);
         getContentAtPos(vilain.squarePosX%15, vilain.squarePosY%15).validate();
@@ -98,7 +97,7 @@ public class Chunk implements java.io.Serializable {
 
     public int indexOfMob(AVilain vilain) {
         int i = 0;
-        while (vilains[i] != vilain && i < vilains.length) i++;
+        while (i < vilains.length && vilains[i] != vilain) i++;
         return i == vilains.length ? -1 : i;
     }
     /**
@@ -197,6 +196,13 @@ public class Chunk implements java.io.Serializable {
                 // Ajout des mobs au tableau et spawn des mobs
                 setMobAtPos(vilain, x%15, y%15);
                 vilains[indexOfNull[i]] = vilain;
+                System.out.println(indexOfNull.length + " " + vilains[indexOfNull[i]]);
+                System.out.println("///////");
+                for (int z = 0; z < vilains.length; z++) {
+                    System.out.println(vilains[z]);
+                }
+                System.out.println(indexOfNull[i]);
+                System.out.println("///////");
             }
         }
     }
@@ -227,11 +233,11 @@ public class Chunk implements java.io.Serializable {
         if (count != 0) {
             int y = 0;
             index = new int[count];
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < mobTable.length; i++) {
                 if (mobTable[i] == null) {
                     index[y] = i;
+                    y++;
                 }
-                y++;
             }
         }
 

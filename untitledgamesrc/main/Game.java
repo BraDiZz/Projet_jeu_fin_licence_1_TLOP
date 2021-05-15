@@ -24,7 +24,7 @@ public class Game extends JFrame {
     private Map map;
     private AHero[] hero;
     private String worldName;
-    private int heroTurn = 0;
+    private int heroTurn;
     private JLabel experience = new JLabel();
     private JLabel pv = new JLabel();
     private JLabel att = new JLabel();
@@ -38,14 +38,19 @@ public class Game extends JFrame {
      */
     
     public static void main(String[] args) {
-        AHero[] mobs = {new Archer("A", 0, 0), new Chevalier("B", 0, 0), new Assassin("B", 0, 0)};
+        AHero[] mobs = {new Archer("A", -1, -1), new Chevalier("B", -1, -1), new Assassin("B", -1, -1)};
         new Game(new Map(4, 4, 56164), mobs, "hein");
     }
 
     public Game(Map map, AHero[] hero, String worldName) {
+        this(map, hero, worldName, 0);
+    } 
+
+    public Game(Map map, AHero[] hero, String worldName, int heroTurn) {
         this.map = map;
         this.hero = hero;
         this.worldName = worldName;
+        this.heroTurn = heroTurn;
 
         init();
 
@@ -54,6 +59,7 @@ public class Game extends JFrame {
         }
 
         loadChunk(map.getCurrentlyLoadedChunk());
+        setSurroundedSquareListeners(hero[heroTurn], true);
 
         inventory.add(hero[heroTurn].getInventaire());
         
@@ -84,8 +90,9 @@ public class Game extends JFrame {
          * @param me MouseEvent
          */
         public void mouseClicked(MouseEvent me) {
+            setSurroundedSquareListeners(hero[heroTurn], false);
             changePlayerPos(hero[heroTurn], direction);
-            surroundMobSquaresWithListeners(hero[heroTurn], direction);
+            setSurroundedSquareListeners(hero[heroTurn], true);
         }
         /**
          * Methode obligatoire pour que le programme puisse se lancer
@@ -120,8 +127,7 @@ public class Game extends JFrame {
     class SelectSquare implements MouseListener{
         public void mouseClicked(MouseEvent me){
             Square test = (Square)me.getSource();
-            test.setIsSelected(true);
-            test.repaint();
+            map.setSelectedSquare(test);
         }
 
         public void mouseEntered(MouseEvent me){}
@@ -132,22 +138,25 @@ public class Game extends JFrame {
 
     class NextTurn implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+            setSurroundedSquareListeners(hero[heroTurn], false);
             heroTurn++;
             if (heroTurn == hero.length) {
                 heroTurn = 0;
             }
+            setSurroundedSquareListeners(hero[heroTurn], true);
             loadChunk(map.getChunkOfMob(hero[heroTurn]));
             inventory.removeAll();
             inventory.add(hero[heroTurn].getInventaire());
             inventory.validate();
             inventory.repaint();
+            map.setSelectedSquare(null);
             updateStats();
         }
     }
 
     class Save implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            GameSave save = new GameSave(map, hero, worldName);
+            GameSave save = new GameSave(map, hero, worldName, heroTurn);
             CustomSerializeObject.serialize(save, worldName + ".txt");
         }
     }
@@ -325,20 +334,21 @@ public class Game extends JFrame {
         repaint();
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());
+            System.out.println(map.getCurrentlyLoadedChunk().getChunkPosX() + " " + map.getCurrentlyLoadedChunk().getChunkPosY());
             map.getCurrentlyLoadedChunk().spawnVilains(hero.getNiveau());
             map.getCurrentlyLoadedChunk().spawnBoss(hero.getNiveau());
         }
         map.moveVilains(hero);
     }
 
-    public void surroundMobSquaresWithListeners(AHero hero, Direction direction) {
+    public void setSurroundedSquareListeners(AHero hero, boolean add) {
         for (Direction dir : Direction.values()) {
-            Square squareBefore = map.getCurrentlyLoadedChunk().getContentAtPos((hero.squarePosX-direction.x)%15+dir.x, (hero.squarePosY-direction.y)%15+dir.y);
-            Square square = map.getCurrentlyLoadedChunk().getContentAtPos(hero.squarePosX%15+dir.x, hero.squarePosY%15+dir.y);
+            Square square = map.getSquareRelativeToMob(hero, dir);
             if (square != null) {
-                square.addMouseListener(new SelectSquare());
-                if (squareBefore != null && squareBefore.getMouseListeners().length != 0) {
-                    squareBefore.removeMouseListener(squareBefore.getMouseListeners()[0]);
+                if (add) {
+                    square.addMouseListener(new SelectSquare());
+                } else if (square.getMouseListeners().length != 0) {
+                    square.removeMouseListener(square.getMouseListeners()[0]);
                 }
             }
         }
@@ -346,8 +356,9 @@ public class Game extends JFrame {
 
     public class Attaquer implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            AVilain target = map.vilainAAttaquer(hero[heroTurn]);
-            if (target != null) {
+            Square square = map.getSelectedSquare();
+            if (square != null && square.getMob() != null && square.getMob() instanceof AVilain) {
+                AVilain target = (AVilain)square.getMob();
                 if (hero[heroTurn].monstreVaincu(target)) {
                     map.getChunkOfMob(target).killVillain(target);
                     dropItem();
@@ -356,7 +367,6 @@ public class Game extends JFrame {
                     }
                 }
                 if (target.heroVaincu(hero[heroTurn])) {
-                    System.out.println("Le hero est vaincu, vous avez perdu...");
                     new Gameover();
                 }
             }
@@ -375,7 +385,6 @@ public class Game extends JFrame {
 
     public void dropItem(){
         int drop = 0 + (int)(Math.random() * ((5 - 0) + 1));
-        System.out.println("drop : " + drop);
         switch(drop){
             case 0:
                 hero[heroTurn].getInventaire().addObjetToInv(new Jus(1));

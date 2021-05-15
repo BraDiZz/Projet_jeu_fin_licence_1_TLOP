@@ -257,7 +257,7 @@ public class Main extends JFrame {
                 
                 AHero[] heroes = new AHero[1];
                 heroes[0] = hero1;
-                new Game(map, heroes, gameWorldName);
+                new Game(map, heroes, gameWorldName, 0);
                 new Histoire();
             }
         }
@@ -302,7 +302,7 @@ public class Main extends JFrame {
                     JOptionPane.showMessageDialog(Main.this, "Le fichier de sauvegarde est corrompu ou incorrect :(");
                 } else {
                     setVisible(false);
-                    new Game(save.getMap(), save.getHeroes(), save.getWorldName());
+                    new Game(save.getMap(), save.getHeroes(), save.getWorldName(), save.getHeroTurn());
                 }
             }
         }
