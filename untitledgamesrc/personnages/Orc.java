@@ -1,7 +1,7 @@
 package personnages;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 11/05/2021
+ * @version 16/05/2021
  */
 public class Orc extends AVilain {
     /**

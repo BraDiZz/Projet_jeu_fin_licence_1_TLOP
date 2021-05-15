@@ -10,38 +10,67 @@ import save.*;
 import objets.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 16/05/2021
  */
 public class Game extends JFrame {
     /**
      * Un JPanel pour l'interface du monde
      */
     private JPanel grid = new JPanel();
+    /**
+     * Un JPanel pour le contenu de l'inventaire du personnage du joueur
+     */
     private JPanel inventory = new JPanel();
     /**
      * Une Map pour la carte
      */
     private Map map;
+    /**
+     * Un tableau de AHero pour stocker tous les personnages du joueur
+     */
     private AHero[] hero;
+    /**
+     * Un string pour le nom du monde genere
+     */
     private String worldName;
+    /**
+     * Un int pour connaitre avec quel personnage le joueur va pouvoir interargir
+     */
     private int heroTurn = 0;
+    /**
+     * Un JLabel pour la statistique de l'experience
+     */
     private JLabel experience = new JLabel();
+    /**
+     * Un JLabel pour la statistique des points de vie
+     */
     private JLabel pv = new JLabel();
+    /**
+     * Un JLabel pour la statistique des degats
+     */
     private JLabel att = new JLabel();
+    /**
+     * Un JLabel pour la statistique de l'armure
+     */
     private JLabel def = new JLabel();
+    /**
+     * Un JLabel pour la statistique du niveau
+     */
     private JLabel niveau = new JLabel();
+    /**
+     * Main a executer pour avoir plusieurs personnages en meme temps
+     * @param args String[]
+     */
+    public static void main(String[] args) {
+        AHero[] mobs = {new Archer("A", 0, 0), new Chevalier("B", 0, 0), new Assassin("B", 0, 0)};
+        new Game(new Map(4, 4, 56164), mobs, "hein");
+    }
     /**
      * Constructeur par initialisation
      * @param mapSizeX int
      * @param mapSizeY int
      * @param seed long
      */
-    
-    public static void main(String[] args) {
-        AHero[] mobs = {new Archer("A", 0, 0), new Chevalier("B", 0, 0), new Assassin("B", 0, 0)};
-        new Game(new Map(4, 4, 56164), mobs, "hein");
-    }
-
     public Game(Map map, AHero[] hero, String worldName) {
         this.map = map;
         this.hero = hero;
@@ -60,13 +89,9 @@ public class Game extends JFrame {
         validate();
         repaint();
     }
-
-
-
-
-
-
-
+    /**
+    * Class pour le clique sur une des fleches
+    */
     class ChangeMapButton implements MouseListener{
         /**
          * Une Direction pour la direction du clique
@@ -116,21 +141,48 @@ public class Game extends JFrame {
             fleche.repaint();
         }
     }
-
+    /**
+     * Class pour le clique sur 
+     */
     class SelectSquare implements MouseListener{
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
         public void mouseClicked(MouseEvent me){
             Square test = (Square)me.getSource();
             test.setIsSelected(true);
             test.repaint();
         }
-
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
         public void mouseEntered(MouseEvent me){}
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
         public void mouseExited(MouseEvent me){}
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
         public void mousePressed(MouseEvent me){}
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
         public void mouseReleased(MouseEvent me){}
     }
-
+    /**
+     * Class pour le bouton prochain tour
+     */
     class NextTurn implements ActionListener {
+        /**
+         * Methode lorsque l'utilisateur clique sur le bouton
+         * @param e ActionEvent
+         */
         public void actionPerformed(ActionEvent e) {
             heroTurn++;
             if (heroTurn == hero.length) {
@@ -144,18 +196,22 @@ public class Game extends JFrame {
             updateStats();
         }
     }
-
+    /**
+     * Class pour le bouton sauvegarde
+     */
     class Save implements ActionListener {
+        /**
+         * Methode lorsque l'utilisateur clique sur le bouton
+         * @param e ActionEvent
+         */
         public void actionPerformed(ActionEvent e) {
             GameSave save = new GameSave(map, hero, worldName);
             CustomSerializeObject.serialize(save, worldName + ".txt");
         }
     }
-
-
-
-
-
+    /**
+     * Constructeur de la fenetre de jeu
+     */
     public void init() {
         setSize(1200,900);
 	    setLocationRelativeTo(null);
@@ -296,7 +352,6 @@ public class Game extends JFrame {
         getContentPane().add(mainWindow);
         setVisible(true);
     }
-
     /**
     * Methode pour changer de Chunk
     * @param chunk Chunk
@@ -313,7 +368,6 @@ public class Game extends JFrame {
         grid.validate();
         grid.repaint();
     }
-
     /**
     * Methode pour changer le joueur de position dans le monde
     * @param direction Direction
@@ -330,7 +384,11 @@ public class Game extends JFrame {
         }
         map.moveVilains(hero);
     }
-
+    /**
+     * Methode pour savoir si le joueur est entoure 
+     * @param hero AHero
+     * @param direction Direction
+     */
     public void surroundMobSquaresWithListeners(AHero hero, Direction direction) {
         for (Direction dir : Direction.values()) {
             Square squareBefore = map.getCurrentlyLoadedChunk().getContentAtPos((hero.squarePosX-direction.x)%15+dir.x, (hero.squarePosY-direction.y)%15+dir.y);
@@ -343,8 +401,14 @@ public class Game extends JFrame {
             }
         }
     }
-
+    /**
+     * Class pour le bouton d'attaque
+     */
     public class Attaquer implements ActionListener {
+        /**
+         * Methode lorsque l'utilisateur clique sur le bouton
+         * @param e ActionEvent
+         */
         public void actionPerformed(ActionEvent e) {
             AVilain target = map.vilainAAttaquer(hero[heroTurn]);
             if (target != null) {
@@ -363,7 +427,9 @@ public class Game extends JFrame {
             updateStats();
         }
     }
-
+    /**
+     * Methode pour actualiser les statistiques du personnage
+     */
     public void updateStats(){
         pv.setText("Vie " + hero[heroTurn].getPointDeVie() + "/" + hero[heroTurn].getPointDeVieMax());
         if(hero[heroTurn].getPointDeVie()<0){pv.setText("Vie " + "0/"+ hero[heroTurn].getPointDeVieMax());}
@@ -372,29 +438,29 @@ public class Game extends JFrame {
         niveau.setText("Niveau " + hero[heroTurn].getNiveau());
         experience.setText("XP " + hero[heroTurn].getXp() + "/" + hero[heroTurn].getXpAAtteindre());
     }
-
+    /**
+     * Methode pour l'ajout d'un objet aléatoirement dans l'inventaire du joueur a la mort d'un monstre
+     */
     public void dropItem(){
-        int drop = 0 + (int)(Math.random() * ((5 - 0) + 1));
-        System.out.println("drop : " + drop);
-        switch(drop){
-            case 0:
+        int drop = 0 + (int)(Math.random() * ((100 - 0) + 1));
+        int rarete = 0 + (int)(Math.random()*((5-0)+1));
+        System.out.println("drop : " + drop + " rarete : "+rarete);
+        if(drop >= 0 && drop <= 50) {
+            if(rarete >= 0 && rarete <= 2) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Jus(1));
-                break;
-            case 1:
-                hero[heroTurn].getInventaire().addObjetToInv(new Pomme(1));
-                break;
-            case 2:
+            } else if(rarete >= 3 && rarete <= 4) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Potion(1));
-                break;
-            case 3:
-                hero[heroTurn].getInventaire().addObjetToInv(new Pain(1));
-                break;
-            case 4:
+            } else if(rarete == 5) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Superpotion(1));
-                break;
-            case 5:
+            }
+        } else {
+            if(rarete >= 0 && rarete <= 2) {
+                hero[heroTurn].getInventaire().addObjetToInv(new Pomme(1));
+            }  else if(rarete >= 3 && rarete <= 4) {
+                hero[heroTurn].getInventaire().addObjetToInv(new Pain(1));
+            } else if(rarete == 5) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Poulet(1));
-                break;
+            }
         }
     }
 }

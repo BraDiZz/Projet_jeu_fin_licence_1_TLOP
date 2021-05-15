@@ -3,7 +3,7 @@ package terrain;
 import java.awt.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 16/05/2021
  * Enumeration pour les fleches
  * {@link #DOWN}
  * {@link #RIGHT}
@@ -11,9 +11,21 @@ import java.awt.*;
  * {@link #LEFT}
  */
 public enum Direction {
-	DOWN("Bas", BorderLayout.NORTH, 0, 1),
+    /**
+     * Direction pour le bas
+     */
+	DOWN("Bas", BorderLayout.SOUTH, 0, 1),
+    /**
+     * Direction pour la droite
+     */
 	RIGHT("Droite", BorderLayout.EAST, 1, 0),
-	UP("Haut", BorderLayout.SOUTH, 0, -1),
+    /**
+     * Direction pour le haut
+     */
+	UP("Haut", BorderLayout.NORTH, 0, -1),
+    /**
+     * Direction pour la gauche
+     */
     LEFT("Gauche", BorderLayout.WEST, -1, 0);
     /**
      * Un string pour le nom du label

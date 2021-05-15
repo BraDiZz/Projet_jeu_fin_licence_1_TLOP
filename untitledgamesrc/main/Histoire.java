@@ -4,7 +4,7 @@ import java.awt.*;
 import javax.swing.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 12/05/2021
+ * @version 16/05/2021
  */
 public class Histoire extends JFrame {
     /**

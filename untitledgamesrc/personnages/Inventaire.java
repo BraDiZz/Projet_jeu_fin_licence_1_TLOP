@@ -1,5 +1,8 @@
 package personnages;
-
+/**
+ * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
+ * @version 16/05/2021
+ */
 import objets.*;
 import java.util.Vector;
 import javax.swing.*;
@@ -96,11 +99,17 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 		
 		return true;
 	}
-
+	/**
+	 * Methode qui retourne la taille du vecteur
+	 * @return int
+	 */
 	public int getTaille() {
 		return listeObjets.size();
 	}
-
+	/**
+	 * Methode qui ajoute un objet a l'inventaire
+	 * @param objet AObjet
+	 */
 	public void addObjetToInv(AObjet objet) {
 		int[] indexInInv = whichAreNotFull(searchInInv(objet));
 
@@ -111,11 +120,19 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 		} else if (listeObjets.size() < 16) listeObjets.add(objet);
 		updateDisplay();
 	}
-
+	/**
+	 * Methode qui verifie si le nombre d'objet depasse 16 ou non
+	 * @paramobjet AObjet
+	 * @return boolean
+	 */
 	public boolean isStackFull(AObjet objet) {
 		return objet.getCount() >= 16;
 	}
-
+	/**
+	 * Methode qui verifie quels objets ont atteint la capacite maximum sur un emplacement et ceux qui ne l'ont pas encore atteinte
+	 * @param indexInInv int[]
+	 * @return int[]
+	 */
 	public int[] whichAreNotFull(int[] indexInInv) {
 		if (indexInInv == null) return null;
 		int count = 0;
@@ -141,7 +158,11 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 
 		return whichAreNotFull;
 	}
-
+	/**
+	 * Methode qui recherche le nombre de fois qu'il y a un objet dans l'inventaire
+	 * @param objet AObjet
+	 * @return int[]
+	 */
 	public int[] searchInInv(AObjet objet) {
 		// Recherche du nombre d'occurences de l'objet dans le vecteur
 		int timesInInv = 0;
@@ -165,10 +186,13 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 				}
 			}
 		}
-
 		return indexInInv;
 	}
-
+	/**
+	 * Methode pour 
+	 * @param vector Vector<Integer>
+	 * @return int[]
+	 */
 	public int[] vectorToIntTable(Vector<Integer> vector) {
 		int[] table = new int[vector.size()];
 		for (int i = 0; i < vector.size(); i++) {

@@ -2,18 +2,17 @@
 * Classe CustomSerializeObject, utilisée pour serializer et déserializer tout type d'objets. (Utilisée dans
 * MainSwing et MaiNFX dans ce cas là)
 * @author DIOT Sébastien
-* @version 10/05/2021
+* @version 16/05/2021
 */
-
 package save;
 
 import java.io.*;
 
 public class CustomSerializeObject {
     /**
-    * Méthode utilisée pour sérialiser un objet.
-    * @param object l'objet à sérialiser.
-    * @param fileName nom du fichier pour la sérialisation.
+    * Methode utilisee pour serialiser un objet.
+    * @param object l'objet à serialiser.
+    * @param fileName nom du fichier pour la serialisation.
     */
     public static void serialize(Object object, String fileName) {
         try {
@@ -26,11 +25,10 @@ public class CustomSerializeObject {
             err.printStackTrace();
         }
     }
-    
     /**
-    * Méthode utilisée pour déserialiser un objet.
-    * @param fileName nom du fichier à déserialiser
-    * @return l'objet déserialisé
+    * Méthode utilisee pour deserialiser un objet.
+    * @param fileName nom du fichier à deserialiser
+    * @return l'objet deserialise
     */
     public static Object deserialize(File file) {
         Object ret = null;

@@ -1,7 +1,7 @@
 package terrain;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 16/05/2021
  */
 public class Util {
     /**

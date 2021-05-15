@@ -4,7 +4,7 @@ import objets.*;
 import personnages.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 16/05/2021
  */
 public class Map implements java.io.Serializable {
     /**
@@ -131,7 +131,11 @@ public class Map implements java.io.Serializable {
             err.printStackTrace();
         }
     }
-
+    /**
+     * Methode pour savoir si un ennemi peut apparaitre sur un Square
+     * @param chunk Chunk
+     * @return int[]
+     */
     public int[] findValidSpawn(Chunk chunk) {
         int xValid = -1;
         int yValid = -1;
@@ -150,7 +154,10 @@ public class Map implements java.io.Serializable {
 
         return(pos);
     }
-
+    /**
+     * Methode qui fait apparaitre un ennemi
+     * @param mob APersonnage
+     */
     public void spawnMob(APersonnage mob) {
         if (mob.squarePosX == -1 && mob.squarePosY == -1) {    
             Chunk chunk = getCurrentlyLoadedChunk();
@@ -160,7 +167,6 @@ public class Map implements java.io.Serializable {
             addMobAtPos(mob, getChunkOfMob(mob), mob.squarePosX%15, mob.squarePosY%15);
         }
     }
-
     /**
      * Methode pour la prochaine position du personnage
      * @param mob Le personnage a deplacer
@@ -186,7 +192,11 @@ public class Map implements java.io.Serializable {
             }
         }
     }
-
+    /**
+     * Methode pour changer de position un ennemi
+     * @param vilain AVilain
+     * @param direction Direction
+     */
     public void changeMobPos(AVilain vilain, Direction direction) {
         System.out.println(direction);
         int xNextPosition = vilain.squarePosX+direction.x;
@@ -219,15 +229,27 @@ public class Map implements java.io.Serializable {
             mob.getInventaire().addObjetToInv(new Buche(random));
         }
     }
-
+    /**
+     * Getter pour le Chunk d'un ennemis
+     * @param mob APersonnage
+     * @return Chunk
+     */
     public Chunk getChunkOfMob(APersonnage mob) {
         return map[(int)(mob.squarePosX/15)][(int)(mob.squarePosY/15)];
     }
-
+    /**
+     * Getter pour le Square d'un ennemi
+     * @param mob APersonnage
+     * @return Square
+     */
     public Square getSquareOfMob(APersonnage mob) {
         return getChunkOfMob(mob).getContentAtPos(mob.squarePosX%15, mob.squarePosY%15);
     }
-
+    /**
+     * Methode pour savoir quel ennemi attaquer
+     * @param hero AHero
+     * @return AVilain
+     */
     public AVilain vilainAAttaquer(AHero hero) {
         int x = hero.squarePosX;
         int y = hero.squarePosY;
@@ -244,10 +266,12 @@ public class Map implements java.io.Serializable {
                 break;
             }
         }
-
         return (AVilain)vilain;
     }
-
+    /**
+     * Methode pour deplacer l'ennemi en fonction du joueur
+     * @param hero AHero
+     */
     public void moveVilains(AHero hero) {
         Chunk chunk = getCurrentlyLoadedChunk();
         AVilain[] vilains = chunk.getVilains();
@@ -259,7 +283,12 @@ public class Map implements java.io.Serializable {
             }
         }
     }
-
+    /**
+     * Methode pour le chemin a emprunter par les ennemis
+     * @param vilain AVilain
+     * @param hero AHero
+     * @return Direction
+     */
     public Direction findPath(AVilain vilain, AHero hero) {
         Direction direction = null;
         int xHero = hero.squarePosX-vilain.squarePosX;
@@ -282,7 +311,12 @@ public class Map implements java.io.Serializable {
 
         return ret;
     }
-
+    /**
+     * Getter de l'angle
+     * @param cos double
+     * @param sin double
+     * @return double
+     */
     public double getAngle(double cos, double sin) {
         return sin < 0 ? 2*Math.PI-Math.acos(cos) : Math.acos(cos);
     }

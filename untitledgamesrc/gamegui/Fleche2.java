@@ -5,7 +5,7 @@ import javax.swing.*;
 import terrain.Direction;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
- * @version 10/05/2021
+ * @version 16/05/2021
  */
 public class Fleche2 extends JLabel {
     /**
