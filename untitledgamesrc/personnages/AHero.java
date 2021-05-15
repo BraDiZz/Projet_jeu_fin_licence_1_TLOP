@@ -37,7 +37,7 @@ public abstract class AHero extends APersonnage {
 	public AHero(String nom, int pointsDeVie, int pointsDeVieMax, int pointsDAttaque, int armure, int niveau, int squarePosX, int squarePosY, MobType mobType) {
         super(nom, pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, niveau, squarePosX, squarePosY, mobType);
         xp = 0;
-        xpAAtteindre = 50;
+        xpAAtteindre = 60;
         inventaire = new Inventaire();
         nombreItems = inventaire.getTaille();
 	}
@@ -72,7 +72,7 @@ public abstract class AHero extends APersonnage {
         if (xp >= xpAAtteindre) {
             addNiveau(1);
             xp = 0;
-            xpAAtteindre += 50;
+            xpAAtteindre += 70;
             actualiserStats();
         }
 	}
@@ -101,7 +101,7 @@ public abstract class AHero extends APersonnage {
 
         if (attaquer(vilain)) {
             // Si le joueur tue un monstre, il gagne 10 d'xp fois le niveau du monstre ( exemple je bas un monstre niveau 3 je gagne 30 xp)
-       	    gainXP(vilain.niveau*10);
+       	    gainXP(vilain.niveau*20);
             vilain = null;
             monstreVaincu = true;
         }
@@ -111,7 +111,7 @@ public abstract class AHero extends APersonnage {
      * Methode pour mettre a jour les statistiques du personnage si il monte de niveau
      */
     public void actualiserStats() {
-        int ratio = 15;
+        int ratio = 10;
         pointsDeVie += (int)(pointsDeVie*ratio/100);
         pointsDeVieMax += (int)(pointsDeVieMax*ratio/100);
         armure += (int)(armure*ratio/100);

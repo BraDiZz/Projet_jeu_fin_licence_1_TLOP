@@ -7,6 +7,7 @@ import personnages.*;
 import terrain.*;
 import gamegui.*;
 import save.*;
+import objets.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 10/05/2021
@@ -349,6 +350,7 @@ public class Game extends JFrame {
             if (target != null) {
                 if (hero[heroTurn].monstreVaincu(target)) {
                     map.getCurrentlyLoadedChunk().removeMobAtPos(target.squarePosX%15,target.squarePosY%15);
+                    dropItem();
                     if (target.getMobType() == MobType.BOSS) {
                         new Fin();
                     }
@@ -370,7 +372,31 @@ public class Game extends JFrame {
         def.setText("Defense " + hero[heroTurn].getArmure());
         niveau.setText("Niveau " + hero[heroTurn].getNiveau());
         experience.setText("XP " + hero[heroTurn].getXp() + "/" + hero[heroTurn].getXpAAtteindre());
+    }
 
-
+    public void dropItem(){
+        int drop = 0 + (int)(Math.random() * ((5 - 0) + 1));
+        System.out.println("drop : " + drop);
+        switch(drop){
+            case 0:
+                hero[heroTurn].getInventaire().addObjetToInv(new Jus(1));
+                break;
+            case 1:
+                hero[heroTurn].getInventaire().addObjetToInv(new Pomme(1));
+                break;
+            case 2:
+                hero[heroTurn].getInventaire().addObjetToInv(new Potion(1));
+                break;
+            case 3:
+                hero[heroTurn].getInventaire().addObjetToInv(new Pain(1));
+                break;
+            case 4:
+                hero[heroTurn].getInventaire().addObjetToInv(new Superpotion(1));
+                break;
+            case 5:
+                hero[heroTurn].getInventaire().addObjetToInv(new Poulet(1));
+                break;
+            
+        }
     }
 }
