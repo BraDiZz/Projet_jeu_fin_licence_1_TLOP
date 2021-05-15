@@ -145,10 +145,12 @@ public abstract class APersonnage implements java.io.Serializable {
 	*/ 
     public boolean subirAttaque(int degats) { 
         boolean plusDeVie = false; 
+        
+        pointsDeVie -= (degats - armure); 
+
         if ( degats <= armure ) { 
         	pointsDeVie -= 1; 
         } 
-        pointsDeVie -= (degats - armure); 
  
         if ( pointsDeVie <= 0 ) { 
         	plusDeVie = true; 
