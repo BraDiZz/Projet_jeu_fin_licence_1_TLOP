@@ -62,7 +62,7 @@ public class Game extends JFrame {
      * @param args String[]
      */
     public static void main(String[] args) {
-        AHero[] mobs = {new Archer("A", 0, 0), new Chevalier("B", 0, 0), new Assassin("B", 0, 0)};
+        AHero[] mobs = {new Archer("A", -1, -1), new Chevalier("B", -1, -1), new Assassin("B", -1, -1)};
         new Game(new Map(4, 4, 56164), mobs, "hein");
     }
     /**
@@ -71,11 +71,6 @@ public class Game extends JFrame {
      * @param mapSizeY int
      * @param seed long
      */
-    
-    public static void main(String[] args) {
-        AHero[] mobs = {new Archer("A", 0, 0), new Chevalier("B", 0, 0), new Assassin("B", 0, 0)};
-        new Game(new Map(4, 4, 56164), mobs, "hein");
-    }
 
     public Game(Map map, AHero[] hero, String worldName) {
         this(map, hero, worldName, 0);
@@ -458,10 +453,11 @@ public class Game extends JFrame {
      * Methode pour l'ajout d'un objet aléatoirement dans l'inventaire du joueur a la mort d'un monstre
      */
     public void dropItem(){
-        int drop = 0 + (int)(Math.random() * ((5 - 0) + 1));
-        System.out.println("drop : " + drop);
-        switch(drop){
-            case 0:
+        int drop = 0 + (int)(Math.random() * ((100 - 0) + 1));
+        int rarete = 0 + (int)(Math.random()*((5-0)+1));
+        System.out.println("drop : " + drop + " rarete : "+rarete);
+        if(drop >= 0 && drop <= 50) {
+            if(rarete >= 0 && rarete <= 2) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Jus(1));
             } else if(rarete >= 3 && rarete <= 4) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Potion(1));
