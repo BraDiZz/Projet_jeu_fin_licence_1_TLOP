@@ -86,6 +86,21 @@ public class Chunk implements java.io.Serializable {
     public void removeMobAtPos(int xSquare, int ySquare) {
         content[xSquare][ySquare].setMob(null);
     }
+
+    public void killVillain(AVilain vilain) {
+        int i = indexOfMob(vilain);
+        System.out.println(i);
+        vilains[i] = null;
+        removeMobAtPos(vilain.squarePosX%15, vilain.squarePosY%15);
+        getContentAtPos(vilain.squarePosX%15, vilain.squarePosY%15).validate();
+        getContentAtPos(vilain.squarePosX%15, vilain.squarePosY%15).repaint();
+    }
+
+    public int indexOfMob(AVilain vilain) {
+        int i = 0;
+        while (vilains[i] != vilain && i < vilains.length) i++;
+        return i == vilains.length ? -1 : i;
+    }
     /**
      * Methode pour affecter un personnage aux positions donnees
      * @param mob APersonnage
@@ -199,6 +214,8 @@ public class Chunk implements java.io.Serializable {
             setMobAtPos(boss, x, y);
         }
     }
+
+
 
     public int[] indexOfNull(AVilain[] mobTable) {
         int count = 0;

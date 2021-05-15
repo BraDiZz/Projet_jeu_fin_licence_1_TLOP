@@ -165,9 +165,9 @@ public class Game extends JFrame {
         
         JPanel mainWindow = new JPanel();
         mainWindow.setBackground(Color.black);
-        mainWindow.setLayout(new FlowLayout());
+        mainWindow.setLayout(new FlowLayout());         
 
-        
+
 
         grid.setLayout(new GridLayout(15, 15));
         JPanel info = new JPanel();
@@ -349,7 +349,7 @@ public class Game extends JFrame {
             AVilain target = map.vilainAAttaquer(hero[heroTurn]);
             if (target != null) {
                 if (hero[heroTurn].monstreVaincu(target)) {
-                    map.getCurrentlyLoadedChunk().removeMobAtPos(target.squarePosX%15,target.squarePosY%15);
+                    map.getChunkOfMob(target).killVillain(target);
                     dropItem();
                     if (target.getMobType() == MobType.BOSS) {
                         new Fin();
@@ -362,7 +362,6 @@ public class Game extends JFrame {
             }
             updateStats();
         }
-
     }
 
     public void updateStats(){
@@ -396,7 +395,6 @@ public class Game extends JFrame {
             case 5:
                 hero[heroTurn].getInventaire().addObjetToInv(new Poulet(1));
                 break;
-            
         }
     }
 }
