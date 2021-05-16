@@ -11,6 +11,6 @@ public class Archer extends AHero {
 	 * @param squarePosY int
 	 */
 	public Archer(String nom, int squarePosX, int squarePosY) {
-		super(nom, 220, 220, 50, 15, 1, squarePosX, squarePosY, MobType.ARCHER);
+		super(nom, 250, 250, 70, 20, 1, squarePosX, squarePosY, MobType.ARCHER);
 	}
 }
