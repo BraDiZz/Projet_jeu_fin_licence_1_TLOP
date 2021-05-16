@@ -11,6 +11,6 @@ public class Assassin extends AHero {
 	 * @param squarePosY int
 	 */
 	public Assassin(String nom, int squarePosX, int squarePosY) {
-	   super(nom, 170, 170, 90, 0, 1, squarePosX, squarePosY, MobType.MURDERER);
+	   super(nom, 170, 170, 90, 5, 1, squarePosX, squarePosY, MobType.MURDERER);
 	}
 }

@@ -490,7 +490,7 @@ public class Game extends JFrame {
     public void dropItem(){
         int drop = 0 + (int)(Math.random() * ((100 - 0) + 1));
         int rarete = 0 + (int)(Math.random()*((5-0)+1));
-        if(drop >= 0 && drop <= 45) {
+        if(drop >= 0 && drop <= 39) {
             if(rarete >= 0 && rarete <= 2) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Jus(1));
             } else if(rarete >= 3 && rarete <= 4) {
@@ -498,7 +498,7 @@ public class Game extends JFrame {
             } else if(rarete == 5) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Superpotion(1));
             }
-        } else if(drop >= 46 && drop <= 90) {
+        } else if(drop >= 40 && drop <= 79) {
             if(rarete >= 0 && rarete <= 2) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Pomme(1));
             }  else if(rarete >= 3 && rarete <= 4) {
@@ -506,7 +506,7 @@ public class Game extends JFrame {
             } else if(rarete == 5) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Poulet(1));
             }
-        } else if(drop >= 91 && drop <= 95) {
+        } else if(drop >= 80 && drop <= 89) {
             if(rarete >= 0 && rarete <= 2) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Epee1(1));
             }  else if(rarete >= 3 && rarete <= 4) {
@@ -514,7 +514,7 @@ public class Game extends JFrame {
             } else if(rarete == 5) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Epee3(1));
             }
-        } else if(drop >= 96 && drop <= 100) {
+        } else if(drop >= 90 && drop <= 100) {
             if(rarete >= 0 && rarete <= 2) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Armure1(1));
             }  else if(rarete >= 3 && rarete <= 4) {

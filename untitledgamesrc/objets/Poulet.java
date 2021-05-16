@@ -15,6 +15,6 @@ public class Poulet extends AObjet {
 	 * @param count int
 	 */
 	public Poulet(int count) {
-		super(50, 0, count, ObjetType.POULET, 0, 0);
+		super(100, 0, count, ObjetType.POULET, 0, 0);
 	}
 }

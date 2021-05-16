@@ -145,18 +145,18 @@ public abstract class APersonnage implements java.io.Serializable {
 	*/ 
     public boolean subirAttaque(int degats) { 
         boolean plusDeVie = false; 
-        
-        pointsDeVie -= (degats - armure); 
 
         if ( degats <= armure ) { 
-        	pointsDeVie -= 1; 
-        } 
+            pointsDeVie -= 1; 
+        } else {
+            pointsDeVie -= (degats - armure); 
+        }
  
         if ( pointsDeVie <= 0 ) { 
-        	plusDeVie = true; 
+            plusDeVie = true; 
         } 
         return plusDeVie; 
-    } 
+    }
 	/** 
 	* Methode pour attaquer un personnage 
 	* @param nomDuPerso APersonnage 

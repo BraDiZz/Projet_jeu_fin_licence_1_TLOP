@@ -20,28 +20,28 @@ public abstract class AVilain extends APersonnage {
 	 */
 	public void initStats() {
 		if (getMobType() == MobType.WOLF) {
-		  pointsDeVie = (int)50+(21*niveau);
-	      pointsDeVieMax = (int) 50+(21*niveau);
+		  pointsDeVie = (int)50+(12*niveau);
+	      pointsDeVieMax = (int) 50+(12*niveau);
 	      pointsDAttaque = (int)40+(10*niveau);
 	      armure = 0;
 		}
 	    else if(getMobType() == MobType.SKELETON) {
-	    	pointsDeVie = (int) 100+(28*niveau);
-	    	pointsDeVieMax = (int) 100+(28*niveau);
-	    	pointsDAttaque = (int) 25 +(9*niveau);
+	    	pointsDeVie = (int) 100+(17*niveau);
+	    	pointsDeVieMax = (int) 100+(17*niveau);
+	    	pointsDAttaque = (int) 27 +(8*niveau);
 	    	armure = 2*niveau;
 	    }
 	    else if(getMobType() == MobType.ORC) {
-	    	pointsDeVie = (int) 175+(43*niveau);
-	    	pointsDeVieMax = (int) 175+(43*niveau);
-	    	pointsDAttaque = (int) 15+(5*niveau);
-	    	armure = 5*niveau;
+	    	pointsDeVie = (int) 175+(25*niveau);
+	    	pointsDeVieMax = (int) 175+(25*niveau);
+	    	pointsDAttaque = (int) 20+(4*niveau);
+	    	armure = 4*niveau;
 	    }
 	    else if(getMobType() == MobType.BOSS) {
-	    	pointsDeVie = 500;
-	    	pointsDeVieMax = 500;
-	    	pointsDAttaque = 120;
-	    	armure = 50;
+	    	pointsDeVie = 800;
+	    	pointsDeVieMax = 800;
+	    	pointsDAttaque = 100;
+	    	armure = 100;
 	    }
 	}
 	/**

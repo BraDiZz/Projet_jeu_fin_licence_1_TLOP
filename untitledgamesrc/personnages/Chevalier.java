@@ -11,6 +11,6 @@ public class Chevalier extends AHero {
 	 * @param squarePosY int
 	 */
 	public Chevalier(String nom, int squarePosX, int squarePosY) {
-		super(nom, 300, 300, 20, 17, 1, squarePosX, squarePosY, MobType.KNIGHT);
+		super(nom, 350, 350, 25, 17, 1, squarePosX, squarePosY, MobType.KNIGHT);
 	}
 }
