@@ -18,7 +18,7 @@ public class Annonce extends JFrame {
         String texte = "<html><h1 style=\"color: yellow;\"align='center'><u>Vous entendez un bruit dans une zone proche !</u></h1>";
         texte += "<br/>";
         texte += "<h3>C'est lui ! Le <i>Golem de magie noire</i> a reconnu votre puissance.<br/>";
-        texte += " Prenez garde ! Il est venu spécifiquement pour vous achever. A vous de jouer !</h3></html>";
+        texte += " Prenez garde ! Il est venu sp&eacute;cifiquement pour vous achever. A vous de jouer !</h3></html>";
 
         JLabel histoire = new JLabel(texte, SwingConstants.CENTER);
         window.add(histoire);

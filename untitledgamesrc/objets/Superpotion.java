@@ -15,6 +15,6 @@ public class Superpotion extends AObjet {
 	 * @param count int
 	 */
 	public Superpotion(int count) {
-	    super(0, 60, count, ObjetType.SUPERPOTION);
+	    super(0, 60, count, ObjetType.SUPERPOTION, 0, 0);
 	}
 }

@@ -15,6 +15,6 @@ public class Epee1 extends AObjet {
      * @param count int
      */
     public Epee1(int count) {
-        super(0, 0, count, ObjetType.EPEE1);
+        super(0, 0, count, ObjetType.EPEE1, 5, 0);
     }
 }

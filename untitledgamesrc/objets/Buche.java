@@ -15,6 +15,6 @@ public class Buche extends AObjet {
      * @param count int
      */
     public Buche(int count) {
-        super(0, 0, count, ObjetType.BUCHE);
+        super(0, 0, count, ObjetType.BUCHE, 0, 0);
     }
 }

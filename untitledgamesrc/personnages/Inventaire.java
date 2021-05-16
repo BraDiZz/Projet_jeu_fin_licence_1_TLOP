@@ -18,10 +18,13 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 	 * Un Vector d'AObjet pour avoir la liste de tous les objets que le personnage possede
 	 */
 	private Vector<AObjet> listeObjets;
-	private AHero hero;
-	private AObjet currentSelected = null;
 	/**
-	 * Constructeur par defaut
+	 * Un AHero pour le personnage du joueur qui possede l'inventaire
+	 */
+	private AHero hero;
+	/**
+	 * Constructeur par initialisation
+	 * @param hero AHero
 	 */
 	public Inventaire(AHero hero) {
 		super(new GridBagLayout());
@@ -41,7 +44,7 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 		return listeObjets;
 	}
 	/**
-	 * Methode pour ajouter plusieurs objets dans l'inventaire
+	 * Methode pour mettre a jour l'interface de l'inventaire
 	 */
 	public void updateDisplay() {
 		this.removeAll();
@@ -168,12 +171,15 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 
 		return whichAreNotFull;
 	}
-
+	/**
+	 * Setter de la variable isSelectedItem
+	 * @param objet AObjet
+	 * @param isSelected boolean
+	 */
 	public void setSelectedItem(AObjet objet, boolean isSelected) {
         objet.setIsSelected(isSelected);
 		objet.repaint();
     }
-
 	/**
 	 * Methode qui recherche le nombre de fois qu'il y a un objet dans l'inventaire
 	 * @param objet AObjet
@@ -243,7 +249,7 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 			}
         }
         /**
-         * Methode lorsque la souris est cliquee
+         * Methode lorsque la souris reste au dessus de l'objet
          * @param me MouseEvent
          */
         public void mouseEntered(MouseEvent me) {
@@ -251,7 +257,7 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 			setSelectedItem(objet, true);
 		}
         /**
-         * Methode lorsque la souris est cliquee
+         * Methode lorsque la souris n'est plus dessus de l'objet
          * @param me MouseEvent
          */
         public void mouseExited(MouseEvent me) {
@@ -264,7 +270,7 @@ public class Inventaire extends JPanel implements java.io.Serializable {
          */
         public void mousePressed(MouseEvent me){}
         /**
-         * Methode lorsque la souris est cliquee
+         * Methode lorsque le clique de la souris est relachee
          * @param me MouseEvent
          */
         public void mouseReleased(MouseEvent me){}

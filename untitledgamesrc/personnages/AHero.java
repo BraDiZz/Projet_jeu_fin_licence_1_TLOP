@@ -71,6 +71,20 @@ public abstract class AHero extends APersonnage {
             actualiserStats();
         }
 	}
+    /**
+     * Methode qui augmente l'attaque du personnage
+     * @param boostAttaque int
+     */
+    public void gainAttaque(int boostAttaque) {
+        pointsDAttaque += boostAttaque;
+    }
+    /**
+     * Methode qui augmente l'armure du personnage
+     * @param boostArmure int
+     */
+    public void gainArmure(int boostArmure) {
+        armure += boostArmure;
+    }
     /** 
     * Methode pour consommer un objet
     * @param nourriture AObjet
@@ -78,6 +92,8 @@ public abstract class AHero extends APersonnage {
     public void consommerObjet(AObjet objet) {
         addPointsDeVie(objet.getPvRendus());
         gainXP(objet.getXpDonne());
+        gainAttaque(objet.getBoostAttaque());
+        gainArmure(objet.getBoostArmure());
     }
     /**
 	* Setter pour les PV

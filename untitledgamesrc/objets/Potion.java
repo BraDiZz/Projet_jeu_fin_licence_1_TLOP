@@ -15,6 +15,6 @@ public class Potion extends AObjet {
 	 * @param count int
 	 */
 	public Potion(int count) {
-	    super(0, 35, count, ObjetType.POTION);
+	    super(0, 35, count, ObjetType.POTION, 0, 0);
 	}
 }

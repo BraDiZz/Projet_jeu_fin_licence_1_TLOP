@@ -24,7 +24,18 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
      * Un int pour le nombre d'objet
      */
     private int count;
+    /**
+     * Un boolean pour savoir si l'item est selectionner ou non
+     */
     private boolean isSelected;
+    /**
+     * Un int pour l'augmentation potentielle de l'attaque
+     */
+    private int boostAttaque;
+    /**
+     * Un int pour l'augmentation potentielle de l'armure
+     */
+    private int boostArmure;
     /**
      * Constructeur par initialisation
      * @param pvRendus int
@@ -32,23 +43,25 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
      * @param count int
      * @param type ObjetType
      */
-    public AObjet(int pvRendus, int xpDonne, int count, ObjetType type) {
+    public AObjet(int pvRendus, int xpDonne, int count, ObjetType type, int boostAttaque, int boostArmure) {
         super();
         this.setPreferredSize(new Dimension(53, 53));
         this.pvRendus = pvRendus;
         this.xpDonne = xpDonne;
         this.type = type;
         this.count = count;
+        this.boostAttaque = boostAttaque;
+        this.boostArmure = boostArmure;
         this.setIcon(new Texture(type));
     }
     /**
-     * Construceur par initialisation
+     * Constructeur par initialisation
      * @param pvRendus int
      * @param xpDonne int
      * @param type ObjetType
      */
-    public AObjet(int pvRendus, int xpDonne, ObjetType type) {
-        this(pvRendus, xpDonne, 1, type);
+    public AObjet(int pvRendus, int xpDonne, ObjetType type, int boostAttaque, int boostArmure) {
+        this(pvRendus, xpDonne, 1, type, boostAttaque, boostArmure);
     }
     /**
      * Getter pour les PV a regenerer de l'objet
@@ -77,6 +90,20 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
      */
     public int getCount() {
         return count;
+    }
+    /**
+     * Getter pour le boost d'attaque
+     * @return int
+     */
+    public int getBoostAttaque() {
+        return boostAttaque;
+    }
+    /**
+     * Getter pour le boost d'armure
+     * @return int
+     */
+    public int getBoostArmure() {
+        return boostArmure;
     }
 
     /**
@@ -126,7 +153,10 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
         }
         return remainder;
     }
-
+    /**
+     * Setter de la  variable IsSelected
+     * @param isSelected boolean
+     */
     public void setIsSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }
@@ -140,7 +170,11 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
         objet.setStack(remainder);
         return objet.getCount();
     }
-
+    /**
+     * Methode qui cree un clone d'un nombre d'objet
+     * @param cloneCount int
+     * @return AObjet
+     */
     public AObjet createClone(int cloneCount) {
         try {
             AObjet clone = getClass().getDeclaredConstructor(int.class).newInstance(cloneCount);

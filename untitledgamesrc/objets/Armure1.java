@@ -15,6 +15,6 @@ public class Armure1 extends AObjet {
      * @param count int
      */
     public Armure1(int count) {
-        super(0, 0, count, ObjetType.ARMURE1);
+        super(0, 0, count, ObjetType.ARMURE1, 0, 5);
     }
 }

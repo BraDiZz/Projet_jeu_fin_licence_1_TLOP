@@ -15,6 +15,6 @@ public class Pomme extends AObjet {
 	 * @param count int
 	 */
 	public Pomme(int count) {
-		super(10, 0, count, ObjetType.POMME);
+		super(15, 0, count, ObjetType.POMME, 0, 0);
 	}
 }

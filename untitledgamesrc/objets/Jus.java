@@ -15,6 +15,6 @@ public class Jus extends AObjet {
 	 * @param count int
 	 */
 	public Jus(int count) {
-	   super(0, 20, count, ObjetType.JUS);
+	   super(0, 20, count, ObjetType.JUS, 0, 0);
 	}
 }
