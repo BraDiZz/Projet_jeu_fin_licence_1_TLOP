@@ -128,5 +128,6 @@ public abstract class AHero extends APersonnage {
         pointsDeVieMax += (int)(pointsDeVieMax*ratio/100);
         armure += (int)(armure*ratio/100);
         pointsDAttaque += (int)(pointsDAttaque*ratio/100);
+        pointsDeVie = pointsDeVie > pointsDeVieMax ? pointsDeVieMax : pointsDeVie;
     }
 }

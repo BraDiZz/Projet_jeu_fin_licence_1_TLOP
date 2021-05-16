@@ -231,6 +231,7 @@ public class Map implements java.io.Serializable {
             squareNext.setSquareType(SquareType.SOUCHE);
             int random = (int)(Math.random()*(5-2)+2);
             mob.getInventaire().addObjetToInv(new Buche(random));
+            mob.getInventaire().addObjetToInv(new Pomme(random-1));
         }
     }
     /**

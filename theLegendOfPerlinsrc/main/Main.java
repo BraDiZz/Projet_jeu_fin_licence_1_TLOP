@@ -85,7 +85,7 @@ public class Main extends JFrame {
         setSize(windowWidth, windowHeight);
 	    setLocationRelativeTo(null);
         setResizable(false);
-	    setTitle("Untitled Game");
+	    setTitle("The Legend of Perlin");
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
