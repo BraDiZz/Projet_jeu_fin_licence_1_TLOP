@@ -7,14 +7,6 @@ import java.util.Random;
  */
 public class Perlin {
     /**
-     * Methode pour
-     * @param x double
-     * @return double
-     */
-    private static double fade(double x) {
-        return(6*x*x*x*x*x-15*x*x*x*x+10*x*x*x);
-    }
-    /**
      * Methode pour 
      * @param a double
      * @param b double
@@ -22,7 +14,7 @@ public class Perlin {
      * @return double
      */
     private static double lerp(double a, double b, double x) {
-        return a*(1-fade(x))+b*fade(x);
+        return a*(1-x)+b*x;
     }
     /**
      * Methode pour 
