@@ -209,6 +209,26 @@ public class Game extends JFrame {
         }
     }
     /**
+     * Class pour le bouton creuser
+     */
+    class DigHole implements ActionListener {
+        /**
+         * Methode lorsque l'utilisateur clique sur le bouton
+         * @param e ActionEvent
+         */
+        public void actionPerformed(ActionEvent e) {
+            Square square = map.getSelectedSquare();
+            if (square != null) {
+                SquareType type = square.getSquareType();
+                if (type == SquareType.TROU) {
+                    square.setSquareType(SquareType.GRASS3);
+                } else if (type.isDiggable && square.getMob() == null) {
+                    square.setSquareType(SquareType.TROU);
+                }
+            }
+        }
+    }
+    /**
      * Class pour le bouton sauvegarde
      */
     class Save implements ActionListener {
@@ -279,9 +299,9 @@ public class Game extends JFrame {
         milieu.setOpaque(true);
         action.add(milieu);
         milieu.setBackground(Color.black);
-        JButton defend = new JButton("D\u00e9fense");
-        defend.addActionListener(new UpdateStats());
-        action.add(defend);
+        JButton digHole = new JButton("Creuser");
+        digHole.addActionListener(new DigHole());
+        action.add(digHole);
         
 		JPanel commande = new JPanel();
         info.add(commande);

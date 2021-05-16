@@ -227,6 +227,7 @@ public class Main extends JFrame {
 
     public void addCharacter() {
         if (characterNumber <= 2) {
+            System.out.println("e");
             JPanel characterContainer = new JPanel();
             characterName[characterNumber].setPreferredSize(new Dimension(75, 25));
             characterContainer.add(new JLabel("Nom du personnage:"));
@@ -299,6 +300,7 @@ public class Main extends JFrame {
             mainMenu();
             centerArea.removeAll();
             addCharacter.setEnabled(true);
+            addCharacter.removeActionListener(addCharacter.getActionListeners()[0]);
             characterNumber = 0;
         }
     }
