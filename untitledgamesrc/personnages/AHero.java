@@ -122,7 +122,7 @@ public abstract class AHero extends APersonnage {
      * Methode pour mettre a jour les statistiques du personnage si il monte de niveau
      */
     public void actualiserStats() {
-        int ratio = 20;
+        int ratio = 15;
 
         pointsDeVie += (int)(2*(pointsDeVie*ratio/100));
         pointsDeVieMax += (int)(pointsDeVieMax*ratio/100);
