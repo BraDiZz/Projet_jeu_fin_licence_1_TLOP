@@ -61,6 +61,7 @@ public class Game extends JFrame {
      * Main a executer pour avoir plusieurs personnages en meme temps
      * @param args String[]
      */
+    private boolean bossSpawned;
     public static void main(String[] args) {
         AHero[] mobs = {new Archer("A", -1, -1), new Chevalier("B", -1, -1), new Assassin("B", -1, -1)};
         new Game(new Map(4, 4, 56164), mobs, "hein");
@@ -73,14 +74,15 @@ public class Game extends JFrame {
      */
 
     public Game(Map map, AHero[] hero, String worldName) {
-        this(map, hero, worldName, 0);
+        this(map, hero, worldName, 0, false);
     } 
 
-    public Game(Map map, AHero[] hero, String worldName, int heroTurn) {
+    public Game(Map map, AHero[] hero, String worldName, int heroTurn, boolean bossSpawned) {
         this.map = map;
         this.hero = hero;
         this.worldName = worldName;
         this.heroTurn = heroTurn;
+        this.bossSpawned = bossSpawned;
 
         init();
 
@@ -215,8 +217,14 @@ public class Game extends JFrame {
          * @param e ActionEvent
          */
         public void actionPerformed(ActionEvent e) {
-            GameSave save = new GameSave(map, hero, worldName, heroTurn);
+            GameSave save = new GameSave(map, hero, worldName, heroTurn, bossSpawned);
             CustomSerializeObject.serialize(save, worldName + ".txt");
+        }
+    }
+
+    class UpdateStats implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            updateStats();
         }
     }
     /**
@@ -272,6 +280,7 @@ public class Game extends JFrame {
         action.add(milieu);
         milieu.setBackground(Color.black);
         JButton defend = new JButton("D\u00e9fense");
+        defend.addActionListener(new UpdateStats());
         action.add(defend);
         
 		JPanel commande = new JPanel();
@@ -337,7 +346,9 @@ public class Game extends JFrame {
         JLabel bord = new JLabel();
         JButton nextTurn = new JButton("Tour suivant");
         nextTurn.addActionListener(new NextTurn());
-        touches.add(nextTurn);
+        if (hero.length != 1) {
+            touches.add(nextTurn);
+        }
         touches.add(bord);
         bord.setPreferredSize(new Dimension(200,27));
 
@@ -389,9 +400,12 @@ public class Game extends JFrame {
         repaint();
         if (map.curChunkX != xBeforeChange ^ map.curChunkY != yBeforeChange) {
             loadChunk(map.getCurrentlyLoadedChunk());
-            System.out.println(map.getCurrentlyLoadedChunk().getChunkPosX() + " " + map.getCurrentlyLoadedChunk().getChunkPosY());
             map.getCurrentlyLoadedChunk().spawnVilains(hero.getNiveau());
-            map.getCurrentlyLoadedChunk().spawnBoss(hero.getNiveau());
+            if (bossSpawned == false && hero.getNiveau() >= 5) {
+                map.getCurrentlyLoadedChunk().spawnBoss(hero.getNiveau());
+                new Annonce();
+                bossSpawned = true;
+            }
         }
         map.moveVilains(hero);
     }
@@ -432,6 +446,7 @@ public class Game extends JFrame {
                     }
                 }
                 if (target.heroVaincu(hero[heroTurn])) {
+                    Game.this.setVisible(false);
                     new Gameover();
                 }
             }
@@ -441,7 +456,7 @@ public class Game extends JFrame {
     /**
      * Methode pour actualiser les statistiques du personnage
      */
-    public void updateStats(){
+    public void updateStats() {
         pv.setText("Vie " + hero[heroTurn].getPointDeVie() + "/" + hero[heroTurn].getPointDeVieMax());
         if(hero[heroTurn].getPointDeVie()<0){pv.setText("Vie " + "0/"+ hero[heroTurn].getPointDeVieMax());}
         att.setText("Attaque " + hero[heroTurn].getAttaque());
@@ -455,7 +470,6 @@ public class Game extends JFrame {
     public void dropItem(){
         int drop = 0 + (int)(Math.random() * ((100 - 0) + 1));
         int rarete = 0 + (int)(Math.random()*((5-0)+1));
-        System.out.println("drop : " + drop + " rarete : "+rarete);
         if(drop >= 0 && drop <= 50) {
             if(rarete >= 0 && rarete <= 2) {
                 hero[heroTurn].getInventaire().addObjetToInv(new Jus(1));

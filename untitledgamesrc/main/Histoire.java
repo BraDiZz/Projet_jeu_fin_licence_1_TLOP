@@ -23,7 +23,7 @@ public class Histoire extends JFrame {
         texte += "s&ucirc;rement ! Les <i>Orcs</i> sont lourdement arm&eacute;s et ne pourront pas &ecirc;tre vaincu d'un simple";
         texte += " coup d'&eacute;p&eacute;e. Les <i>Loups</i> ont des crocs d'acier et une simple de leur morsure peut ";
         texte += "neutraliser un soldat aguerri ! Et enfin, le pire de tous les ennemis, leur leader : nous ";
-        texte += "l'avons nomm&eacute; le <i>Golem de magie noir</i>. Une fois ce dernier ennemi vaincu, le reste ";
+        texte += "l'avons nomm&eacute; le <i>Golem de magie noire</i>. Une fois ce dernier ennemi vaincu, le reste ";
         texte += "des troupes fuieront.</h3><br/>";
         texte += "<h3>Bonne chance aventurier, le destin du royaume est entre vos mains !</h3>";
         texte += "<h2 style=\"color: yellow;\"align='center'><u>Le Roi Perlin</u></h2></html>";

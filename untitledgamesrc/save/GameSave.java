@@ -21,12 +21,14 @@ public class GameSave implements java.io.Serializable {
      */
     private String worldName;
     private int heroTurn;
+    private boolean bossSpawned;
 
-    public GameSave(Map map, AHero[] heroes, String worldName, int heroTurn) {
+    public GameSave(Map map, AHero[] heroes, String worldName, int heroTurn, boolean bossSpawned) {
         this.map = map;
         this.heroes = heroes;
         this.worldName = worldName;
         this.heroTurn = heroTurn;
+        this.bossSpawned = bossSpawned;
     }
     /**
      * Getter de la map
@@ -52,5 +54,9 @@ public class GameSave implements java.io.Serializable {
 
     public int getHeroTurn() {
         return heroTurn;
+    }
+
+    public boolean getBossSpawned() {
+        return bossSpawned;
     }
 }

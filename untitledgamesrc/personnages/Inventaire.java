@@ -4,9 +4,11 @@ package personnages;
  * @version 16/05/2021
  */
 import objets.*;
+import main.Game;
 import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 /**
 * La classe inventaire contient un Vector d'objets, 
@@ -16,20 +18,19 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 	 * Un Vector d'AObjet pour avoir la liste de tous les objets que le personnage possede
 	 */
 	private Vector<AObjet> listeObjets;
-	/**
-	 * Un int pour le nombre maximum que le personnage peut transporter
-	 */
-	private int tailleMax = 10;
+	private AHero hero;
+	private AObjet currentSelected = null;
 	/**
 	 * Constructeur par defaut
 	 */
-	public Inventaire() {
+	public Inventaire(AHero hero) {
 		super(new GridBagLayout());
+		this.hero = hero;
 		this.setPreferredSize(new Dimension(252, 252));
 		this.setOpaque(false);
 		listeObjets = new Vector<AObjet>();
-		addObjetToInv(new Buche(10));
-		addObjetToInv(new Pomme(3));
+		addObjetToInv(new Buche(32));
+		addObjetToInv(new Pomme(10));
 		updateDisplay();
 	}
 	/**
@@ -57,9 +58,13 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 		test.insets = new Insets(5, 5, 5, 5);
 		
 		for (int x = 0; x < listeObjets.size(); x++) {
+			if (listeObjets.get(x).getMouseListeners().length != 0) {
+				listeObjets.get(x).removeMouseListener(listeObjets.get(x).getMouseListeners()[0]);
+			}
 			test.gridx = x%4;
 			test.gridy = (int)(x/4);
 			this.add(listeObjets.get(x), test);
+			listeObjets.get(x).addMouseListener(new SelectObjet());
 		}
 
 		validate();
@@ -72,18 +77,14 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 	public boolean retirerObjet(AObjet objet) {
 		// Si aucune occurence de l'objet n'est trouvée, on renvoie false
 		int[] indexInInv = searchInInv(objet);
-		if (indexInInv == null) {
-			return false;
-		}
+		if (indexInInv == null) return false;
 		
 		// Si la somme du compte de tous les objets correspondants dans l'inventaire est inférieure à celle de l'objet passée en paramètre, on renvoie false
 		int sumOfAll = 0;
 		for (int i = 0; i < indexInInv.length; i++) {
 			sumOfAll += listeObjets.get(indexInInv[i]).getCount();
 		}
-		if (objet.getCount() > sumOfAll) {
-			return false;
-		}
+		if (objet.getCount() > sumOfAll) return false;
 
 		// Tant que le compteur d'objet en paramètre n'est pas égal à 0, on itère sur l'objet correspondant suivant et on lui retire le possible
 		int iRem = 0;
@@ -91,6 +92,7 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 			listeObjets.get(indexInInv[iRem]).removeFromStack(objet);
 			iRem++;
 		}
+
 
 		// Si des objets ont atteint 0, on met à jour le panel
 		if (iRem != 0) {
@@ -100,25 +102,33 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 		return true;
 	}
 	/**
-	 * Methode qui retourne la taille du vecteur
-	 * @return int
-	 */
-	public int getTaille() {
-		return listeObjets.size();
-	}
-	/**
 	 * Methode qui ajoute un objet a l'inventaire
 	 * @param objet AObjet
 	 */
 	public void addObjetToInv(AObjet objet) {
 		int[] indexInInv = whichAreNotFull(searchInInv(objet));
 
+		if (indexInInv == null && listeObjets.size() != 16) {
+			listeObjets.add(objet.createClone(0));
+			indexInInv = new int[1];
+			indexInInv[0] = listeObjets.size()-1;
+		}
+
 		if (indexInInv != null) {
-			int firstStackPos = indexInInv[0];
-			AObjet firstStackItem = listeObjets.get(firstStackPos);
-			if (firstStackItem.addToStack(objet) != 0 && listeObjets.size() < 16) addObjetToInv(objet);
-		} else if (listeObjets.size() < 16) listeObjets.add(objet);
-		updateDisplay();
+			for (int i = 0; i < indexInInv.length; i++) {
+				listeObjets.get(indexInInv[i]).addToStack(objet);
+			}
+			if (objet.getCount() != 0) {
+				int countIteration = (int)(objet.getCount()/16);
+				while (countIteration != 0 && listeObjets.size() != 16) {
+					listeObjets.add(objet.createClone(16));
+					objet.removeFromStack(16);
+					countIteration--;
+				}
+				if (objet.getCount() != 0 && listeObjets.size() != 16) listeObjets.add(objet);
+			}
+			updateDisplay();
+		}
 	}
 	/**
 	 * Methode qui verifie si le nombre d'objet depasse 16 ou non
@@ -158,6 +168,12 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 
 		return whichAreNotFull;
 	}
+
+	public void setSelectedItem(AObjet objet, boolean isSelected) {
+        objet.setIsSelected(isSelected);
+		objet.repaint();
+    }
+
 	/**
 	 * Methode qui recherche le nombre de fois qu'il y a un objet dans l'inventaire
 	 * @param objet AObjet
@@ -200,4 +216,57 @@ public class Inventaire extends JPanel implements java.io.Serializable {
 		}
 		return table;
 	}
+
+	public int[] getAvailableSpace(int[] indexInInv) {
+		if (indexInInv == null) return null;
+		int[] sum = new int[indexInInv.length];
+
+		for (int i = 0; i < indexInInv.length; i++) {
+			sum[i] = 16-listeObjets.get(indexInInv[i]).getCount();
+		}
+
+		return sum;
+	}
+
+	class SelectObjet implements MouseListener {
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
+        public void mouseClicked(MouseEvent me){
+            AObjet objet = (AObjet)me.getSource();
+			if (objet.getType().usable) {
+				hero.consommerObjet(objet);
+				retirerObjet(objet.createClone(1));
+				Game mainWindow = (Game)(javax.swing.SwingUtilities.getWindowAncestor(Inventaire.this));
+				mainWindow.updateStats();
+			}
+        }
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
+        public void mouseEntered(MouseEvent me) {
+			AObjet objet = (AObjet)me.getSource();
+			setSelectedItem(objet, true);
+		}
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
+        public void mouseExited(MouseEvent me) {
+			AObjet objet = (AObjet)me.getSource();
+			setSelectedItem(objet, false);
+		}
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
+        public void mousePressed(MouseEvent me){}
+        /**
+         * Methode lorsque la souris est cliquee
+         * @param me MouseEvent
+         */
+        public void mouseReleased(MouseEvent me){}
+    }
 }

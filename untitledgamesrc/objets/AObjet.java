@@ -1,6 +1,7 @@
 package objets;
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.InvocationTargetException;
 import texture.Texture;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
@@ -23,6 +24,7 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
      * Un int pour le nombre d'objet
      */
     private int count;
+    private boolean isSelected;
     /**
      * Constructeur par initialisation
      * @param pvRendus int
@@ -76,6 +78,7 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
     public int getCount() {
         return count;
     }
+
     /**
      * Setter pour le mettre le nombre d'objet en stack de 16
      * @param count int
@@ -92,7 +95,7 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
         int newCount = count + add;
         int remainder = 0;
         if (newCount > 16) {
-            remainder = newCount%16;
+            remainder = newCount%16 + ((int)(newCount/16)-1) * 16;
             count = 16;
         } else {
             count = newCount;
@@ -123,6 +126,10 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
         }
         return remainder;
     }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
     /**
      * Methode pour supprimer un stack entier d'objet
      * @param objet AObjet
@@ -133,6 +140,26 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
         objet.setStack(remainder);
         return objet.getCount();
     }
+
+    public AObjet createClone(int cloneCount) {
+        try {
+            AObjet clone = getClass().getDeclaredConstructor(int.class).newInstance(cloneCount);
+            return clone;
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     /**
      * Methode pour changer l'apparence de la texture
      * @param g Graphics
@@ -141,5 +168,8 @@ public abstract class AObjet extends JLabel implements java.io.Serializable {
         g.drawImage(new Texture(type).getImage(), 0, 0, 53, 53, this);
         g.setColor(Color.BLUE);
         g.drawString(Integer.toString(count), 40, 50);
+        if (isSelected) {
+            g.drawOval((getWidth()/2)-20, (getHeight()/2)-20, 40, 40);
+        }
     }
 }

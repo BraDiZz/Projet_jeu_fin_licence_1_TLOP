@@ -20,6 +20,9 @@ public class Main extends JFrame {
      * Un JBackgroudPanel pour le fond de la fenetre de demarrage
      */
     private JBackgroundPanel mainWindow = new JBackgroundPanel("assets/titlescreen/background.png", new GridBagLayout());
+    private JPanel centerArea = new JPanel(new GridLayout(5, 1));
+    private JButton addCharacter = new JButton("Ajouter un personnage");
+    private int characterNumber = 0;
     /**
      * Un JTextField pour le nom du monde
      */
@@ -39,7 +42,7 @@ public class Main extends JFrame {
     /**
      * Un JTextField pour le nom du personnage
      */
-    private JTextField characterName = new JTextField();
+    private JTextField[] characterName = {new JTextField(), new JTextField(), new JTextField()};
     /**
      * Un tableau de String pour le type du APersonnage
      */
@@ -47,7 +50,8 @@ public class Main extends JFrame {
     /**
      * Un JComboBox pour le choix de tous les types de APersonnage
      */
-    private JComboBox characterType = new JComboBox(type);
+    private JComboBox[] characterType = {new JComboBox(type), new JComboBox(type), new JComboBox(type)};
+
     /**
      * Methode pour executer le programme
      * @param args String[]
@@ -151,8 +155,6 @@ public class Main extends JFrame {
         center.gridy = 1;
         center.insets = new Insets(25, 0, 25, 0);
 
-        JPanel centerArea = new JPanel(new GridLayout(2, 1));
-
         JPanel sizeContainer = new JPanel();
         sizeX.setPreferredSize(new Dimension(50, 25));
         sizeY.setPreferredSize(new Dimension(50, 25));
@@ -160,16 +162,13 @@ public class Main extends JFrame {
         sizeContainer.add(sizeX);
         sizeContainer.add(new JLabel("Hauteur du monde:"));
         sizeContainer.add(sizeY);
-
-        JPanel characterContainer = new JPanel();
-        characterName.setPreferredSize(new Dimension(75, 25));
-        characterContainer.add(new JLabel("Nom du personnage:"));
-        characterContainer.add(characterName);
-        characterContainer.add(new JLabel("Type du personnage:"));
-        characterContainer.add(characterType);
-
         centerArea.add(sizeContainer);
-        centerArea.add(characterContainer);
+
+        addCharacter.addActionListener(new AddCharacterButton());
+        centerArea.add(addCharacter);
+
+        addCharacter();
+
 
         GridBagConstraints bottom = new GridBagConstraints();
         bottom.gridx = 1;
@@ -199,7 +198,13 @@ public class Main extends JFrame {
      */
     public boolean validateWorld() {
         boolean verify = true;
-        String[] fields = {worldName.getText(), seed.getText(), sizeX.getText(), sizeY.getText(), characterName.getText()};
+        String[] f = {worldName.getText(), seed.getText(), sizeX.getText(), sizeY.getText()};
+        String[] fields = new String[f.length+characterNumber];
+        for (int i = 0; i < f.length; i++) fields[i] = f[i];
+        for (int i = f.length; i < fields.length; i++) {
+            fields[i] = characterName[i-f.length].getText();
+        }
+
         try {
             for (String x : fields) {
                 if (x.trim().equals("")) {
@@ -218,6 +223,24 @@ public class Main extends JFrame {
         }
 
         return(verify);
+    }
+
+    public void addCharacter() {
+        if (characterNumber <= 2) {
+            JPanel characterContainer = new JPanel();
+            characterName[characterNumber].setPreferredSize(new Dimension(75, 25));
+            characterContainer.add(new JLabel("Nom du personnage:"));
+            characterContainer.add(characterName[characterNumber]);
+            characterContainer.add(new JLabel("Type du personnage:"));
+            characterContainer.add(characterType[characterNumber]);
+            centerArea.add(characterContainer);
+            centerArea.validate();
+            centerArea.repaint();
+            characterNumber++;
+            if (characterNumber == 3) {
+                addCharacter.setEnabled(false);
+            }
+        }
     }
     /**
      * Class pour le bouton "Quitter"
@@ -240,24 +263,26 @@ public class Main extends JFrame {
          * @param e ActionEvent
          */
         public void actionPerformed(ActionEvent e) {
+            validateWorld();
             if (validateWorld()) {
                 setVisible(false);
                 Map map = new Map(Integer.parseInt(sizeX.getText()), Integer.parseInt(sizeY.getText()), Long.parseLong(seed.getText()));
                 String gameWorldName = worldName.getText();
-                AHero hero1 = new Archer(characterName.getText(), -1, -1);
+                AHero[] heroes = new AHero[characterNumber];
 
-                String playerType = characterType.getSelectedItem().toString();
-                if (playerType == MobType.ARCHER.defaultName) {
-                    hero1 = new Archer(characterName.getText(), -1, -1);
-                } else if (playerType == MobType.MURDERER.defaultName) {
-                    hero1 = new Assassin(characterName.getText(), -1, -1);
-                } else {
-                    hero1 = new Chevalier(characterName.getText(), -1, -1);
+                for (int i = 0; i < heroes.length; i++) {
+                    String playerType = characterType[i].getSelectedItem().toString();
+                    AHero hero;
+                    if (playerType == MobType.ARCHER.defaultName) {
+                        hero = new Archer(characterName[i].getText(), -1, -1);
+                    } else if (playerType == MobType.MURDERER.defaultName) {
+                        hero = new Assassin(characterName[i].getText(), -1, -1);
+                    } else {
+                        hero = new Chevalier(characterName[i].getText(), -1, -1);
+                    }
+                    heroes[i] = hero;
                 }
-                
-                AHero[] heroes = new AHero[1];
-                heroes[0] = hero1;
-                new Game(map, heroes, gameWorldName, 0);
+                new Game(map, heroes, gameWorldName);
                 new Histoire();
             }
         }
@@ -272,6 +297,19 @@ public class Main extends JFrame {
          */
         public void actionPerformed(ActionEvent e) {
             mainMenu();
+            centerArea.removeAll();
+            addCharacter.setEnabled(true);
+            characterNumber = 0;
+        }
+    }
+    
+    public class AddCharacterButton implements ActionListener {
+        /**
+         * Methode lorsque le bouton est clique
+         * @param e ActionEvent
+         */
+        public void actionPerformed(ActionEvent e) {
+            addCharacter();
         }
     }
     /**
@@ -302,7 +340,7 @@ public class Main extends JFrame {
                     JOptionPane.showMessageDialog(Main.this, "Le fichier de sauvegarde est corrompu ou incorrect :(");
                 } else {
                     setVisible(false);
-                    new Game(save.getMap(), save.getHeroes(), save.getWorldName(), save.getHeroTurn());
+                    new Game(save.getMap(), save.getHeroes(), save.getWorldName(), save.getHeroTurn(), save.getBossSpawned());
                 }
             }
         }

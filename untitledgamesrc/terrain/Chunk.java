@@ -208,13 +208,6 @@ public class Chunk implements java.io.Serializable {
                 // Ajout des mobs au tableau et spawn des mobs
                 setMobAtPos(vilain, x%15, y%15);
                 vilains[indexOfNull[i]] = vilain;
-                System.out.println(indexOfNull.length + " " + vilains[indexOfNull[i]]);
-                System.out.println("///////");
-                for (int z = 0; z < vilains.length; z++) {
-                    System.out.println(vilains[z]);
-                }
-                System.out.println(indexOfNull[i]);
-                System.out.println("///////");
             }
         }
     }
@@ -222,14 +215,19 @@ public class Chunk implements java.io.Serializable {
      * Méthode pour faire apparaitre le BOSS
      * @param niveauHero int 
      */
-    public void spawnBoss(int niveauHero) {
-        int x = (int)(Math.random()*14)+1;
-        int y = (int)(Math.random()*14)+1;
+    public void spawnBoss(int niveau) {
+        int x = (int)(Math.random()*14+1)+15*chunkPosX;
+        int y = (int)(Math.random()*14+1)+15*chunkPosY;
 
-        if (niveauHero >= 5) {
-            Boss boss = new Boss(5, x, y);
-            setMobAtPos(boss, x, y);
+        while (!(content[x%15][y%15].isSpawnValid())) {
+            x = (int)(Math.random()*14+1)+15*chunkPosX;
+            y = (int)(Math.random()*14+1)+15*chunkPosY;
         }
+
+        Boss boss = new Boss(niveau, x, y);
+        removeMobAtPos(vilains[0].squarePosX%15, vilains[0].squarePosY%15);
+        vilains[0] = boss;
+        setMobAtPos(boss, x%15, y%15);
     }
 
 

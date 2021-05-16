@@ -2,6 +2,7 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 /**
  * @author DELVIGNE Brian, DIOT Sébastien, GNALY-NGUYEN Kouadjo, LEHMAN Ylon
  * @version 16/05/2021
@@ -23,6 +24,9 @@ public class Gameover extends JFrame {
 
         JLabel messageFinal = new JLabel(texte, SwingConstants.CENTER);
         window.add(messageFinal);
+        JButton quit = new JButton("Quitter");
+        quit.addActionListener(new QuitButton());
+        window.add(quit, BorderLayout.PAGE_END);
         
         messageFinal.setOpaque(true);
         messageFinal.setBackground(Color.BLACK);
@@ -34,5 +38,15 @@ public class Gameover extends JFrame {
         setLocationRelativeTo(null);
         setTitle("Message du roi");
         setVisible(true);
-    }    
+    }
+
+    public class QuitButton implements ActionListener {
+        /**
+         * Methode lorsque le bouton est clique
+         * @param e ActionEvent
+         */
+        public void actionPerformed(ActionEvent e) {
+            System.exit(0);
+        }
+    }
 }

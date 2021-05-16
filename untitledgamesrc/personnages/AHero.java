@@ -19,10 +19,6 @@ public abstract class AHero extends APersonnage {
      */
 	private Inventaire inventaire;
     /**
-     * Un int pour le nombre d'objets qu'il possede dans son inventaire
-     */
-    private int nombreItems;
-    /**
      * Constructeur par initialisation
      * @param nom String
      * @param pointsDeVie int
@@ -38,8 +34,7 @@ public abstract class AHero extends APersonnage {
         super(nom, pointsDeVie, pointsDeVieMax, pointsDAttaque, armure, niveau, squarePosX, squarePosY, mobType);
         xp = 0;
         xpAAtteindre = 60;
-        inventaire = new Inventaire();
-        nombreItems = inventaire.getTaille();
+        inventaire = new Inventaire(this);
 	}
     /**
      * Getter pour l'inventaire
